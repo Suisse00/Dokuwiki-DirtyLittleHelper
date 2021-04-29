@@ -467,8 +467,7 @@ function dlh_lets_be_dirty( dlh_dirty_i = 0){
 			+ '   \'~~dlhmm\',\'/dlh~~\',\' \\n graph TD \\n A---B\\n \'     '
 			+  ');"> ⎀ </button>'
 			);
-		jQuery('#dlh_mytoolbar_hack').append(
-			'<div class="dlh_sep"></div>'
+		jQuery('#dlh_mytoolbar_hack').append(' '
 			+ '<button class="dlh_button_32_32" onClick="window.open(\'../lib/plugins/dirtylittlehelper/mermaid/editor/\');" title="mermaid live editor">&#9736;</button>'
 		);
 	}
