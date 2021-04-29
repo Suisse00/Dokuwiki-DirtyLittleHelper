@@ -437,7 +437,7 @@ function dlh_lets_be_dirty( dlh_dirty_i = 0){
 	  
       jQuery('#'+jQuery.data(document.body).dlh_ids[i]).after(''
           + '<button title="insert into wikieditor at cursor pos" class="dlh_button_32_32" '
-          + 'onClick="dlh_insertAtCursor(\'wiki__text\' , '
+          + 'onClick="insertAtCarret(\'wiki__text\' , '
           + '\'[[\' + dlh_objectValueGet(\''+ jQuery.data(document.body).dlh_ids[i] +'\') + \'|]]\'  );"> ⎀ '
           + '</button> '
       );
@@ -456,10 +456,17 @@ function dlh_lets_be_dirty( dlh_dirty_i = 0){
 			'<div class="dlh_sep"></div>'
 			+ '<input id="dlh_mytimeid" type="text" title="DLH timeID">'
 			+ '<button class="dlh_button_32_32" onClick="dlh_renew_timeid(\'dlh_mytimeid\');" title="renew timeID">↻</button>'
-			+ '<button class="dlh_button_32_32" onClick="dlh_copypaste(\'dlh_mytimeid\',\'wiki__text\');" title="paste timeID at current position">⎀</button>');
+			+ '<button class="dlh_button_32_32" onClick="insertAtCarret(\'wiki__text\', dlh_objectValueGet(\'dlh_mytimeid\') );" title="paste timeID at current position">⎀</button>');
 	}
 
 	if(JSINFO['dirtylittlehelper_show_mermaid']){
+		jQuery('#dlh_mytoolbar_hack').append(
+			'<div class="dlh_sep"></div>'
+			+ '<button class="dlh_button_32_32" title="mermaid code" '
+			+ 'onClick="insertTags(\'wiki__text\' , '
+			+ '   \'~~dlhmm\',\'/dlh~~\',\' \\n graph TD \\n A---B\\n \'     '
+			+  ');"> ⎀ </button>'
+			);
 		jQuery('#dlh_mytoolbar_hack').append(
 			'<div class="dlh_sep"></div>'
 			+ '<button class="dlh_button_32_32" onClick="window.open(\'../lib/plugins/dirtylittlehelper/mermaid/editor/\');" title="mermaid live editor">&#9736;</button>'
@@ -471,12 +478,21 @@ function dlh_lets_be_dirty( dlh_dirty_i = 0){
 		jQuery('#dlh_mytoolbar_hack').append(
 			'<div class="dlh_sep"></div>'
 			+ '<button class="dlh_button_32_32"  title="insert DRAW.IO - ID into wikieditor at cursor pos"'
-          		+ 'onClick="dlh_insertAtCursor(\'wiki__text\' , '
+          		+ 'onClick="insertAtCarret(\'wiki__text\' , '
 			+ '\'{{drawio>\'+getImageName().substr(0,getImageName().lastIndexOf(\':\')+1)+ \'drawio_\'+ ((new Date()).getTime()) +\'.svg}} \''
 			+  ');"> &#1875; '
           		+ '</button> '
 			);
 	}
+
+	jQuery('#dlh_mytoolbar_hack').append(
+		'<div class="dlh_sep"></div>'
+		+ '<button class="dlh_button_32_32"  title="~~DLH* COMMENT /DLH~~"'
+		+ 'onClick="insertTags(\'wiki__text\' , '
+		+ '   \'~~dlh*\',\'/dlh~~\',\' YOU WILL NOT SEE ME \'     '
+		+  ');"> &#127553; '
+		+ '</button> '
+		);
 
 
 	if(JSINFO['dirtylittlehelper_show_id']){
