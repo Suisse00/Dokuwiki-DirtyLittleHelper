@@ -487,7 +487,7 @@ function dlh_lets_be_dirty( dlh_dirty_i = 0){
 
 	jQuery('#dlh_mytoolbar_hack').append(
 		'<div class="dlh_sep"></div>'
-		+ '<button class="dlh_button_32_32"  title="~~DLH* COMMENT /DLH~~"'
+		+ '<button class="dlh_button_32_32"  title="~~DLH* COMMENT /DLH~~" accesskey="*" '
 		+ 'onClick="insertTags(\'wiki__text\' , '
 		+ '   \'~~dlh*\',\'/dlh~~\',\' YOU WILL NOT SEE ME \'     '
 		+  ');"> &#127553; '
