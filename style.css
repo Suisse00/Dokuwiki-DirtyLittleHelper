@@ -1,0 +1,175 @@
+
+#dirtylittlehelper_overlay { 
+  display:none;
+  height:350px; 
+  width: 325px;
+  background-color:#fff;
+  position:relative;
+  top: 0px;
+  left:0px;
+  z-index:15;
+  overflow: auto; 
+  border: 1px solid black; 
+  font-size:11pt;
+  padding: 6px;
+  resize: both;
+  }
+
+
+#dirtylittlehelper_overlay div.inside,
+#dirtylittlehelper_overlay div.close{
+ background-color: #eee;
+ font-size: 10pt;
+ text-align: right;
+ padding-right: 6px;
+}
+
+#dirtylittlehelper_overlay div.inside {
+    padding-right: 0px;
+    width: 95%;
+    margin:  auto;
+    position: absolute;
+    bottom: 0;
+}  
+#dirtylittlehelper_overlay div.dirtylittlehelper_ovl-insert {
+    padding: 4px;
+}
+#dirtylittlehelper_overlay div.close a { 
+   padding-left: 4px; 
+ }
+
+
+
+
+
+
+/* THE ADMIN MENU AT THE TOP */
+
+.dlh_topmenu_dropdown_admin { width: 100px; display:inline-block; }
+.dlh_topmenu_dropdown_admin:hover .dlh_topmenu_dropbtn_admin { background-color: #000000;}
+.dlh_topmenu_dropdown_admin:hover .dlh_topmenu_dropdown_content_admin { display: block;}
+
+.dlh_topmenu_dropbtn_admin { color: black; }
+
+.dlh_topmenu_dropdown_content_admin { position:relative; display: none; background-color: #f1f1f1; width: 500px; z-index: 999; margin-left: -400px;  margin-top: -20px;}
+.dlh_topmenu_dropdown_content_admin a { color: black; padding: 6px 8px;  border: 1px solid #CCCCCC; display: flex; text-decoration: none; font-size:12px; text-align: left; }
+.dlh_topmenu_dropdown_content_admin a:hover { background-color: #474747; color:#FFFFFF; text-decoration: none;}
+.dlh_topmenu_dropdown_content_admin a svg { width:16px; height:16px; margin-right:4px; }
+
+
+/* HACK THE WIKI STYLE */
+
+/* no footer */
+	
+	#dokuwiki__footer { 
+		display: none; 
+	}
+
+/* buttons not so white */ 
+	button{ 
+		background-color:rgba(222, 222, 222, 0.3) !important; 
+		/* background-image: none !important; */
+	}
+	
+/* the page content is horizontal scrollabale */
+	.page { 
+		overflow-x: auto !important; 
+	}
+
+
+/* docInfo brighter */	
+	.dokuwiki .docInfo{ 
+		color: #AAAAAA;
+	}
+
+/* preview gets a border etc */
+        .preview{
+                   border: 1px solid #777777 !important;
+                   max-width: 900px;
+                   resize: both;
+                   overflow: auto;
+        }
+
+
+
+/* DIRTY LITTLE HELPER STYLE IN THE EDITOR */
+	
+	.dlh_button_32_32 { 
+		width:32px !important; 
+		height:32px !important; 
+		padding: 0 !important; 
+		background-color:white !important; 
+		color: green !important; 
+		font-weight: bold !important; 
+		display: inline !important;
+		margin-left: 5px !important; 
+		margin-right: 5px !important;
+	}
+
+	
+	#dlh_mytimeid{ 
+		width: 100px;
+		font-size: 16px;
+		height: 32px;
+	}
+
+	
+	#dlh_select{
+		width: 220px;
+		margin-right: 10px;
+		font-size: 16px;
+		height: 32px;
+	}
+
+	
+	div.dlh_sep{
+		display: inline;
+		margin-left: 2px;
+		margin-right: 6px;
+		width: 1px;
+		border-right:2px solid #FF9900;
+	}
+
+
+
+/* THE SIDEBAR */
+
+	/* sidebar div */
+	.dlh_ontheleft{
+		/* margin-left: 12px;*/
+		overflow-x: auto;
+		overflow-y: hidden;
+	}
+
+	.dlh_ontheleft ::-webkit-scrollbar{
+		width:5px;
+	}
+
+	.dlh_ontheleft #sb__index__tree{
+		margin-left: 6px;
+	}
+
+
+	/* the tree entries more to the left */
+	.dlh_ontheleft ul.idx * {
+		margin-left: 1px;
+		white-space: nowrap;
+		text-transform: uppercase;
+		font-size: 12.5px;
+		font-family: monospace;
+	}
+
+
+/* MERMAID */
+.mermaid svg {
+	width: 100%;
+}
+
+
+/* ONE TREE ONLY */
+.dlh_one_tree_only{
+    color: red;
+    border: 1px solid red;
+    display: inline;
+    padding: 5px;
+}
