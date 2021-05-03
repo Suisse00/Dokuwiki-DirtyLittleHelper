@@ -411,7 +411,7 @@ function dlh_lets_be_dirty( dlh_dirty_i = 0){
 
 	+ '<button class="dlh_button_36_32" title="CODE SQL tags" '
 			+ 'onClick="insertTags(\'wiki__text\' , '
-			+ '   \'<code sql [enable_line_numbers=\'+jQuery.data(document.body).dlh_quot+\'true\'+jQuery.data(document.body).dlh_quot+\']>\',\'</code>\',\'/* CODE */ \\n \\n \\n \'        '
+			+ '   \'<code sql [enable_line_numbers=\'+jQuery.data(document.body).dlh_quot+\'true\'+jQuery.data(document.body).dlh_quot+\']>\',\'</code>\',\'\\n /* CODE */ \\n \\n \\n \'        '
 			+ ');"><img src="../lib/plugins/dirtylittlehelper/dlh_code_sql.png" width="32px" height="32px">'
 			+ ' </button>'
 
@@ -419,33 +419,33 @@ function dlh_lets_be_dirty( dlh_dirty_i = 0){
 			
 	+ '<button class="dlh_button_36_32" title="CODE bash tags" '
 			+ 'onClick="insertTags(\'wiki__text\' , '
-			+ '   \'<code bash [enable_line_numbers=\'+jQuery.data(document.body).dlh_quot+\'true\'+jQuery.data(document.body).dlh_quot+\']>\',\'</code>\',\'# CODE \\n \\n \\n \'        '
+			+ '   \'<code bash [enable_line_numbers=\'+jQuery.data(document.body).dlh_quot+\'true\'+jQuery.data(document.body).dlh_quot+\']>\',\'</code>\',\'\\n # CODE \\n \\n \\n \'        '
 			+ ');"><img src="../lib/plugins/dirtylittlehelper/dlh_code_bash.png" width="32px" height="32px">'
 			+ ' </button>'
 
 	+ '<button class="dlh_button_36_32" title="CODE shell tags" '
 			+ 'onClick="insertTags(\'wiki__text\' , '
-			+ '   \'<code shell [enable_line_numbers=\'+jQuery.data(document.body).dlh_quot+\'true\'+jQuery.data(document.body).dlh_quot+\']>\',\'</code>\',\'REM CODE \\n \\n \\n \'        '
+			+ '   \'<code shell [enable_line_numbers=\'+jQuery.data(document.body).dlh_quot+\'true\'+jQuery.data(document.body).dlh_quot+\']>\',\'</code>\',\'\\n REM CODE \\n \\n \\n \'        '
 			+ ');"><img src="../lib/plugins/dirtylittlehelper/dlh_code_shell.png" width="32px" height="32px">'
 			+ ' </button>'
 
 
 		+ '<button class="dlh_button_36_32" title="CODE php tags" '
 			+ 'onClick="insertTags(\'wiki__text\' , '
-			+ '   \'<code php [enable_line_numbers=\'+jQuery.data(document.body).dlh_quot+\'true\'+jQuery.data(document.body).dlh_quot+\']>\',\'</code>\',\'/* CODE */ \\n \\n \\n \'        '
+			+ '   \'<code php [enable_line_numbers=\'+jQuery.data(document.body).dlh_quot+\'true\'+jQuery.data(document.body).dlh_quot+\']>\',\'</code>\',\'\\n /* CODE */ \\n \\n \\n \'        '
 			+ ');"><img src="../lib/plugins/dirtylittlehelper/dlh_code_php.png" width="32px" height="32px">'
 			+ ' </button>'
 
 		+ '<button class="dlh_button_36_32" title="CODE html tags" '
 			+ 'onClick="insertTags(\'wiki__text\' , '
-			+ '   \'<code html [enable_line_numbers=\'+jQuery.data(document.body).dlh_quot+\'true\'+jQuery.data(document.body).dlh_quot+\']>\',\'</code>\',\'<!-- CODE --> \\n \\n \\n \'        '
+			+ '   \'<code html [enable_line_numbers=\'+jQuery.data(document.body).dlh_quot+\'true\'+jQuery.data(document.body).dlh_quot+\']>\',\'</code>\',\'\\n <!-- CODE --> \\n \\n \\n \'        '
 			+ ');"><img src="../lib/plugins/dirtylittlehelper/dlh_code_html.png" width="32px" height="32px">'
 			+ ' </button>'
 
 			
 	+ '<button class="dlh_button_36_32" title="CODE javascript tags" '
 			+ 'onClick="insertTags(\'wiki__text\' , '
-			+ '   \'<code javascript [enable_line_numbers=\'+jQuery.data(document.body).dlh_quot+\'true\'+jQuery.data(document.body).dlh_quot+\']>\',\'</code>\',\'/* CODE */ \\n \\n \\n \'        '
+			+ '   \'<code javascript [enable_line_numbers=\'+jQuery.data(document.body).dlh_quot+\'true\'+jQuery.data(document.body).dlh_quot+\']>\',\'</code>\',\'\\n /* CODE */ \\n \\n \\n \'        '
 			+ ');"><img src="../lib/plugins/dirtylittlehelper/dlh_code_javascript.png" width="32px" height="32px">'
 			+ ' </button>'
 
