@@ -455,8 +455,8 @@ function dlh_lets_be_dirty( dlh_dirty_i = 0){
 		jQuery('#dlh_mytoolbar_hack').append(
 			'<div class="dlh_sep"></div>'
 			+ '<input id="dlh_mytimeid" type="text" title="DLH timeID">'
-			+ '<button class="dlh_button_32_32" onClick="dlh_renew_timeid(\'dlh_mytimeid\');" title="renew timeID"><img src="../lib/plugins/dirtylittlehelper/dlh_id_renew.png" width="16px" height="16px">'</button>'
-			+ '<button class="dlh_button_32_32" onClick="insertAtCarret(\'wiki__text\', dlh_objectValueGet(\'dlh_mytimeid\') );" title="paste timeID at current position"><img src="../lib/plugins/dirtylittlehelper/dlh_id_renew.png" width="16px" height="16px">'</button>');
+			+ '<button class="dlh_button_32_32" onClick="dlh_renew_timeid(\'dlh_mytimeid\');" title="renew timeID"><img src="../lib/plugins/dirtylittlehelper/dlh_id_renew.png" width="16px" height="16px"></button>'
+			+ '<button class="dlh_button_32_32" onClick="insertAtCarret(\'wiki__text\', dlh_objectValueGet(\'dlh_mytimeid\') );" title="paste timeID at current position"><img src="../lib/plugins/dirtylittlehelper/dlh_id_renew.png" width="16px" height="16px"></button>');
 	}
 
 	if(JSINFO['dirtylittlehelper_show_mermaid']){
@@ -465,10 +465,10 @@ function dlh_lets_be_dirty( dlh_dirty_i = 0){
 			+ '<button class="dlh_button_32_32" title="mermaid code" '
 			+ 'onClick="insertTags(\'wiki__text\' , '
 			+ '   \'~~dlhmm\',\'/dlh~~\',\' \\n graph TD \\n A---B\\n \'     '
-			+  ');"><img src="../lib/plugins/dirtylittlehelper/dlh_mermaid_code.png" width="16px" height="16px">'</button>'
+			+  ');"><img src="../lib/plugins/dirtylittlehelper/dlh_mermaid_code.png" width="16px" height="16px"></button>'
 			);
 		jQuery('#dlh_mytoolbar_hack').append(' '
-			+ '<button class="dlh_button_32_32" onClick="window.open(\'../lib/plugins/dirtylittlehelper/mermaid/editor/\');" title="mermaid live editor"><img src="../lib/plugins/dirtylittlehelper/dlh_mermaid.png" width="16px" height="16px">'</button>'
+			+ '<button class="dlh_button_32_32" onClick="window.open(\'../lib/plugins/dirtylittlehelper/mermaid/editor/\');" title="mermaid live editor"><img src="../lib/plugins/dirtylittlehelper/dlh_mermaid.png" width="16px" height="16px"></button>'
 		);
 	}
 
