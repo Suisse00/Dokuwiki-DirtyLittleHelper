@@ -1,5 +1,6 @@
 <?php
 $lang['page'] = 'Dokuwiki page on which the dirtylittlehelper content is to be found [namespace:pagename].';
+$lang['fullscreen_edit'] = 'EDITOR: switch to fullscreen automatically';
 $lang['show_id'] = 'EDITOR: show TimeID box and Button';
 $lang['show_mermaid'] = 'EDITOR: show link to mermaid live editor (external window- only editor; no data-editing)';
 $lang['show_drawio'] = 'EDITOR: show button to insert a drawio image name with timestamp in name (drawio plugin needed  )';
