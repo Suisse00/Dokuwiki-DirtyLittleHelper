@@ -87,6 +87,8 @@ class action_plugin_dirtylittlehelper extends DokuWiki_Action_Plugin {
 	$JSINFO['dirtylittlehelper_show_id'] = $this->getConf('show_id');
 	$JSINFO['dirtylittlehelper_show_mermaid'] = $this->getConf('show_mermaid');
 	$JSINFO['dirtylittlehelper_show_drawio'] =  $this->getConf('show_drawio');
+        $JSINFO['dirtylittlehelper_fullscreen_edit'] =  $this->getConf('fullscreen_edit');
+	    
 
     }//function dirtylittlehelper_set_admin
 
