@@ -396,11 +396,17 @@ function dlh_lets_be_dirty( dlh_dirty_i = 0){
     jQuery.data(document.body, 'dlh_ids', dlh_ids );
     jQuery.data(document.body, 'dlh_fields', dlh_fields );
 
-	jQuery.data(document.body, 'dlh_quot', '"' );
+    jQuery.data(document.body, 'dlh_quot', '"' );
+    jQuery.data(document.body, 'dlh_full', false );
 	
 
 
     dlh_append = '<div id="dlh_mytoolbar_hack" style="margin-top:5px;margin-bottom:5px;">'
+
+	    + '<button class="dlh_button_32_32" title="FULLSCREEN EDIT" '
+			+ 'onClick="dlh_fullcreen_edit();"><img src="../lib/plugins/dirtylittlehelper/dlh_code.png" width="32px" height="32px">'
+			+ ' </button>'
+
 
 	+ '<button class="dlh_button_36_32" title="CODE tags" '
 			+ 'onClick="insertTags(\'wiki__text\' , '
@@ -614,3 +620,22 @@ function dlh_open_wiki_link(dlh_wikilink){
 
    return true;
 }
+
+
+
+function dlh_fullcreen_edit(){
+	if ( jQuery.data(document.body).dlh_full === true){
+		jQuery('#dokuwiki__content').css({'position':'','top':'','left':'','right':'','bottom':'','overflow':''});
+		jQuery.data(document.body, 'dlh_full', false );
+	}else{
+		jQuery('#dokuwiki__content').css({'position':'fixed','top':'10px','left':'10px','right':'10px','bottom':'10px','overflow':'scroll'});
+		jQuery.data(document.body, 'dlh_full', true );
+	}
+
+		
+	
+	
+	
+} // function dlh_fullcreen_edit
+		
+		
