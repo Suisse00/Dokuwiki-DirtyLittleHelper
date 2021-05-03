@@ -396,13 +396,14 @@ function dlh_lets_be_dirty( dlh_dirty_i = 0){
     jQuery.data(document.body, 'dlh_ids', dlh_ids );
     jQuery.data(document.body, 'dlh_fields', dlh_fields );
 
-	var dlh_quot = '"';
+	jQuery.data(document.body, 'dlh_quot', '"' );
+	
 
 
     dlh_append = '<div id="dlh_mytoolbar_hack" style="margin-top:5px;margin-bottom:5px;">'
 
 	+ '<button class="dlh_button_36_32" title="CODE tags" '
-			+ 'onClick="insertTags(\'wiki__text\' , \'<code [enable_line_numbers=\'+dlh_quot+\'true\'+dlh_quot+\']>\',\'</code>\',\' \\n \\n \\n \');'
+			+ 'onClick="insertTags(\'wiki__text\' , \'<code [enable_line_numbers=\'+jQuery.data(document.body).dlh_quot+\'true\'+jQuery.data(document.body).dlh_quot+\']>\',\'</code>\',\' \\n \\n \\n \');'
 			+ '"><img src="../lib/plugins/dirtylittlehelper/dlh_code.png" width="32px" height="32px">'
 			+ ' </button>'
 
