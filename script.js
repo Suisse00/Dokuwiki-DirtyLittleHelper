@@ -404,8 +404,10 @@ function dlh_lets_be_dirty( dlh_dirty_i = 0){
     dlh_append = '<div id="dlh_mytoolbar_hack" style="margin-top:5px;margin-bottom:5px;">'
 
 	    + '<button class="dlh_button_32_32" title="FULLSCREEN EDIT" '
-			+ 'onClick="dlh_fullcreen_edit();"><img src="../lib/plugins/dirtylittlehelper/dlh_code.png" width="32px" height="32px">'
+			+ 'onClick="dlh_fullcreen_edit();"><img src="../lib/plugins/dirtylittlehelper/dlh_max.png" width="32px" height="32px">'
 			+ ' </button>'
+	  
+	  + '<div class="dlh_sep"></div>'
 
 
 	+ '<button class="dlh_button_36_32" title="CODE tags" '
