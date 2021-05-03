@@ -6,3 +6,4 @@ $meta['show_drawio'] = array('onoff');
 $meta['show_menu'] = array('onoff');
 $meta['hidden_area_label'] = array('string');
 $meta['hidden_area'] = array('string');
+$meta['fullscreen_edit'] = array('onoff');
