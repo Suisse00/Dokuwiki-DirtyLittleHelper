@@ -564,7 +564,13 @@ function dlh_lets_be_dirty( dlh_dirty_i = 0){
 
    dlh_select();
 
+   if(JSINFO['dirtylittlehelper_fullscreen_edit']){
+	   dlh_fullcreen_edit();
+   }
+	  
    jQuery('#dirtylittlehelper_overlay').toggle();
+   
+
 
   }//first run only
 
