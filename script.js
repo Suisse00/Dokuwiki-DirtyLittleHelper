@@ -451,7 +451,7 @@ function dlh_lets_be_dirty( dlh_dirty_i = 0){
 
 	+ '<button class="dlh_button_36_32"  title="~~DLH* COMMENT /DLH~~" accesskey="*" '
 		+ 'onClick="insertTags(\'wiki__text\' , '
-		+ '   \'~~dlh* \',\'/ dlh~~\',\' YOU WILL NOT SEE ME \'     '
+		+ '   \'~~dlh* \',\'/dlh~~\',\' YOU WILL NOT SEE ME \'     '
 		+  ');"><img src="../lib/plugins/dirtylittlehelper/dlh_comment.png" width="32px" height="32px">'
 		+ '</button> '
 	;
