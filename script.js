@@ -418,7 +418,7 @@ function dlh_lets_be_dirty( dlh_dirty_i = 0){
       insert_this_html = ''
           + '<button title="open in new window" class="dlh_button_32_32" '
           + 'onClick="dlh_open_wiki_link( dlh_objectValueGet(\''
-          + jQuery.data(document.body).dlh_ids[i]  +'\') );">⇯ '
+          + jQuery.data(document.body).dlh_ids[i]  +'\') );"><img src="../../plugins/dirtylittlehelper/dlh_open_window.png">'
           + '</button> ';
 	  
 	  if(JSINFO['dirtylittlehelper_show_id']){
