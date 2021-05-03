@@ -106,6 +106,19 @@
 		margin-right: 5px !important;
 	}
 
+
+	.dlh_button_36_32 { 
+		width:36px !important; 
+		height:32px !important; 
+		padding: 0 !important; 
+		background-color:white !important; 
+		color: green !important; 
+		font-weight: bold !important; 
+		display: inline !important;
+		margin-left: 5px !important; 
+		margin-right: 5px !important;
+	}
+
 	
 	#dlh_mytimeid{ 
 		width: 100px;
