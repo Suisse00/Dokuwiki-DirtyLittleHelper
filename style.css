@@ -117,6 +117,12 @@
                    overflow: auto;
         }
 
+/* top bar no margin-bottom */
+	#dokuwiki__header .tools {
+		margin-bottom: 0px;
+	}
+
+
 
 
 /* DIRTY LITTLE HELPER STYLE IN THE EDITOR */
@@ -199,7 +205,7 @@
 		font-family: monospace;
 	}
 
-	.ui-autocomplete{ z-index: 99999 !important; }
+	
 
 /* MERMAID */
 .mermaid svg {
@@ -214,3 +220,6 @@
     display: inline;
     padding: 5px;
 }
+
+/* autocomplete on top */
+.ui-autocomplete{ z-index: 99999 !important; }
