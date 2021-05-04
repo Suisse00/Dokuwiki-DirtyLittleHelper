@@ -179,20 +179,20 @@ class action_plugin_dirtylittlehelper extends DokuWiki_Action_Plugin {
 			}//foreach($dlh_plugin_list as $thisplugin) {
 
 $toptext = <<<TOPTEXT
-<div style="border: 1px solid #CCC;width:400px;margin-bottom: 8px;display: inline;"><input type="text" id="dlh_top_newpage" style="
+<div style="width:400px;display: inline;"><input type="text" id="dlh_top_newpage" title="autocomplete path" style="
     display: inline;
     width: 230px;
-"><button onClick="dlh_call_top_new();" style="
+"><button onClick="dlh_call_top_new();" title="call AUTOCOMPLETE..." style="
     display: inline;
     width:32px;
     height: 20px;
     overflow: hidden;
     margin-left: 5px;
-">&GT;&GT;</button><input class="dlh_top_id" id="dlh_top_id" type="text" value="" style="
+">&GT;&GT;</button><input class="dlh_top_id" id="dlh_top_id" type="text" title="DLH AutoID" style="
     display: inline;
     width: 80px;
     margin-left: 5px;
-"><button onClick="dlh_renew_timeid('dlh_top_id');" style="
+"><button onClick="dlh_renew_timeid('dlh_top_id');" title="RENEW DLH AutoID" style="
     display: inline;
     width: 32px;
     height: 20px;
