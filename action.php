@@ -201,16 +201,25 @@ $toptext = <<<TOPTEXT
 ">*</button></div>
 TOPTEXT;
 
-			
-			echo '<div class="dlh_topmenu">
-				 . '<div class="dlh_topmenu_dropdown_admin" id="dlh_topmenu_admin">'
-				 .'<a class="dlh_topmenu_dropbtn_admin">ADMIN</a>'
-				 .'<div class="dlh_topmenu_dropdown_content_admin">';
+$toptext2 = '';
+if( $this->getConf('page_top')){
+  $toptext2 = '<div id="dlh_topmenu_page">'.p_wiki_xhtml( $this->getConf('page_top'),'',false,'' ).'</div>';
+}
 
 
-			
-			echo $toptext;
-			echo '<table><tr><td>';
+                        echo '<div class="dlh_topmenu">'
+. $toptext2
+. $toptext
+
+                                 . '<div class="dlh_topmenu_dropdown_admin" id="dlh_topmenu_admin">'
+                                 .'<a class="dlh_topmenu_dropbtn_admin">ADMIN</a>'
+                                 .'<div class="dlh_topmenu_dropdown_content_admin">';
+
+
+
+//                      echo $toptext;
+                        echo '<table><tr><td>';
+
 		  
 			foreach( $dlh_left_side as $item){
 				echo '<a title="'.$item['menutext'].'" href="'.$item['link'].'">'.$item['inline_icon'].' '. $item['menutext'] .'</a>';
