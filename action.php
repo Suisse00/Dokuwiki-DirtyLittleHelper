@@ -184,19 +184,13 @@ $toptext = <<<TOPTEXT
     width: 230px;
 "><button onClick="dlh_call_top_new();" title="call AUTOCOMPLETE..." style="
     display: inline;
-    width:32px;
-    height: 20px;
-    overflow: hidden;
     margin-left: 5px;
-">&GT;&GT;</button><input class="dlh_top_id" id="dlh_top_id" type="text" title="DLH AutoID" style="
+">&GT;</button><input class="dlh_top_id" id="dlh_top_id" type="text" title="DLH AutoID" style="
     display: inline;
     width: 80px;
     margin-left: 5px;
 "><button onClick="dlh_renew_timeid('dlh_top_id');" title="RENEW DLH AutoID" style="
     display: inline;
-    width: 32px;
-    height: 20px;
-    overflow: hidden;
     margin-left: 5px;
 ">*</button></div>
 TOPTEXT;
