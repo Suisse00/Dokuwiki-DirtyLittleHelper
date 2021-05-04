@@ -179,7 +179,7 @@ class action_plugin_dirtylittlehelper extends DokuWiki_Action_Plugin {
 			}//foreach($dlh_plugin_list as $thisplugin) {
 
 $toptext = <<<TOPTEXT
-<div style="border: 1px solid #CCC;width:400px;margin-bottom: 8px;"><input type="text" id="dlh_top_newpage" style="
+<div style="border: 1px solid #CCC;width:400px;margin-bottom: 8px;display: inline;"><input type="text" id="dlh_top_newpage" style="
     display: inline;
     width: 230px;
 "><button onClick="dlh_call_top_new();" style="
