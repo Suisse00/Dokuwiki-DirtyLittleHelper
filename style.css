@@ -45,16 +45,36 @@
 
 /* THE ADMIN MENU AT THE TOP */
 
+.dlh_topmenu {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    width: 100%;
+    height: 30px;
+    background-color: #EEE;
+    border-bottom: 1px solid #DDD;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 5px;
+    text-align: center;
+    z-index: 99999;
+    overflow: hidden;
+}
+
+
 .dlh_topmenu_dropdown_admin { width: 100px; display:inline-block; }
 .dlh_topmenu_dropdown_admin:hover .dlh_topmenu_dropbtn_admin { background-color: #000000;}
 .dlh_topmenu_dropdown_admin:hover .dlh_topmenu_dropdown_content_admin { display: block;}
 
 .dlh_topmenu_dropbtn_admin { color: black; }
 
-.dlh_topmenu_dropdown_content_admin { position:relative; display: none; background-color: #f1f1f1; width: 500px; z-index: 999; margin-left: -400px;  margin-top: -20px;}
+.dlh_topmenu_dropdown_content_admin { position:relative; display: none; background-color: #f1f1f1; width: 500px; z-index: 999; margin-left: -200px;  margin-top: -20px;}
 .dlh_topmenu_dropdown_content_admin a { color: black; padding: 6px 8px;  border: 1px solid #CCCCCC; display: flex; text-decoration: none; font-size:12px; text-align: left; }
 .dlh_topmenu_dropdown_content_admin a:hover { background-color: #474747; color:#FFFFFF; text-decoration: none;}
 .dlh_topmenu_dropdown_content_admin a svg { width:16px; height:16px; margin-right:4px; }
+.dlh_topmenu_dropdown_content_admin table { width: 500px; }
+.dlh_topmenu_dropdown_content_admin table td { width: 50%; }
 
 
 /* HACK THE WIKI STYLE */
