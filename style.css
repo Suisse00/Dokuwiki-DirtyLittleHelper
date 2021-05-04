@@ -223,3 +223,13 @@
 
 /* autocomplete on top */
 .ui-autocomplete{ z-index: 99999 !important; }
+
+.textcomplete-dropdown{ z-index: 999999 !important; }
+
+/* search info wider */
+.dokuwiki form.search div.ajax_qsearch{
+  left: -21.5em;
+  width: 20em;
+}
+
+
