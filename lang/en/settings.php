@@ -1,5 +1,6 @@
 <?php
 $lang['page'] = 'Dokuwiki page on which the dirtylittlehelper content is to be found [namespace:pagename].';
+$lang['page_top'] = 'Dokuwiki page on which the content for top menu is to be found [namespace:pagename].';
 $lang['fullscreen_edit'] = 'EDITOR: switch to fullscreen automatically';
 $lang['show_id'] = 'EDITOR: show TimeID box and Button';
 $lang['show_mermaid'] = 'EDITOR: show link to mermaid live editor (external window- only editor; no data-editing)';
