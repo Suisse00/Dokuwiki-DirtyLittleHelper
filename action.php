@@ -16,7 +16,6 @@ class action_plugin_dirtylittlehelper extends DokuWiki_Action_Plugin {
     function register(Doku_Event_Handler $controller) {
 
 
-    $controller->register_hook('DOKUWIKI_STARTED', 'AFTER',  $this, 'dirtylittlehelper_set_admin');
     $controller->register_hook('DOKUWIKI_STARTED', 'AFTER', $this, 'dirtylittlehelper_extendJSINFO');
     $controller->register_hook('TPL_ACT_RENDER', 'AFTER',  $this, 'dirtylittlehelper_print_overlay', array('after'));
     $controller->register_hook('MENU_ITEMS_ASSEMBLY', 'AFTER', $this, 'dirtylittlehelper_menu', array());
@@ -72,27 +71,22 @@ class action_plugin_dirtylittlehelper extends DokuWiki_Action_Plugin {
 
         global $INFO, $JSINFO;
 
-        $JSINFO['isadmin'] = (int) $INFO['isadmin'];
-        $JSINFO['isauth']  = (int) $INFO['userinfo'];
-
+    	$JSINFO['dlh']=array(
+	    
+        'isadmin' => (int) $INFO['isadmin'],
+        'isauth'  => (int) $INFO['userinfo'],
+        'overlay' => $this->dirtylittlehelper_active(),
+	'show_id' => $this->getConf('show_id'),
+	'show_mermaid' => $this->getConf('show_mermaid'),
+	'show_drawio' =>  $this->getConf('show_drawio'),
+        'fullscreen_edit' =>  $this->getConf('fullscreen_edit'),
+	'WL' => wl('','',true),
+        'DOKU_BASE'=> DOKU_BASE,
+        'DOKU_URL'=>DOKU_URL,
+        'QUOT'=>'"'
+	);
     }//function dirtylittlehelper_extendJSINFO
 
-	
-	
-    function dirtylittlehelper_set_admin(&$event, $param) {
-
-        global $JSINFO;
-
-        $JSINFO['dirtylittlehelper_overlay'] = $this->dirtylittlehelper_active();
-	$JSINFO['dirtylittlehelper_show_id'] = $this->getConf('show_id');
-	$JSINFO['dirtylittlehelper_show_mermaid'] = $this->getConf('show_mermaid');
-	$JSINFO['dirtylittlehelper_show_drawio'] =  $this->getConf('show_drawio');
-        $JSINFO['dirtylittlehelper_fullscreen_edit'] =  $this->getConf('fullscreen_edit');
-	    
-
-    }//function dirtylittlehelper_set_admin
-
-	
 	
 	
 	
