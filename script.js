@@ -223,6 +223,10 @@ function dlh_hack_the_style(){
     jQuery('textarea').css({'height':'500px'});
     return;
   }
+	
+  /* the home logo .... */
+  jQuery('#dokuwiki__header div.pad div.headings a span').css({'display':'inline-flex'});
+  jQuery('#dokuwiki__header div.pad div.headings').css({'width':(jQuery('#dokuwiki__header div.pad div.headings a img').width() + jQuery('#dokuwiki__header div.pad div.headings a span').width() + 20)+'px'});
 
 }
 
