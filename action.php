@@ -99,6 +99,8 @@ class action_plugin_dirtylittlehelper extends DokuWiki_Action_Plugin {
 
 		if ($event->data['view']=='user' && $INFO['isadmin'] && $this->getConf('show_menu') && $this->dlh_top_menu_make === true ){
 			
+			$this->dlh_top_menu_make=false;
+			
 			$dlh_for_left_side = array('usermanager', 'acl', 'extension', 'config', 'styling', 'revert', 'popularity');
 			$dlh_left_side=array();
 			$dlh_right_side=array();
