@@ -650,11 +650,62 @@ function dlh_fullcreen_edit(){
 
 function dlh_call_top_new(){
   var this_namespace = dlh_objectValueGet('dlh_top_newpage');
+  var this_template = dlh_objectValueGet('dlh_top_template');
+
   this_namespace = this_namespace.replace('[[','');
+  this_namespace = this_namespace.replace('*',':*');
+  this_namespace = this_namespace.replace('::*',':*');
   this_namespace = this_namespace.replace('*',dlh_objectValueGet('dlh_top_id'));
-  dlh_open_wiki_link(this_namespace+'?do=edit&')
-  
+
+  if( this_template && this_template.length > 3){
+    dlh_open_wiki_link(this_namespace+'?do=edit&newpagetemplate='+this_template+'&')
+  }else{
+    dlh_open_wiki_link(this_namespace+'?do=edit&')
+  }
+
 }
+
+
+function dlh_call_top_struct(){
+
+  var source = jQuery.data(document.body).dlh_top_struct_id;
+  var this_template = dlh_objectValueGet('dlh_top_template');
+
+  var this_namespace = dlh_objectValueGet(source);
+  this_namespace = this_namespace.replace('[[','');
+  this_namespace = this_namespace.replace('*',':*');
+  this_namespace = this_namespace.replace('::*',':*');
+  this_namespace = this_namespace.replace('*',dlh_objectValueGet('dlh_top_id'));
+
+  if( this_template && this_template.length > 3){
+    dlh_open_wiki_link(this_namespace+'?do=edit&newpagetemplate='+this_template+'&')
+  }else{
+    dlh_open_wiki_link(this_namespace+'?do=edit&')
+  }
+  
+} //function dlh_call_top_struct
+
+
+
+
+function dlh_hack_the_top(){
+	jQuery('#dlh_top_struct div.field span.label').css({'display':'none'});
+
+	jQuery.data(document.body, 'dlh_top_struct_id', jQuery('#dlh_top_struct div.field input.struct_page').attr('id') );
+
+	dlh_objectValueSet( jQuery.data(document.body).dlh_top_struct_id , JSINFO['namespace']);
+
+	jQuery('#dlh_top_all').append( jQuery('#dlh_top_struct div.field') ); 
+
+	jQuery('#dlh_top_struct').css({'display':'none'});
+
+	jQuery('#top_button_a').css({'display':'none'});
+
+
+} //function dlh_hack_the_top
+
+
+
 
 document.addEventListener("DOMContentLoaded", function(event) { 
 
@@ -874,5 +925,5 @@ jQuery(function () {
         }]);
 });
 
-
+dlh_hack_the_top();
  }); //event listener
