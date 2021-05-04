@@ -178,15 +178,8 @@ class action_plugin_dirtylittlehelper extends DokuWiki_Action_Plugin {
 			
 			}//foreach($dlh_plugin_list as $thisplugin) {
 
-
-
-			
-			echo '<div class="dlh_topmenu_dropdown_admin" id="dlh_topmenu_admin">'
-				 .'<a class="dlh_topmenu_dropbtn_admin">ADMIN</a>'
-				 .'<div class="dlh_topmenu_dropdown_content_admin">';
-
 $toptext = <<<TOPTEXT
-<div style="border: 1px solid #CCC;width:400px;margin-bottom: 8px;"><input type="text" id="dlh_top_newpage" value="" style="
+<div style="border: 1px solid #CCC;width:400px;margin-bottom: 8px;"><input type="text" id="dlh_top_newpage" style="
     display: inline;
     width: 230px;
 "><button onClick="dlh_call_top_new();" style="
@@ -207,6 +200,14 @@ $toptext = <<<TOPTEXT
     margin-left: 5px;
 ">*</button></div>
 TOPTEXT;
+
+			
+			echo '<div class="dlh_topmenu">
+				 . '<div class="dlh_topmenu_dropdown_admin" id="dlh_topmenu_admin">'
+				 .'<a class="dlh_topmenu_dropbtn_admin">ADMIN</a>'
+				 .'<div class="dlh_topmenu_dropdown_content_admin">';
+
+
 			
 			echo $toptext;
 			echo '<table><tr><td>';
@@ -221,7 +222,7 @@ TOPTEXT;
 				echo '<a title="'.$item['menutext'].'" href="'.$item['link'].'">'.$item['inline_icon'].' '. $item['menutext'] .'</a>';
 			}
 		  
-			echo '</td></tr></table></div></div>';
+			echo '</td></tr></table></div></div></div>';
 			
 		}//if menu and admin 
 
