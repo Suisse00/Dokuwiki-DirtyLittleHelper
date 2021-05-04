@@ -13,7 +13,7 @@ if(!defined('DOKU_INC')) die();
 
 class action_plugin_dirtylittlehelper extends DokuWiki_Action_Plugin {
 	
-    var dlh_top_menu_make = true;
+    var $dlh_top_menu_make = true;
 
     function register(Doku_Event_Handler $controller) {
 
@@ -186,7 +186,7 @@ class action_plugin_dirtylittlehelper extends DokuWiki_Action_Plugin {
 				 .'<div class="dlh_topmenu_dropdown_content_admin">';
 
 $toptext = <<<TOPTEXT
-<div style="border: 1px solid #CCC;width:400px;margin-bottom: 8px;"><input type="text" id="dlh_top_newpage" value="00:1:2:3" style="
+<div style="border: 1px solid #CCC;width:400px;margin-bottom: 8px;"><input type="text" id="dlh_top_newpage" value="" style="
     display: inline;
     width: 230px;
 "><button onClick="dlh_call_top_new();" style="
@@ -208,7 +208,7 @@ $toptext = <<<TOPTEXT
 ">*</button></div>
 TOPTEXT;
 			
-			
+			echo $toptext;
 			echo '<table><tr><td>';
 		  
 			foreach( $dlh_left_side as $item){
