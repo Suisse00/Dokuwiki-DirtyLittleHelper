@@ -1,5 +1,6 @@
 <?php
 $meta['page'] = array('string');
+$meta['page_top'] = array('string');
 $meta['show_id'] = array('onoff');
 $meta['show_mermaid'] = array('onoff');
 $meta['show_drawio'] = array('onoff');
