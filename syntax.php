@@ -163,8 +163,8 @@ class syntax_plugin_dirtylittlehelper extends DokuWiki_Syntax_Plugin
                                                                                 .' '
                                                                                 .' jQuery(\'.dlh_ontheleft *\').each( '
                                                                                 .'     function(){ '
-                                                                                .'         if(  JSINFO[\'id\'].indexOf( jQuery(this).attr(\'title\')+':' ) ==0 '
-                                                                                .'           || JSINFO[\'id\'] == jQuery(this).attr(\'title\')
+                                                                                .'         if(  JSINFO[\'id\'].indexOf( jQuery(this).attr(\'title\')+\':\' ) == 0 '
+                                                                                .'           || JSINFO[\'id\'] == jQuery(this).attr(\'title\') '
                                                                                 .'             ){ '
                                                                                 .'             jQuery(this).css({\'color\':\'BLACK\'}); '
                                                                                 .'         } '
