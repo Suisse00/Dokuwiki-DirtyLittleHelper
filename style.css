@@ -77,6 +77,13 @@
 .dlh_topmenu_dropdown_content_admin table td { width: 50%; }
 
 
+#dlh_topmenu_page { display: inline; }
+#dlh_topmenu_page p { display: inline; }
+#dlh_top_all { display: inline; }
+#dlh_top_all div.field { display: inline; }
+#dlh_top_struct { display: none; }
+
+
 /* HACK THE WIKI STYLE */
 
 /* no footer */
@@ -192,6 +199,7 @@
 		font-family: monospace;
 	}
 
+	.ui-autocomplete{ z-index: 99999 !important; }
 
 /* MERMAID */
 .mermaid svg {
