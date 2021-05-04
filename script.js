@@ -700,6 +700,7 @@ function dlh_hack_the_top(){
 	jQuery('#dokuwiki__usertools').css({'margin-top':'30px'});
 
 	jQuery('#dlh_top_struct div.field span.label').css({'display':'none'});
+        jQuery('#dlh_top_struct div.field input.struct_page').prop('title','STRUCT SEARCH')
 
 	jQuery.data(document.body, 'dlh_top_struct_id', jQuery('#dlh_top_struct div.field input.struct_page').attr('id') );
 
