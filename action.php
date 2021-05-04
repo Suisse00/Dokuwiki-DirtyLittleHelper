@@ -12,6 +12,8 @@ if(!defined('DOKU_INC')) die();
 
 
 class action_plugin_dirtylittlehelper extends DokuWiki_Action_Plugin {
+	
+    var dlh_top_menu_make = true;
 
     function register(Doku_Event_Handler $controller) {
 
@@ -95,7 +97,7 @@ class action_plugin_dirtylittlehelper extends DokuWiki_Action_Plugin {
 
 		global $ID, $INPUT, $auth, $TPL, $INFO;
 
-		if ($event->data['view']=='user' && $INFO['isadmin'] && $this->getConf('show_menu') ){
+		if ($event->data['view']=='user' && $INFO['isadmin'] && $this->getConf('show_menu') && $this->dlh_top_menu_make === true ){
 			
 			$dlh_for_left_side = array('usermanager', 'acl', 'extension', 'config', 'styling', 'revert', 'popularity');
 			$dlh_left_side=array();
@@ -179,8 +181,33 @@ class action_plugin_dirtylittlehelper extends DokuWiki_Action_Plugin {
 			
 			echo '<div class="dlh_topmenu_dropdown_admin" id="dlh_topmenu_admin">'
 				 .'<a class="dlh_topmenu_dropbtn_admin">ADMIN</a>'
-				 .'<div class="dlh_topmenu_dropdown_content_admin">'
-				 .'<table><tr><td>';
+				 .'<div class="dlh_topmenu_dropdown_content_admin">';
+
+$toptext = <<<TOPTEXT
+<div style="border: 1px solid #CCC;width:400px;margin-bottom: 8px;"><input type="text" id="dlh_top_newpage" value="00:1:2:3" style="
+    display: inline;
+    width: 230px;
+"><button onClick="dlh_call_top_new();" style="
+    display: inline;
+    width:32px;
+    height: 20px;
+    overflow: hidden;
+    margin-left: 5px;
+">&GT;&GT;</button><input class="dlh_top_id" id="dlh_top_id" type="text" value="" style="
+    display: inline;
+    width: 80px;
+    margin-left: 5px;
+"><button onClick="dlh_renew_timeid('dlh_top_id');" style="
+    display: inline;
+    width: 32px;
+    height: 20px;
+    overflow: hidden;
+    margin-left: 5px;
+">*</button></div>
+TOPTEXT;
+			
+			
+			echo '<table><tr><td>';
 		  
 			foreach( $dlh_left_side as $item){
 				echo '<a title="'.$item['menutext'].'" href="'.$item['link'].'">'.$item['inline_icon'].' '. $item['menutext'] .'</a>';
