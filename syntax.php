@@ -55,6 +55,7 @@ class syntax_plugin_dirtylittlehelper extends DokuWiki_Syntax_Plugin
                 $this->Lexer->addSpecialPattern('\<dlh\.tree\>',$mode,'plugin_dirtylittlehelper');
                 $this->Lexer->addSpecialPattern('\<dlh\.nosb\>',$mode,'plugin_dirtylittlehelper');
 
+
                 $this->Lexer->addSpecialPattern('\<dlh\.div[^\>]*\>',$mode,'plugin_dirtylittlehelper');
                 $this->Lexer->addSpecialPattern('\<\/dlh\.div\>',$mode,'plugin_dirtylittlehelper');
 
@@ -72,7 +73,6 @@ class syntax_plugin_dirtylittlehelper extends DokuWiki_Syntax_Plugin
 
 
         }
-
 
         public function postConnect()
         {
@@ -97,6 +97,8 @@ class syntax_plugin_dirtylittlehelper extends DokuWiki_Syntax_Plugin
 
                         case DOKU_LEXER_SPECIAL:
 
+//error_log($match . __LINE__);
+
                                 if ($match == '<dlh.tree>'){
                                         $this->dlh_handle='TREE';
                                         return array($state, '<DLH-DO:START:'.$this->dlh_handle,$match);
@@ -113,8 +115,9 @@ class syntax_plugin_dirtylittlehelper extends DokuWiki_Syntax_Plugin
                                       ||  substr( $match,0,12) == '</dlh.style>'
                                         ){
                                         $this->dlh_handle='TAG_CLOSE';
-
+//error_log($match . __LINE__);
                                         return array($state, '<DLH-DO:START:'.$this->dlh_handle,$match);
+
 
                                 }elseif(   substr($match,0,8)  == '<dlh.div'
                                         || substr($match,0,10) == '<dlh.style'
@@ -151,7 +154,6 @@ class syntax_plugin_dirtylittlehelper extends DokuWiki_Syntax_Plugin
                 }
         return false;
 
-
         } //handle
 
 
@@ -166,16 +168,6 @@ class syntax_plugin_dirtylittlehelper extends DokuWiki_Syntax_Plugin
         */
         public function render($mode, Doku_Renderer $renderer, $data)
         {
-                if ($mode == 'xhtml') {
-
-                        if($data[1]=='<DLH-DO:START:MERMAID'){
-                                // securityLevel loose allows more advanced functionality such as subgraphs to run.
-                                // @todo: this should be an option in the interface.
-                                $renderer->doc .= '<div class="mermaid">';
-
-                        }elseif(  $data[1]=='<DLH-DO:START:TAG_OPEN' ){
-                                $renderer->doc .= str_replace($data[2],'<dlh.','<');
-
                 if ($mode == 'xhtml') {
 
                         if($data[1]=='<DLH-DO:START:MERMAID'){
@@ -229,6 +221,7 @@ class syntax_plugin_dirtylittlehelper extends DokuWiki_Syntax_Plugin
                                                                                 .' ';
 
                                         } //BUILD TREE
+
                                         $this->dlh_tree_count = 1;
 
                                         $renderer->doc .= $this->dlh_thetree;
@@ -258,7 +251,6 @@ class syntax_plugin_dirtylittlehelper extends DokuWiki_Syntax_Plugin
 
 
                 } //mode xhtml
-
 
         return false;
 
@@ -323,6 +315,8 @@ class syntax_plugin_dirtylittlehelper extends DokuWiki_Syntax_Plugin
         } //function dlh_dokubook_tree
 
 } //class
+
+
 
 
 
