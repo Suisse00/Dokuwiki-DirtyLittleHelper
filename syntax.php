@@ -96,7 +96,7 @@ class syntax_plugin_dirtylittlehelper extends DokuWiki_Syntax_Plugin
 
                         case DOKU_LEXER_SPECIAL:
 
-                                if ($match == '<dlh.tree>'}
+                                if ($match == '<dlh.tree>'){
                                         $this->dlh_handle='TREE';
                                         return array($state, '<DLH-DO:START:'.$this->dlh_handle,$match);
 
