@@ -461,9 +461,9 @@ function dlh_lets_be_dirty( dlh_dirty_i = 0){
 			+ ');"><img src="'+JSINFO['dlh']['DOKU_URL']+'lib/plugins/dirtylittlehelper/dlh_code_javascript.png" width="32px" height="32px">'
 			+ ' </button>'
 
-	+ '<button class="dlh_button_36_32"  title="~~DLH* COMMENT /DLH~~" accesskey="*" '
+	+ '<button class="dlh_button_36_32"  title="<dlh.*> COMMENT </dlh>" accesskey="*" '
 		+ 'onClick="insertTags(\'wiki__text\' , '
-		+ '   \'~~dlh* \',\'/dlh~~\',\' YOU WILL NOT SEE ME \'     '
+		+ '   \'<dlh.*> \',\' </dlh>\',\' YOU WILL NOT SEE ME \'     '
 		+  ');"><img src="'+JSINFO['dlh']['DOKU_URL']+'lib/plugins/dirtylittlehelper/dlh_comment.png" width="32px" height="32px">'
 		+ '</button> '
 	;
@@ -473,7 +473,7 @@ function dlh_lets_be_dirty( dlh_dirty_i = 0){
 			+ '<div class="dlh_sep"></div>'
 			+ '<button class="dlh_button_36_32" title="mermaid code" '
 			+ 'onClick="insertTags(\'wiki__text\' , '
-			+ '   \'~~dlhmm\',\'/dlh~~\',\' \\n graph TD \\n A---B\\n \'     '
+			+ '   \'<dlh.mm> \',\' </dlh>\',\' \\n graph TD \\n A---B\\n \'     '
 			+  ');"><img src="'+JSINFO['dlh']['DOKU_URL']+'lib/plugins/dirtylittlehelper/dlh_mermaid_code.png" width="32px" height="32px"></button>'
 			+ '<button class="dlh_button_36_32" onClick="window.open(\''+JSINFO['dlh']['DOKU_URL']+'lib/plugins/dirtylittlehelper/mermaid/editor/\');" title="mermaid live editor"><img src="'+JSINFO['dlh']['DOKU_URL']+'lib/plugins/dirtylittlehelper/dlh_mermaid.png" width="32px" height="32px"></button>'
 		;
