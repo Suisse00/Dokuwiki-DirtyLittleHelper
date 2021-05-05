@@ -43,40 +43,42 @@ config "autocomplete" - "namespace" > put your namespace here
 === DLH ===
 <form>
 action script dummy.php
-struct_field "scheme_name.field_name" !
+struct_field "scheme_name.field_name_1" !
+struct_field "scheme_name.field_name_2" !
 </form>
 ````
 - open the editor and smile
 
 ## dlh tree
-```` ~~dlhtree~~````
+```` <dlh.tree>````
 put it in your sidebar page and be happy
 if there would be several trees -> only the first one is displayed
 
 ## nosidebar
 ````
-~~dlhnosb~~
+<dlh.nosb>
 ````
-The sidebar will not be shown and the tree wioll not be generated.
+The sidebar will not be shown (css) and the tree will not be generated.
 
 ## mermaid
 ````
-~~dlhmm 
+<dlh.mm>
 graph LR
 DOKUWIKI----DLH
-/dlh~~
+</dlh>
 ````
 When you click the mermaid live editor you can follow the links to syntax etc.
 
 ## comments
 ````
-~~dlh* this one line comment will only be seen in the editor /dlh~~
+<dlh.*> this one line comment will only be seen in the editor </dlh>
 
-~~dlh* 
+<dlh.*>
 this 
 multi 
 line 
-comment will also only be seen in the editor /dlh~~
+comment will also only be seen in the editor 
+</dlh>
 ````
 
 ## BEWARE !
