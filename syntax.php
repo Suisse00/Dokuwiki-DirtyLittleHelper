@@ -52,8 +52,24 @@ class syntax_plugin_dirtylittlehelper extends DokuWiki_Syntax_Plugin
         {
                 $this->Lexer->addEntryPattern('\<dlh\.mm\>',$mode,'plugin_dirtylittlehelper');
                 $this->Lexer->addEntryPattern('\<dlh\.\*\>',$mode,'plugin_dirtylittlehelper');
-                $this->Lexer->addSpecialPattern('\<dlh.tree\>',$mode,'plugin_dirtylittlehelper');
-                $this->Lexer->addSpecialPattern('\<dlh.nosb\>',$mode,'plugin_dirtylittlehelper');
+                $this->Lexer->addSpecialPattern('\<dlh\.tree\>',$mode,'plugin_dirtylittlehelper');
+                $this->Lexer->addSpecialPattern('\<dlh\.nosb\>',$mode,'plugin_dirtylittlehelper');
+
+                $this->Lexer->addSpecialPattern('\<dlh\.div.*\>',$mode,'plugin_dirtylittlehelper');
+                $this->Lexer->addSpecialPattern('\<\/dlh\.div\>',$mode,'plugin_dirtylittlehelper');
+
+                $this->Lexer->addSpecialPattern('\<dlh\.style.*\>',$mode,'plugin_dirtylittlehelper');
+                $this->Lexer->addSpecialPattern('\<\/dlh\.style\>',$mode,'plugin_dirtylittlehelper');
+
+                $this->Lexer->addSpecialPattern('\<dlh\.table.*\>',$mode,'plugin_dirtylittlehelper');
+                $this->Lexer->addSpecialPattern('\<\/dlh\.table\>',$mode,'plugin_dirtylittlehelper');
+
+                $this->Lexer->addSpecialPattern('\<dlh\.tr.*\>',$mode,'plugin_dirtylittlehelper');
+                $this->Lexer->addSpecialPattern('\<\/dlh\.tr\>',$mode,'plugin_dirtylittlehelper');
+
+                $this->Lexer->addSpecialPattern('\<dlh\.td.*\>',$mode,'plugin_dirtylittlehelper');
+                $this->Lexer->addSpecialPattern('\<\/dlh\.td\>',$mode,'plugin_dirtylittlehelper');
+
 
         }
 
@@ -80,18 +96,29 @@ class syntax_plugin_dirtylittlehelper extends DokuWiki_Syntax_Plugin
 
                         case DOKU_LEXER_SPECIAL:
 
-                                switch ($match){
+                                if ($match == '<dlh.tree>'}
+                                        $this->dlh_handle='TREE';
+                                        return array($state, '<DLH-DO:START:'.$this->dlh_handle,$match);
 
-                                        case '<dlh.tree>':
-                                                $this->dlh_handle='TREE';
-                                                return array($state, '<DLH-DO:START:'.$this->dlh_handle);
+                                }elseif(  $match == '<dlh.nosb>'){
+                                        $this->dlh_no_tree = true;
+                                        $this->dlh_handle='NOSB';
+                                        return array($state, '<DLH-DO:START:'.$this->dlh_handle,$match);
 
-                                        case '<dlh.nosb>':
-                                                $this->dlh_no_tree = true;
-                                                $this->dlh_handle='NOSB';
-                                                return array($state, '<DLH-DO:START:'.$this->dlh_handle);
+                                }elseif( $match == '</dlh.table>' || $match == '</dlh.tr>' || $match == '</dlh.td>' || $match == '</dlh-div>'){
+                                        $this->dlh_handle='TAG_CLOSE';
+                                        return array($state, '<DLH-DO:START:'.$this->dlh_handle,$match);
+                                }elseif(   substr($match,0,8)  == '<dlh.div' 
+                                        || substr($match,0,10) == '<dlh.style' 
+                                        || substr($match,0,10) == '<dlh.table' 
+                                        || substr($match,0,7) == '<dlh.tr' 
+                                        || substr($match,0,7) == '<dlh.td' 
+                                        ){
+                                        $this->dlh_handle='TAG_OPEN';
+                                        return array($state, '<DLH-DO:START:'.$this->dlh_handle,$match);
                                 }
-
+                                    
+                                    
                                 break;
 
 
@@ -103,17 +130,17 @@ class syntax_plugin_dirtylittlehelper extends DokuWiki_Syntax_Plugin
                                         $this->dlh_handle='COMMENT';
                                 }
 
-                                return array($state, '<DLH-DO:START:'.$this->dlh_handle);
+                                return array($state, '<DLH-DO:START:'.$this->dlh_handle,$match);
 
                         case DOKU_LEXER_UNMATCHED :
                                 if( $this->dlh_handle != 'COMMENT'){
-                                        return array($state, $match);
+                                        return array($state, $match,$match);
                                 }
 
                         case DOKU_LEXER_EXIT :
                                 $x = '<DLH-DO:END:'.$this->dlh_handle;
                                 $this->dlh_handle='';
-                                return array($state,$x);
+                                return array($state,$x,$match);
                 }
         return false;
 
@@ -137,6 +164,12 @@ class syntax_plugin_dirtylittlehelper extends DokuWiki_Syntax_Plugin
                                 // securityLevel loose allows more advanced functionality such as subgraphs to run.
                                 // @todo: this should be an option in the interface.
                                 $renderer->doc .= '<div class="mermaid">';
+
+                        }elseif(  $data[1]=='<DLH-DO:START:TAG_OPEN' ){
+                                $renderer->doc .= str_replace($data[2],'<dlh.','<');
+
+                        }elseif(  $data[1]=='<DLH-DO:START:TAG_CLOSE' ){
+                                $renderer->doc .= str_replace($data[2],'</dlh.','</');
 
                         }elseif(  $data[1]=='<DLH-DO:START:TREE' ){
                                 if( $this->dlh_no_tree === false && $this->dlh_tree_count == 0 ) {
