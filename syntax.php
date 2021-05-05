@@ -50,16 +50,16 @@ class syntax_plugin_dirtylittlehelper extends DokuWiki_Syntax_Plugin
         */
         public function connectTo($mode)
         {
-                $this->Lexer->addEntryPattern('~~dlhmm',$mode,'plugin_dirtylittlehelper');
-                $this->Lexer->addEntryPattern('~~dlh\*',$mode,'plugin_dirtylittlehelper');
-                $this->Lexer->addSpecialPattern('~~dlhtree~~',$mode,'plugin_dirtylittlehelper');
-                $this->Lexer->addSpecialPattern('~~dlhnosb~~',$mode,'plugin_dirtylittlehelper');
+                $this->Lexer->addEntryPattern('\<dlh\.mm\>',$mode,'plugin_dirtylittlehelper');
+                $this->Lexer->addEntryPattern('\<dlh\.\*\>',$mode,'plugin_dirtylittlehelper');
+                $this->Lexer->addSpecialPattern('\<dlh.tree\>',$mode,'plugin_dirtylittlehelper');
+                $this->Lexer->addSpecialPattern('\<dlh.nosb\>',$mode,'plugin_dirtylittlehelper');
 
         }
 
         public function postConnect()
         {
-                $this->Lexer->addExitPattern('\/dlh~~','plugin_dirtylittlehelper');
+                $this->Lexer->addExitPattern('\<\/dlh\>','plugin_dirtylittlehelper');
 
         }
 
@@ -82,11 +82,12 @@ class syntax_plugin_dirtylittlehelper extends DokuWiki_Syntax_Plugin
 
                                 switch ($match){
 
-                                        case '~~dlhtree~~':
+                                        case '<dlh.tree>':
                                                 $this->dlh_handle='TREE';
                                                 return array($state, '<DLH-DO:START:'.$this->dlh_handle);
 
-                                        case '~~dlhnosb~~':
+                                        case '<dlh.nosb>':
+                                                $this->dlh_no_tree = true;
                                                 $this->dlh_handle='NOSB';
                                                 return array($state, '<DLH-DO:START:'.$this->dlh_handle);
                                 }
@@ -95,10 +96,10 @@ class syntax_plugin_dirtylittlehelper extends DokuWiki_Syntax_Plugin
 
 
                         case DOKU_LEXER_ENTER:
-                                if($match=='~~dlhmm'){
+                                if($match=='<dlh.mm>'){
                                         $this->dlh_handle='MERMAID';
                                 }
-                                elseif($match=='~~dlh*' || $match=='~~/'.'*' ){
+                                elseif($match=='<dlh.*>' ){
                                         $this->dlh_handle='COMMENT';
                                 }
 
