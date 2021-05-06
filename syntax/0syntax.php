@@ -49,24 +49,16 @@ class syntax_plugin_dirtylittlehelper_0syntax extends DokuWiki_Syntax_Plugin
         {
                 $this->Lexer->addSpecialPattern('\<dlh\.nosb\>',$mode,'plugin_dirtylittlehelper_'.$this->getPluginComponent());
 
-                $this->Lexer->addSpecialPattern('\<dlh\.table[^\>]*\>',$mode,'plugin_dirtylittlehelper_'.$this->getPluginComponent());
-                $this->Lexer->addSpecialPattern('\<\/dlh\.table\>',$mode,'plugin_dirtylittlehelper_'.$this->getPluginComponent());
-
-                $this->Lexer->addSpecialPattern('\<dlh\.tr[^\>]*\>',$mode,'plugin_dirtylittlehelper_'.$this->getPluginComponent());
-                $this->Lexer->addSpecialPattern('\<\/dlh\.tr\>',$mode,'plugin_dirtylittlehelper_'.$this->getPluginComponent());
-
-                $this->Lexer->addSpecialPattern('\<dlh\.td[^\>]*\>',$mode,'plugin_dirtylittlehelper_'.$this->getPluginComponent());
-                $this->Lexer->addSpecialPattern('\<\/dlh\.td\>',$mode,'plugin_dirtylittlehelper_'.$this->getPluginComponent());
-
 
         }
 
+/*		
         public function postConnect()
         {
                 $this->Lexer->addExitPattern('\<\/dlh\>','plugin_dirtylittlehelper_'.$this->getPluginComponent());
 
         }
-
+*/
 
         /**
         * Handle matches of the DLH syntax
@@ -91,7 +83,7 @@ class syntax_plugin_dirtylittlehelper_0syntax extends DokuWiki_Syntax_Plugin
                                         $this->dlh_handle='NOSB';
                                         return array($state, '<DLH-DO:START:'.$this->dlh_handle,$match);
 
-                                }elseif(  substr( $match,0,12) == '</dlh.table>'
+/*                                }elseif(  substr( $match,0,12) == '</dlh.table>'
                                       ||  substr( $match,0, 9) == '</dlh.tr>'
                                       ||  substr( $match,0, 9) == '</dlh.td>'
                                         ){
@@ -106,11 +98,12 @@ class syntax_plugin_dirtylittlehelper_0syntax extends DokuWiki_Syntax_Plugin
                                         ){
                                         $this->dlh_handle='TAG_OPEN';
                                         return array($state, '<DLH-DO:START:'.$this->dlh_handle,$match);
-                                }
+*/
+								}
 
                                 break;
 
-
+/*
                         case DOKU_LEXER_ENTER:
                                 if($match=='YYYYY<dlh.*>' ){
                                         $this->dlh_handle='COMMENT';
@@ -127,7 +120,8 @@ class syntax_plugin_dirtylittlehelper_0syntax extends DokuWiki_Syntax_Plugin
                                 $x = '<DLH-DO:END:'.$this->dlh_handle;
                                 $this->dlh_handle='';
                                 return array($state,$x,$match);
-                }
+*/
+				}
         return false;
 
         } //handle
@@ -146,7 +140,7 @@ class syntax_plugin_dirtylittlehelper_0syntax extends DokuWiki_Syntax_Plugin
         {
                 if ($mode == 'xhtml') {
 
-                        if(  $data[1]=='<DLH-DO:START:TAG_OPEN' ){
+/*                        if(  $data[1]=='<DLH-DO:START:TAG_OPEN' ){
                                 $renderer->doc .= str_replace('<dlh.','<',$data[2]);
 
                         }elseif(  $data[1]=='<DLH-DO:START:TAG_CLOSE' ){
@@ -160,7 +154,7 @@ class syntax_plugin_dirtylittlehelper_0syntax extends DokuWiki_Syntax_Plugin
                                                 $this->dlh_dokubook_tree( substr($_SERVER['PATH_INFO'],1) );
                                                 $this->dlh_thetree .= '<script>'
                                                                             .' document.addEventListener("DOMContentLoaded", function(event) { '
-                                                                                .' /* attach the AJAX index to the sidebar index */ '
+                                                                                .' /* attach the AJAX index to the sidebar index * / '
                                                                                 .' var sb_dw_index = jQuery(\'#left__index__tree\').dw_tree({deferInit: true, '
                                                                                 .' load_data: function  (show_sublist, $clicky) { '
                                                                                 .' jQuery.post( '
@@ -202,15 +196,17 @@ class syntax_plugin_dirtylittlehelper_0syntax extends DokuWiki_Syntax_Plugin
                                 }
 
 
-                        }elseif($data[1]=='<DLH-DO:START:NOSB'){
+                        }else*/
+						if($data[1]=='<DLH-DO:START:NOSB'){
                                 $renderer->doc .= '<style> '
                                                                 .' #dokuwiki__aside{ display:none !important;}  '
                                                                 .' #dokuwiki__aside *{ display:none !important;}   '
                                                                 .' .showSidebar #dokuwiki__content > .pad{ margin-left:0px !important; } '
                                                                 .' </style>';
-
+/*
                         }elseif(substr($data[1],0,8) != '<DLH-DO:'){
                                 $renderer->doc .= $data[1];
+*/
                         }
 
 
