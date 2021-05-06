@@ -46,15 +46,13 @@ class syntax_plugin_dirtylittlehelper_comment extends DokuWiki_Syntax_Plugin
         */
         public function connectTo($mode)
         {
-                $this->Lexer->addEntryPattern('\<dlh\.x\>',$mode,'plugin_dirtylittlehelper_'.$this->getPluginComponent());
-                $this->Lexer->addEntryPattern('\<dlhx\>',$mode,'plugin_dirtylittlehelper_'.$this->getPluginComponent());
+                $this->Lexer->addEntryPattern('\<dlh\.\*\>',$mode,'plugin_dirtylittlehelper_'.$this->getPluginComponent());
         }
 
 		
         public function postConnect()
         {
-                $this->Lexer->addExitPattern('\<\/dlh\.x\>',$mode,'plugin_dirtylittlehelper_'.$this->getPluginComponent());
-                $this->Lexer->addExitPattern('\<\/dlhx\>',$mode,'plugin_dirtylittlehelper_'.$this->getPluginComponent());
+                $this->Lexer->addExitPattern('\<\/dlh\.\*\>','plugin_dirtylittlehelper_'.$this->getPluginComponent());
         }
 
 
