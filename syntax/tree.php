@@ -16,6 +16,7 @@ class syntax_plugin_dirtylittlehelper_tree extends DokuWiki_Syntax_Plugin
         var $dlh_tree_html  = '';
         var $dlh_tree_no    = false;
         var $dlh_tree_count = 0;
+        var $dlh_tree_force = false;
 
         /**
         * @return string Syntax mode type
@@ -50,6 +51,7 @@ class syntax_plugin_dirtylittlehelper_tree extends DokuWiki_Syntax_Plugin
         {
                 $this->Lexer->addSpecialPattern('\<dlh\.tree\>',$mode,'plugin_dirtylittlehelper_'.$this->getPluginComponent());
                 $this->Lexer->addSpecialPattern('\<dlh\.notree\>',$mode,'plugin_dirtylittlehelper_'.$this->getPluginComponent());
+                $this->Lexer->addSpecialPattern('\<dlh\.forcetree\>',$mode,'plugin_dirtylittlehelper_'.$this->getPluginComponent());
         }
 
 
@@ -72,20 +74,19 @@ class syntax_plugin_dirtylittlehelper_tree extends DokuWiki_Syntax_Plugin
                         case DOKU_LEXER_SPECIAL:
 
                                 if ($match == '<dlh.tree>'){
-										if( $this->dlh_tree_no === false){
-											//BUILD THE HTML
-										}else{
-											$this->dlh_tree_html = '';
-										}
-                                        return array( $state, 'TREE',$match);
+									return array( $state, 'TREE',$match);
 
                                 }elseif(  $match == '<dlh.notree>'){
-                                        $this->dlh_tree_no = true;
-										$this->dlh_tree_html = '';
-                                        return array($state, 'NOTREE',$match);
+									$this->dlh_tree_no = true;
+									return array($state, 'NOTREE',$match);
+
+								}elseif(  $match == '<dlh.forcetree>'){
+									$this->dlh_tree_no = true;
+									$this->dlh_tree_force = true;
+									return array($state, 'FORCETREE',$match);
                                 }
 
-                                break;
+						break;
 
                 }
         return false;
@@ -106,62 +107,82 @@ class syntax_plugin_dirtylittlehelper_tree extends DokuWiki_Syntax_Plugin
         {
                 if ($mode == 'xhtml') {
 
-                        if(  $data[1]=='TREE' ){
-                                if( $this->dlh_tree_no === false && $this->dlh_tree_count == 0 ) {
+                        if(  $data[1]=='TREE' || $data[1] == 'FORCETREE' ){
+							
+							// if the tree is not build yet - do it 
+							if( $this->dlh_tree_html == ''){
 
-                                        if($this->dlh_tree_html==''){
-                                                //build the tree
-                                                $this->dlh_dokubook_tree( substr($_SERVER['PATH_INFO'],1) );
-                                                $this->dlh_tree_html .= '<script>'
-                                                                            .' document.addEventListener("DOMContentLoaded", function(event) { '
-                                                                                .' /* attach the AJAX index to the sidebar index */ '
-                                                                                .' var sb_dw_index = jQuery(\'#left__index__tree\').dw_tree({deferInit: true, '
-                                                                                .' load_data: function  (show_sublist, $clicky) { '
-                                                                                .' jQuery.post( '
-                                                                                .' DOKU_BASE + \'lib/exe/ajax.php\', '
-                                                                                .' $clicky[0].search.substr(1) + \'&call=index\', '
-                                                                                .' show_sublist, \'html\' '
-                                                                                .' ); '
-                                                                                .' } '
-                                                                                .' }); '
-                                                                                .'  '
-                                                                                .' var $tree = jQuery(\'#sb__index__tree\'); '
-                                                                                .' sb_dw_index.$obj = $tree; '
-                                                                                .' sb_dw_index.init(); '
-                                                                                .'  '
-                                                                                .' '
-                                                                                .' jQuery(\'.dlh_ontheleft *\').each( '
-                                                                                .'     function(){ '
-                                                                                .'         if(  JSINFO[\'id\'].indexOf( jQuery(this).attr(\'title\')+\':\' ) == 0 '
-                                                                                .'           || JSINFO[\'id\'] == jQuery(this).attr(\'title\') '
-                                                                                .'             ){ '
-                                                                                .'             jQuery(this).css({\'color\':\'BLACK\'}); '
-                                                                                .'         } '
-                                                                                .'     }     '
-                                                                                .'  '
-                                                                                .'  );'
-                                                                                .'  '
-                                                                                .' }); '
-                                                                                .' </script> '
-                                                                                .' ';
+								$this->dlh_dokubook_tree( substr($_SERVER['PATH_INFO'],1) );
+								$this->dlh_tree_html .= '<script>'
+															.' document.addEventListener("DOMContentLoaded", function(event) { '
+																.' /* attach the AJAX index to the sidebar index */ '
+																.' var sb_dw_index = jQuery(\'#left__index__tree\').dw_tree({deferInit: true, '
+																.' load_data: function  (show_sublist, $clicky) { '
+																.' jQuery.post( '
+																.' DOKU_BASE + \'lib/exe/ajax.php\', '
+																.' $clicky[0].search.substr(1) + \'&call=index\', '
+																.' show_sublist, \'html\' '
+																.' ); '
+																.' } '
+																.' }); '
+																.'  '
+																.' var $tree = jQuery(\'#sb__index__tree\'); '
+																.' sb_dw_index.$obj = $tree; '
+																.' sb_dw_index.init(); '
+																.'  '
+																.' '
+																.' jQuery(\'.dlh_ontheleft *\').each( '
+																.'     function(){ '
+																.'         if(  JSINFO[\'id\'].indexOf( jQuery(this).attr(\'title\')+\':\' ) == 0 '
+																.'           || JSINFO[\'id\'] == jQuery(this).attr(\'title\') '
+																.'             ){ '
+																.'             jQuery(this).css({\'color\':\'BLACK\'}); '
+																.'         } '
+																.'     }     '
+																.'  '
+																.'  );'
+																.'  '
+																.' }); '
+																.' </script> '
+																.' ';									
+								
+							}// build tree?
+							
+							//normal tree 
+							if( $data[1] == 'TREE' ){
+								if( $this->dlh_tree_no == false && $this->dlh_tree_force = false){
+									if( $this->dlh_tree_count == 0){
+										$renderer->doc .$this->dlh_tree_html;
+										$this->dlh_tree_count =1;
+										return true;
+									}else{
+										$renderer->doc .= '<div class="dlh_one_tree_only">! one tree only !</div>';
+										return true;
+									}//count==0?
+								}//notree & forcetree are false
+							}//normal tree
+							
+							if( $data[1] == 'FORCETREE'){
+								if( $this->dlh_tree_count == 0){
+									$renderer->doc .$this->dlh_tree_html;
+									$this->dlh_tree_count =1;
+									return true;
+								}else{
+									$renderer->doc .= '<div class="dlh_one_tree_only">! one tree only !</div>';
+									return true;
+								}//count==0?
+							}
 
-                                        } //BUILD TREE
 
-                                        $this->dlh_tree_count = 1;
-
-                                        $renderer->doc .= $this->dlh_tree_html;
-
-                                }elseif( $this->dlh_tree_no === false && $this->dlh_tree_count != 0){
-                                        $renderer->doc .= '<div class="dlh_one_tree_only">! one tree only !</div>';
-                                }
 
 
                         }elseif($data[1]=='NOTREE'){
                                 $renderer->doc .= '';
+								return true;
                         }
 
 
-                        return true;
+                        return false;
 
 
                 } //mode xhtml
