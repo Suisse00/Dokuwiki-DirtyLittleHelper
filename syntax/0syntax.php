@@ -47,15 +47,12 @@ class syntax_plugin_dirtylittlehelper_0syntax extends DokuWiki_Syntax_Plugin
         */
         public function connectTo($mode)
         {
-                $this->Lexer->addEntryPattern('\<dlh\.\*\>',$mode,'plugin_dirtylittlehelper_'.$this->getPluginComponent());
+//                $this->Lexer->addEntryPattern('\<dlh\.\*\>',$mode,'plugin_dirtylittlehelper_'.$this->getPluginComponent());
                 $this->Lexer->addSpecialPattern('\<dlh\.nosb\>',$mode,'plugin_dirtylittlehelper_'.$this->getPluginComponent());
 
 
-                $this->Lexer->addSpecialPattern('\<dlh\.div[^\>]*\>',$mode,'plugin_dirtylittlehelper_'.$this->getPluginComponent());
-                $this->Lexer->addSpecialPattern('\<\/dlh\.div\>',$mode,'plugin_dirtylittlehelper_'.$this->getPluginComponent());
-
-                $this->Lexer->addSpecialPattern('\<dlh\.style[^\>]*\>',$mode,'plugin_dirtylittlehelper_'.$this->getPluginComponent());
-                $this->Lexer->addSpecialPattern('\<\/dlh\.style\>',$mode,'plugin_dirtylittlehelper_'.$this->getPluginComponent());
+//                $this->Lexer->addSpecialPattern('\<dlh\.div[^\>]*\>',$mode,'plugin_dirtylittlehelper_'.$this->getPluginComponent());
+//                $this->Lexer->addSpecialPattern('\<\/dlh\.div\>',$mode,'plugin_dirtylittlehelper_'.$this->getPluginComponent());
 
                 $this->Lexer->addSpecialPattern('\<dlh\.table[^\>]*\>',$mode,'plugin_dirtylittlehelper_'.$this->getPluginComponent());
                 $this->Lexer->addSpecialPattern('\<\/dlh\.table\>',$mode,'plugin_dirtylittlehelper_'.$this->getPluginComponent());
@@ -103,7 +100,6 @@ class syntax_plugin_dirtylittlehelper_0syntax extends DokuWiki_Syntax_Plugin
                                       ||  substr( $match,0, 9) == '</dlh.tr>'
                                       ||  substr( $match,0, 9) == '</dlh.td>'
                                       ||  substr( $match,0,10) == '</dlh.div>'
-                                      ||  substr( $match,0,12) == '</dlh.style>'
                                         ){
                                         $this->dlh_handle='TAG_CLOSE';
 
@@ -111,7 +107,6 @@ class syntax_plugin_dirtylittlehelper_0syntax extends DokuWiki_Syntax_Plugin
 
 
                                 }elseif(   substr($match,0,8)  == '<dlh.div'
-                                        || substr($match,0,10) == '<dlh.style'
                                         || substr($match,0,10) == '<dlh.table'
                                         || substr($match,0,7) == '<dlh.tr'
                                         || substr($match,0,7) == '<dlh.td'
