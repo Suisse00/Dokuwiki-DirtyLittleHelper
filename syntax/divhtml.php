@@ -106,7 +106,7 @@ class syntax_plugin_dirtylittlehelper_divhtml extends DokuWiki_Syntax_Plugin
                         if($data[1]=='BEGIN'){
                                 // securityLevel loose allows more advanced functionality such as subgraphs to run.
                                 // @todo: this should be an option in the interface.
-                                $renderer->doc .= $renderer->doc .= str_replace('<dlh.div.html','<div',$data[2]);;
+                                $renderer->doc .= str_replace('<dlh.div.html','<div',$data[2]);;
 								return true;
 
                         }elseif($data[1]=='/END'){
