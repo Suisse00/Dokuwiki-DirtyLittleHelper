@@ -61,7 +61,7 @@ class action_plugin_dirtylittlehelper extends DokuWiki_Action_Plugin {
         $event->data[] = array (
         'type' => 'dirtylittlehelper',
         'title' => 'DLH', //$this->getLang('abutton'),
-        'icon' => '../../plugins/dirtylittlehelper/dirtylittlehelper_ovl_sprite.png',
+        'icon' => '../../plugins/dirtylittlehelper/images/dirtylittlehelper_ovl_sprite.png',
         );
 
     }//function dirtylittlehelper_insert_button

@@ -332,7 +332,7 @@ function dlh_lets_be_dirty( dlh_dirty_i = 0){
     dlh_append = '<div id="dlh_mytoolbar_hack" style="margin-top:5px;margin-bottom:5px;">'
 
 	    + '<button class="dlh_button_32_32" title="FULLSCREEN EDIT" '
-			+ 'onClick="dlh_fullcreen_edit();"><img src="'+JSINFO['dlh']['DOKU_URL']+'lib/plugins/dirtylittlehelper/dlh_max.png" width="32px" height="32px">'
+			+ 'onClick="dlh_fullcreen_edit();"><img src="'+JSINFO['dlh']['DOKU_URL']+'lib/plugins/dirtylittlehelper/images/dlh_max.png" width="32px" height="32px">'
 			+ ' </button>'
 	  
 	  + '<div class="dlh_sep"></div>'
@@ -342,13 +342,13 @@ function dlh_lets_be_dirty( dlh_dirty_i = 0){
 			+ 'onClick="insertTags(\'wiki__text\' , '
 			+ '   \'<code [enable_line_numbers=\'+JSINFO[\'dlh\'][\'QUOT\']+\'true\'+JSINFO[\'dlh\'][\'QUOT\']+\']>\',\'</code>\',\' \\n \\n \\n \'        '
 			+ ');'
-			+ '"><img src="'+JSINFO['dlh']['DOKU_URL']+'lib/plugins/dirtylittlehelper/dlh_code.png" width="32px" height="32px">'
+			+ '"><img src="'+JSINFO['dlh']['DOKU_URL']+'lib/plugins/dirtylittlehelper/images/dlh_code.png" width="32px" height="32px">'
 			+ ' </button>'
 
 	+ '<button class="dlh_button_36_32" title="CODE SQL tags" '
 			+ 'onClick="insertTags(\'wiki__text\' , '
 			+ '   \'<code sql [enable_line_numbers=\'+JSINFO[\'dlh\'][\'QUOT\']+\'true\'+JSINFO[\'dlh\'][\'QUOT\']+\']>\',\'</code>\',\'\\n /* CODE */ \\n \\n \\n \'        '
-			+ ');"><img src="'+JSINFO['dlh']['DOKU_URL']+'lib/plugins/dirtylittlehelper/dlh_code_sql.png" width="32px" height="32px">'
+			+ ');"><img src="'+JSINFO['dlh']['DOKU_URL']+'lib/plugins/dirtylittlehelper/images/dlh_code_sql.png" width="32px" height="32px">'
 			+ ' </button>'
 
 			
@@ -356,39 +356,39 @@ function dlh_lets_be_dirty( dlh_dirty_i = 0){
 	+ '<button class="dlh_button_36_32" title="CODE bash tags" '
 			+ 'onClick="insertTags(\'wiki__text\' , '
 			+ '   \'<code bash [enable_line_numbers=\'+JSINFO[\'dlh\'][\'QUOT\']+\'true\'+JSINFO[\'dlh\'][\'QUOT\']+\']>\',\'</code>\',\'\\n # CODE \\n \\n \\n \'        '
-			+ ');"><img src="'+JSINFO['dlh']['DOKU_URL']+'lib/plugins/dirtylittlehelper/dlh_code_bash.png" width="32px" height="32px">'
+			+ ');"><img src="'+JSINFO['dlh']['DOKU_URL']+'lib/plugins/dirtylittlehelper/images/dlh_code_bash.png" width="32px" height="32px">'
 			+ ' </button>'
 
 	+ '<button class="dlh_button_36_32" title="CODE shell tags" '
 			+ 'onClick="insertTags(\'wiki__text\' , '
 			+ '   \'<code shell [enable_line_numbers=\'+JSINFO[\'dlh\'][\'QUOT\']+\'true\'+JSINFO[\'dlh\'][\'QUOT\']+\']>\',\'</code>\',\'\\n REM CODE \\n \\n \\n \'        '
-			+ ');"><img src="'+JSINFO['dlh']['DOKU_URL']+'lib/plugins/dirtylittlehelper/dlh_code_shell.png" width="32px" height="32px">'
+			+ ');"><img src="'+JSINFO['dlh']['DOKU_URL']+'lib/plugins/dirtylittlehelper/images/dlh_code_shell.png" width="32px" height="32px">'
 			+ ' </button>'
 
 
 		+ '<button class="dlh_button_36_32" title="CODE php tags" '
 			+ 'onClick="insertTags(\'wiki__text\' , '
 			+ '   \'<code php [enable_line_numbers=\'+JSINFO[\'dlh\'][\'QUOT\']+\'true\'+JSINFO[\'dlh\'][\'QUOT\']+\']>\',\'</code>\',\'\\n /* CODE */ \\n \\n \\n \'        '
-			+ ');"><img src="'+JSINFO['dlh']['DOKU_URL']+'lib/plugins/dirtylittlehelper/dlh_code_php.png" width="32px" height="32px">'
+			+ ');"><img src="'+JSINFO['dlh']['DOKU_URL']+'lib/plugins/dirtylittlehelper/images/dlh_code_php.png" width="32px" height="32px">'
 			+ ' </button>'
 
 		+ '<button class="dlh_button_36_32" title="CODE html tags" '
 			+ 'onClick="insertTags(\'wiki__text\' , '
 			+ '   \'<code html [enable_line_numbers=\'+JSINFO[\'dlh\'][\'QUOT\']+\'true\'+JSINFO[\'dlh\'][\'QUOT\']+\']>\',\'</code>\',\'\\n <!-- CODE --> \\n \\n \\n \'        '
-			+ ');"><img src="'+JSINFO['dlh']['DOKU_URL']+'lib/plugins/dirtylittlehelper/dlh_code_html.png" width="32px" height="32px">'
+			+ ');"><img src="'+JSINFO['dlh']['DOKU_URL']+'lib/plugins/dirtylittlehelper/images/dlh_code_html.png" width="32px" height="32px">'
 			+ ' </button>'
 
 			
 	+ '<button class="dlh_button_36_32" title="CODE javascript tags" '
 			+ 'onClick="insertTags(\'wiki__text\' , '
 			+ '   \'<code javascript [enable_line_numbers=\'+JSINFO[\'dlh\'][\'QUOT\']+\'true\'+JSINFO[\'dlh\'][\'QUOT\']+\']>\',\'</code>\',\'\\n /* CODE */ \\n \\n \\n \'        '
-			+ ');"><img src="'+JSINFO['dlh']['DOKU_URL']+'lib/plugins/dirtylittlehelper/dlh_code_javascript.png" width="32px" height="32px">'
+			+ ');"><img src="'+JSINFO['dlh']['DOKU_URL']+'lib/plugins/dirtylittlehelper/images/dlh_code_javascript.png" width="32px" height="32px">'
 			+ ' </button>'
 
 	+ '<button class="dlh_button_36_32"  title="<dlh.*> COMMENT </dlh>" accesskey="*" '
 		+ 'onClick="insertTags(\'wiki__text\' , '
 		+ '   \'<dlh.*> \',\' </dlh>\',\' YOU WILL NOT SEE ME \'     '
-		+  ');"><img src="'+JSINFO['dlh']['DOKU_URL']+'lib/plugins/dirtylittlehelper/dlh_comment.png" width="32px" height="32px">'
+		+  ');"><img src="'+JSINFO['dlh']['DOKU_URL']+'lib/plugins/dirtylittlehelper/images/dlh_comment.png" width="32px" height="32px">'
 		+ '</button> '
 	;
 	  
@@ -398,8 +398,8 @@ function dlh_lets_be_dirty( dlh_dirty_i = 0){
 			+ '<button class="dlh_button_36_32" title="mermaid code" '
 			+ 'onClick="insertTags(\'wiki__text\' , '
 			+ '   \'<dlh.mm> \',\' </dlh>\',\' \\n graph TD \\n A---B\\n \'     '
-			+  ');"><img src="'+JSINFO['dlh']['DOKU_URL']+'lib/plugins/dirtylittlehelper/dlh_mermaid_code.png" width="32px" height="32px"></button>'
-			+ '<button class="dlh_button_36_32" onClick="window.open(\''+JSINFO['dlh']['DOKU_URL']+'lib/plugins/dirtylittlehelper/mermaid/editor/\');" title="mermaid live editor"><img src="'+JSINFO['dlh']['DOKU_URL']+'lib/plugins/dirtylittlehelper/dlh_mermaid.png" width="32px" height="32px"></button>'
+			+  ');"><img src="'+JSINFO['dlh']['DOKU_URL']+'lib/plugins/dirtylittlehelper/images/dlh_mermaid_code.png" width="32px" height="32px"></button>'
+			+ '<button class="dlh_button_36_32" onClick="window.open(\''+JSINFO['dlh']['DOKU_URL']+'lib/plugins/dirtylittlehelper/mermaid/editor/\');" title="mermaid live editor"><img src="'+JSINFO['dlh']['DOKU_URL']+'lib/plugins/dirtylittlehelper/images/dlh_mermaid.png" width="32px" height="32px"></button>'
 		;
 	}
 
@@ -410,7 +410,7 @@ function dlh_lets_be_dirty( dlh_dirty_i = 0){
 			+ '<button class="dlh_button_36_32"  title="insert DRAW.IO - ID into wikieditor at cursor pos"'
           		+ 'onClick="insertAtCarret(\'wiki__text\' , '
 			+ '\'{{drawio>\'+getImageName().substr(0,getImageName().lastIndexOf(\':\')+1)+ \'drawio_\'+ ((new Date()).getTime()) +\'.svg}} \''
-			+  ');"><img src="'+JSINFO['dlh']['DOKU_URL']+'lib/plugins/dirtylittlehelper/dlh_drawio.png" width="32px" height="32px">'
+			+  ');"><img src="'+JSINFO['dlh']['DOKU_URL']+'lib/plugins/dirtylittlehelper/images/dlh_drawio.png" width="32px" height="32px">'
           		+ '</button> '
 			;
 	}
@@ -436,14 +436,14 @@ function dlh_lets_be_dirty( dlh_dirty_i = 0){
       insert_this_html = ''
           + '<button title="open in new window" class="dlh_button_36_32" '
           + 'onClick="dlh_open_wiki_link( dlh_objectValueGet(\''
-          + jQuery.data(document.body).dlh_ids[i]  +'\') );"><img src="'+JSINFO['dlh']['DOKU_URL']+'lib/plugins/dirtylittlehelper/dlh_open_window.png" width="32px" height="32px">'
+          + jQuery.data(document.body).dlh_ids[i]  +'\') );"><img src="'+JSINFO['dlh']['DOKU_URL']+'lib/plugins/dirtylittlehelper/images/dlh_open_window.png" width="32px" height="32px">'
           + '</button> ';
 	  
 	  if(JSINFO['dlh']['show_id']){
           insert_this_html = insert_this_html 
           + '<button title=add :TimeID" class="dlh_button_36_32" '
           + 'onClick="dlh_objectValueSet(\''
-          + jQuery.data(document.body).dlh_ids[i] +'\', (dlh_objectValueGet(\''+jQuery.data(document.body).dlh_ids[i]+'\') + \':\' + dlh_objectValueGet(\'dlh_mytimeid\')+\':\').replace(/::/i, \':\')   );"><img src="'+JSINFO['dlh']['DOKU_URL']+'lib/plugins/dirtylittlehelper/dlh_add_id.png" width="32px" height="32px">'
+          + jQuery.data(document.body).dlh_ids[i] +'\', (dlh_objectValueGet(\''+jQuery.data(document.body).dlh_ids[i]+'\') + \':\' + dlh_objectValueGet(\'dlh_mytimeid\')+\':\').replace(/::/i, \':\')   );"><img src="'+JSINFO['dlh']['DOKU_URL']+'lib/plugins/dirtylittlehelper/images/dlh_add_id.png" width="32px" height="32px">'
           + '</button> ';
 	  }
 	  
@@ -456,7 +456,7 @@ function dlh_lets_be_dirty( dlh_dirty_i = 0){
       jQuery('#'+jQuery.data(document.body).dlh_ids[i]).after(''
           + '<button title="insert into wikieditor at cursor pos" class="dlh_button_36_32" '
           + 'onClick="insertAtCarret(\'wiki__text\' , '
-          + '\'[[\' + dlh_objectValueGet(\''+ jQuery.data(document.body).dlh_ids[i] +'\') + \'|]]\'  );"><img src="'+JSINFO['dlh']['DOKU_URL']+'lib/plugins/dirtylittlehelper/dlh_link_insert.png" width="32px" height="32px">'
+          + '\'[[\' + dlh_objectValueGet(\''+ jQuery.data(document.body).dlh_ids[i] +'\') + \'|]]\'  );"><img src="'+JSINFO['dlh']['DOKU_URL']+'lib/plugins/dirtylittlehelper/images/dlh_link_insert.png" width="32px" height="32px">'
           + '</button> '
       );
 
@@ -473,8 +473,8 @@ function dlh_lets_be_dirty( dlh_dirty_i = 0){
 		jQuery('#dlh_mytoolbar_hack').append(
 			'<div class="dlh_sep"></div>'
 			+ '<input id="dlh_mytimeid" type="text" title="DLH timeID">'
-			+ '<button class="dlh_button_36_32" onClick="dlh_renew_timeid(\'dlh_mytimeid\');" title="renew timeID"><img src="'+JSINFO['dlh']['DOKU_URL']+'lib/plugins/dirtylittlehelper/dlh_id_renew.png" width="32px" height="32px"></button>'
-			+ '<button class="dlh_button_36_32" onClick="insertAtCarret(\'wiki__text\', dlh_objectValueGet(\'dlh_mytimeid\') );" title="paste timeID at current position"><img src="'+JSINFO['dlh']['DOKU_URL']+'lib/plugins/dirtylittlehelper/dlh_id_insert.png" width="32px" height="32px"></button>');
+			+ '<button class="dlh_button_36_32" onClick="dlh_renew_timeid(\'dlh_mytimeid\');" title="renew timeID"><img src="'+JSINFO['dlh']['DOKU_URL']+'lib/plugins/dirtylittlehelper/images/dlh_id_renew.png" width="32px" height="32px"></button>'
+			+ '<button class="dlh_button_36_32" onClick="insertAtCarret(\'wiki__text\', dlh_objectValueGet(\'dlh_mytimeid\') );" title="paste timeID at current position"><img src="'+JSINFO['dlh']['DOKU_URL']+'lib/plugins/dirtylittlehelper/images/dlh_id_insert.png" width="32px" height="32px"></button>');
 	}
 
 
