@@ -13,9 +13,6 @@ die();
 
 class syntax_plugin_dirtylittlehelper_0syntax extends DokuWiki_Syntax_Plugin
 {
-//        var $dlh_thetree = '';
-//        var $dlh_no_tree = false;
-//        var $dlh_tree_count=0;
 
         var $dlh_handle = '';
 
@@ -50,10 +47,7 @@ class syntax_plugin_dirtylittlehelper_0syntax extends DokuWiki_Syntax_Plugin
         */
         public function connectTo($mode)
         {
-//                $this->Lexer->addEntryPattern('\<dlh\.mm\>',$mode,'plugin_dirtylittlehelper');
-                $this->Lexer->addEntryPattern('\<dlh\.mm\>',$mode,'plugin_dirtylittlehelper_'.$this->getPluginComponent());
                 $this->Lexer->addEntryPattern('\<dlh\.\*\>',$mode,'plugin_dirtylittlehelper_'.$this->getPluginComponent());
-//                $this->Lexer->addSpecialPattern('\<dlh\.tree\>',$mode,'plugin_dirtylittlehelper_'.$this->getPluginComponent());
                 $this->Lexer->addSpecialPattern('\<dlh\.nosb\>',$mode,'plugin_dirtylittlehelper_'.$this->getPluginComponent());
 
 
@@ -99,13 +93,8 @@ class syntax_plugin_dirtylittlehelper_0syntax extends DokuWiki_Syntax_Plugin
 
                         case DOKU_LEXER_SPECIAL:
 
-//error_log($match . __LINE__);
 
-                                if ($match == '<dlh.tree>'){
-                                        $this->dlh_handle='TREE';
-                                        return array($state, '<DLH-DO:START:'.$this->dlh_handle,$match);
-
-                                }elseif(  $match == '<dlh.nosb>'){
+                                if (  $match == '<dlh.nosb>'){
                                         $this->dlh_no_tree = true;
                                         $this->dlh_handle='NOSB';
                                         return array($state, '<DLH-DO:START:'.$this->dlh_handle,$match);
@@ -117,7 +106,7 @@ class syntax_plugin_dirtylittlehelper_0syntax extends DokuWiki_Syntax_Plugin
                                       ||  substr( $match,0,12) == '</dlh.style>'
                                         ){
                                         $this->dlh_handle='TAG_CLOSE';
-//error_log($match . __LINE__);
+
                                         return array($state, '<DLH-DO:START:'.$this->dlh_handle,$match);
 
 
@@ -135,10 +124,7 @@ class syntax_plugin_dirtylittlehelper_0syntax extends DokuWiki_Syntax_Plugin
 
 
                         case DOKU_LEXER_ENTER:
-                                if($match=='<dlh.mm>'){
-                                        $this->dlh_handle='MERMAID';
-                                }
-                                elseif($match=='<dlh.*>' ){
+                                if($match=='<dlh.*>' ){
                                         $this->dlh_handle='COMMENT';
                                 }
 
@@ -172,12 +158,7 @@ class syntax_plugin_dirtylittlehelper_0syntax extends DokuWiki_Syntax_Plugin
         {
                 if ($mode == 'xhtml') {
 
-                        if($data[1]=='<DLH-DO:START:MERMAID'){
-                                // securityLevel loose allows more advanced functionality such as subgraphs to run.
-                                // @todo: this should be an option in the interface.
-                                $renderer->doc .= '<div class="mermaid">';
-
-                        }elseif(  $data[1]=='<DLH-DO:START:TAG_OPEN' ){
+                        if(  $data[1]=='<DLH-DO:START:TAG_OPEN' ){
                                 $renderer->doc .= str_replace('<dlh.','<',$data[2]);
 
                         }elseif(  $data[1]=='<DLH-DO:START:TAG_CLOSE' ){
@@ -240,10 +221,6 @@ class syntax_plugin_dirtylittlehelper_0syntax extends DokuWiki_Syntax_Plugin
                                                                 .' .showSidebar #dokuwiki__content > .pad{ margin-left:0px !important; } '
                                                                 .' </style>';
 
-                        }elseif($data[1]=='<DLH-DO:END:MERMAID'){
-                                $renderer->doc .= "</div>";
-
-
                         }elseif(substr($data[1],0,8) != '<DLH-DO:'){
                                 $renderer->doc .= $data[1];
                         }
@@ -259,62 +236,6 @@ class syntax_plugin_dirtylittlehelper_0syntax extends DokuWiki_Syntax_Plugin
         } //function render
 
 
-        function dlh_dokubook_p_index_xhtml($ns) {
-
-                require_once(DOKU_INC.'inc/search.php');
-
-                global $conf;
-                global $ID;
-
-                $dir = $conf['datadir'];
-
-                $ns  = cleanID($ns);
-
-                #fixme use appropriate function
-                if(empty($ns)){
-
-                        $ns = dirname(str_replace(':','/',$ID));
-
-                        if($ns == '.') $ns ='';
-
-                }
-
-                $ns  = utf8_encodeFN(str_replace(':','/',$ns));
-
-                // only extract headline
-                preg_match('/<h1>.*?<\/h1>/', p_locale_xhtml('index'), $match);
-                $this->dlh_thetree .=  $match[0];
-
-                $data = array();
-                search($data,$conf['datadir'],'search_index',array('ns' => $ns));
-
-                $this->dlh_thetree .=   '<div class="dlh_ontheleft"><div id="sb__index__tree">' . DOKU_LF;
-                $this->dlh_thetree .=   html_buildlist($data,'idx','html_list_index','html_li_index');
-                $this->dlh_thetree .=   '</div></div>' . DOKU_LF;
-
-        } //dlh_dokubook_p_index_xhtml
-
-
-
-
-        function dlh_dokubook_tree( $dlh_target=false ){
-
-                global $lang;
-                global $ID;
-                global $INFO;
-
-                if( $dlh_target !== false){
-                $svID  = cleanID($dlh_target);
-                }else{
-                $svID  = cleanID(':');
-                }
-
-                $this->dlh_thetree .=   '<span class="sb_label">' . $lang['navigation'] . '</span>' . DOKU_LF;
-                $this->dlh_thetree .=   '<aside id="navigation" class="sidebar_box">' . DOKU_LF;
-                $this->dlh_thetree .=   $this->dlh_dokubook_p_index_xhtml(cleanID($svID));
-                $this->dlh_thetree .=   '</aside>' . DOKU_LF;
-
-        } //function dlh_dokubook_tree
 
 } //class
 
