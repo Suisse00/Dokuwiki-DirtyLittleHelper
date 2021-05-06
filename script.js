@@ -646,6 +646,23 @@ function dlh_hack_the_top(){
 } //function dlh_hack_the_top
 
 
+function dlh_sb_toggle(force=''){
+  if ( dlh_objectValueGet('dlh_left_tmp_sb') == "x"){dlh_objectValueSet('dlh_left_tmp_sb',jQuery('#dokuwiki__aside').css('width').replace('px',''));}
+  if ( dlh_objectValueGet('dlh_left_tmp_content') == "x"){dlh_objectValueSet('dlh_left_tmp_content',jQuery('.showSidebar #dokuwiki__content > .pad').css('margin-left').replace('px',''));}
+
+if( dlh_objectValueGet('dlh_left_tmp_status')=='show' || force == 'hide'){
+  jQuery('#dokuwiki__aside').css({'width': '0px'});
+  jQuery('.showSidebar #dokuwiki__content > .pad').css({'margin-left': '0px'});
+  dlh_objectValueSet( 'dlh_left_tmp_status','hide');
+  return true;
+}
+if( dlh_objectValueGet('dlh_left_tmp_status')=='hide' || force == 'show'){ 
+  jQuery('#dokuwiki__aside').css({'width': dlh_objectValueGet('dlh_left_tmp_sb')+'px' });
+  jQuery('.showSidebar #dokuwiki__content > .pad').css({'margin-left': dlh_objectValueGet('dlh_left_tmp_content')+'px' });
+  dlh_objectValueSet( 'dlh_left_tmp_status','show');
+  return true;
+}
+} //function dlh_sb_toggle
 
 
 document.addEventListener("DOMContentLoaded", function(event) { 
