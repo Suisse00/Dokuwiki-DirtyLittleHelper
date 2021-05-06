@@ -51,7 +51,7 @@ class syntax_plugin_dirtylittlehelper_0syntax extends DokuWiki_Syntax_Plugin
         public function connectTo($mode)
         {
 //                $this->Lexer->addEntryPattern('\<dlh\.mm\>',$mode,'plugin_dirtylittlehelper');
-                $this->Lexer->addEntryPattern('\<dlh\.mm\>',$mode,'plugin_dirtylittlehelper_'.$this->getPluginComponent()
+                $this->Lexer->addEntryPattern('\<dlh\.mm\>',$mode,'plugin_dirtylittlehelper_'.$this->getPluginComponent());
                 $this->Lexer->addEntryPattern('\<dlh\.\*\>',$mode,'plugin_dirtylittlehelper');
                 $this->Lexer->addSpecialPattern('\<dlh\.tree\>',$mode,'plugin_dirtylittlehelper');
                 $this->Lexer->addSpecialPattern('\<dlh\.nosb\>',$mode,'plugin_dirtylittlehelper');
