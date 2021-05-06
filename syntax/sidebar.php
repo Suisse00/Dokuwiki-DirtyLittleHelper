@@ -14,18 +14,18 @@ die();
 class syntax_plugin_dirtylittlehelper_sidebar extends DokuWiki_Syntax_Plugin
 {
 
-		$togglesb_html = '<input type="hidden" id="dlh_left_tmp_sb" value="x">'
+		var $togglesb_html = '<input type="hidden" id="dlh_left_tmp_sb" value="x">'
 						.'<input type="hidden" id="dlh_left_tmp_content" value="x">'
 						.'<input type="hidden" id="dlh_left_tmp_status" value="show">'
 						.'<button onClick="dlh_sb_toggle();" class="dlh_left_button_sb_toggle">&nbsp;</button>';
 
-		$hidesb_html = 'document.addEventListener("DOMContentLoaded", function(event) { '
+		var $hidesb_html = 'document.addEventListener("DOMContentLoaded", function(event) { '
 						.' dlh_sb_toggle(\'hide\');'
 						.' }); ';
 						
-		$force_nosb = false;
+		var $force_nosb = false;
 		
-		$nosb_html = '<style> '
+		var $nosb_html = '<style> '
 						.' #dokuwiki__aside{ display:none !important;}  '
 						.' #dokuwiki__aside *{ display:none !important;}   '
 						.' .showSidebar #dokuwiki__content > .pad{ margin-left:0px !important; } '
