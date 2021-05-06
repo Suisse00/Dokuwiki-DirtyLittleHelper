@@ -47,7 +47,6 @@ class syntax_plugin_dirtylittlehelper_0syntax extends DokuWiki_Syntax_Plugin
         */
         public function connectTo($mode)
         {
-//                $this->Lexer->addEntryPattern('\<dlh\.\*\>',$mode,'plugin_dirtylittlehelper_'.$this->getPluginComponent());
                 $this->Lexer->addSpecialPattern('\<dlh\.nosb\>',$mode,'plugin_dirtylittlehelper_'.$this->getPluginComponent());
 
                 $this->Lexer->addSpecialPattern('\<dlh\.table[^\>]*\>',$mode,'plugin_dirtylittlehelper_'.$this->getPluginComponent());
@@ -113,7 +112,7 @@ class syntax_plugin_dirtylittlehelper_0syntax extends DokuWiki_Syntax_Plugin
 
 
                         case DOKU_LEXER_ENTER:
-                                if($match=='<dlh.*>' ){
+                                if($match=='YYYYY<dlh.*>' ){
                                         $this->dlh_handle='COMMENT';
                                 }
 

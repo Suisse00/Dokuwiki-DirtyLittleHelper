@@ -65,7 +65,7 @@ class syntax_plugin_dirtylittlehelper_divwiki extends DokuWiki_Syntax_Plugin
         public function handle($match, $state, $pos, Doku_Handler $handler)
         {
 
-			if( substr($match,0,3) =='<dl>'){
+			if( substr($match,0,3) =='<dl'){
 				return array($state, 'BEGIN',$match);
 
 			}elseif( substr($match,0,3) =='</d'){

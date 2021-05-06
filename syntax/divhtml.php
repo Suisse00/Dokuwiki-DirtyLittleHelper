@@ -73,7 +73,7 @@ class syntax_plugin_dirtylittlehelper_divhtml extends DokuWiki_Syntax_Plugin
                 switch ($state) {
 
                         case DOKU_LEXER_ENTER:
-                                if( substr($match,0,3) =='<dl>'){
+                                if( substr($match,0,3) =='<dl'){
                                         return array($state, 'BEGIN',$match);
                                 }
 

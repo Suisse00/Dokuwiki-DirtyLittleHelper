@@ -46,15 +46,15 @@ class syntax_plugin_dirtylittlehelper_comment extends DokuWiki_Syntax_Plugin
         */
         public function connectTo($mode)
         {
-                $this->Lexer->addEntryPattern('\<dlh\.\*\>',$mode,'plugin_dirtylittlehelper_'.$this->getPluginComponent());
-                $this->Lexer->addEntryPattern('\<dlh\*\>',$mode,'plugin_dirtylittlehelper_'.$this->getPluginComponent());
+                $this->Lexer->addEntryPattern('\<dlh\.x\>',$mode,'plugin_dirtylittlehelper_'.$this->getPluginComponent());
+                $this->Lexer->addEntryPattern('\<dlhx\>',$mode,'plugin_dirtylittlehelper_'.$this->getPluginComponent());
         }
 
 		
         public function postConnect()
         {
-                $this->Lexer->addExitPattern('\<\/dlh\.\*\>',$mode,'plugin_dirtylittlehelper_'.$this->getPluginComponent());
-                $this->Lexer->addExitPattern('\<\/dlh\*\>',$mode,'plugin_dirtylittlehelper_'.$this->getPluginComponent());
+                $this->Lexer->addExitPattern('\<\/dlh\.x\>',$mode,'plugin_dirtylittlehelper_'.$this->getPluginComponent());
+                $this->Lexer->addExitPattern('\<\/dlhx\>',$mode,'plugin_dirtylittlehelper_'.$this->getPluginComponent());
         }
 
 
@@ -74,7 +74,7 @@ class syntax_plugin_dirtylittlehelper_comment extends DokuWiki_Syntax_Plugin
                 switch ($state) {
 
                         case DOKU_LEXER_ENTER:
-                                if( substr($match,0,3) =='<dl>'){
+                                if( substr($match,0,3) =='<dl'){
                                         return array($state, 'BEGIN');
                                 }
 
