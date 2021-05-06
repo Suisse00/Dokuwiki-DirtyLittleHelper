@@ -33,7 +33,7 @@ class action_plugin_dirtylittlehelper extends DokuWiki_Action_Plugin {
                             'type'    => 'text/javascript',
                             'charset' => 'utf-8',
                             '_data'   => '',
-                            'src' => DOKU_BASE."lib/plugins/dirtylittlehelper/mermaid.min.js");
+                            'src' => DOKU_BASE."lib/plugins/dirtylittlehelper/script/mermaid.min.js");
 		
 		$event->data['script'][] = array(
                     'type'    => 'text/javascript',
