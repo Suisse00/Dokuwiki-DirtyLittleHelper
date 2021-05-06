@@ -152,7 +152,7 @@ class syntax_plugin_dirtylittlehelper_tree extends DokuWiki_Syntax_Plugin
 							if( $data[1] == 'TREE' ){
 								if( $this->dlh_tree_no == false && $this->dlh_tree_force == false){
 									if( $this->dlh_tree_count == 0){
-										$renderer->doc .$this->dlh_tree_html;
+										$renderer->doc .= $this->dlh_tree_html;
 										$this->dlh_tree_count =1;
 										return true;
 									}else{
@@ -167,7 +167,7 @@ class syntax_plugin_dirtylittlehelper_tree extends DokuWiki_Syntax_Plugin
 							
 							if( $data[1] == 'FORCETREE'){
 								if( $this->dlh_tree_count == 0){
-									$renderer->doc .$this->dlh_tree_html;
+									$renderer->doc .= $this->dlh_tree_html;
 									$this->dlh_tree_count =1;
 									return true;
 								}else{
