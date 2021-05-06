@@ -150,7 +150,7 @@ class syntax_plugin_dirtylittlehelper_tree extends DokuWiki_Syntax_Plugin
 							
 							//normal tree 
 							if( $data[1] == 'TREE' ){
-								if( $this->dlh_tree_no == false && $this->dlh_tree_force = false){
+								if( $this->dlh_tree_no == false && $this->dlh_tree_force == false){
 									if( $this->dlh_tree_count == 0){
 										$renderer->doc .$this->dlh_tree_html;
 										$this->dlh_tree_count =1;
@@ -159,6 +159,9 @@ class syntax_plugin_dirtylittlehelper_tree extends DokuWiki_Syntax_Plugin
 										$renderer->doc .= '<div class="dlh_one_tree_only">! one tree only !</div>';
 										return true;
 									}//count==0?
+								}else{
+									//no tree to build...
+									return true;
 								}//notree & forcetree are false
 							}//normal tree
 							
