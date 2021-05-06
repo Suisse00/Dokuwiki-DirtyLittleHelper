@@ -11,7 +11,7 @@ if (!defined('DOKU_INC')) {
 die();
 }
 
-class syntax_plugin_dirtylittlehelper_divwiki extends DokuWiki_Syntax_Plugin
+class syntax_plugin_dirtylittlehelper_tablewiki extends DokuWiki_Syntax_Plugin
 {
         var $dlh_handle = '';
 		var $dlh_tmp = '';

@@ -11,10 +11,27 @@ if (!defined('DOKU_INC')) {
 die();
 }
 
-class syntax_plugin_dirtylittlehelper_tablehtml extends DokuWiki_Syntax_Plugin
+class syntax_plugin_dirtylittlehelper_sidebar extends DokuWiki_Syntax_Plugin
 {
-        var $dlh_handle = '';
 
+		$togglesb_html = '<input type="hidden" id="dlh_left_tmp_sb" value="x">'
+						.'<input type="hidden" id="dlh_left_tmp_content" value="x">'
+						.'<input type="hidden" id="dlh_left_tmp_status" value="show">'
+						.'<button onClick="dlh_sb_toggle();" class="dlh_left_button_sb_toggle">&nbsp;</button>';
+
+		$hidesb_html = 'document.addEventListener("DOMContentLoaded", function(event) { '
+						.' dlh_sb_toggle(\'hide\');'
+						.' }); ';
+						
+		$force_nosb = false;
+		
+		$nosb_html = '<style> '
+						.' #dokuwiki__aside{ display:none !important;}  '
+						.' #dokuwiki__aside *{ display:none !important;}   '
+						.' .showSidebar #dokuwiki__content > .pad{ margin-left:0px !important; } '
+						.' </style>';
+						
+		
         /**
         * @return string Syntax mode type
         */
@@ -46,16 +63,10 @@ class syntax_plugin_dirtylittlehelper_tablehtml extends DokuWiki_Syntax_Plugin
         */
         public function connectTo($mode)
         {
-                $this->Lexer->addEntryPattern('\<dlh\.table\.html[^\>]*\>',$mode,'plugin_dirtylittlehelper_'.$this->getPluginComponent());
+                $this->Lexer->addSpecialPattern('\<dlh\.togglesb\>',$mode,'plugin_dirtylittlehelper_'.$this->getPluginComponent());
+                $this->Lexer->addSpecialPattern('\<dlh\.nosb\>',$mode,'plugin_dirtylittlehelper_'.$this->getPluginComponent());
+                $this->Lexer->addSpecialPattern('\<dlh\.hidesb\>',$mode,'plugin_dirtylittlehelper_'.$this->getPluginComponent());
         }
-
-		
-        public function postConnect()
-        {
-                $this->Lexer->addExitPattern('\<\/dlh\.table\.html\>','plugin_dirtylittlehelper_'.$this->getPluginComponent());
-
-        }
-
 
 
 
@@ -74,18 +85,21 @@ class syntax_plugin_dirtylittlehelper_tablehtml extends DokuWiki_Syntax_Plugin
 
                 switch ($state) {
 
-                        case DOKU_LEXER_ENTER:
-                                if( substr($match,0,3) =='<dl'){
-                                        return array($state, 'BEGIN',$match);
+                        case DOKU_LEXER_SPECIAL:
+
+                                if ($match == '<dlh.togglesb>'){
+									return array( $state, 'TOGGLESB',$match);
+
+                                }elseif(  $match == '<dlh.nosb>'){
+									$this->force_nosb = true;
+									return array($state, 'NOSB',$match);
+
+								}elseif(  $match == '<dlh.hidesb>'){
+									return array($state, 'HIDESB',$match);
                                 }
 
-                        case DOKU_LEXER_UNMATCHED :
-								return array($state, 'UNMATCHED', $match);
+						break;
 
-                        case DOKU_LEXER_EXIT :
-                                if( substr($match,0,3) =='</d'){
-                                        return array($state, '/END',$match);
-                                }
                 }
         return false;
 
@@ -105,30 +119,36 @@ class syntax_plugin_dirtylittlehelper_tablehtml extends DokuWiki_Syntax_Plugin
         {
                 if ($mode == 'xhtml') {
 
-                        if($data[1]=='BEGIN'){
-                                // securityLevel loose allows more advanced functionality such as subgraphs to run.
-                                // @todo: this should be an option in the interface.
-                                $renderer->doc .= str_replace('<dlh.div.html','<div',$data[2]);;
+                        if(  $data[1]=='TOGGLESB' ){
+							
+							 
+							if( $this->force_nosb == false){
+									$renderer->doc .= $this->togglesb_html;
+									return true;
+							}
+							return true;
+
+                        }elseif($data[1]=='HIDESB'){
+                                $renderer->doc .= $this->hidesb_html;
 								return true;
 
-                        }elseif($data[1]=='/END'){
-                                $renderer->doc .= "</div>";
+                        }elseif($data[1]=='NOSB'){
+								$renderer->doc .= $this->nosb_html;
 								return true;
 
+						}
 
-                        }elseif($data[1]=='UNMATCHED'){
-                                $renderer->doc .= $data[2];
-								return true;
-                        }
 
                         return false;
 
 
                 } //mode xhtml
 
-        return false;
+				return false;
 
         } //function render
+
+
 
 
 } //class

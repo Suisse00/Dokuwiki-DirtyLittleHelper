@@ -206,6 +206,16 @@
 		font-family: monospace;
 	}
 
+	.dlh_left_button_sb_toggle{
+		width: 10px;
+		height: 10px;
+		border: 5px solid #E0E0E0;
+		position: absolute;
+		top: -10px;
+		padding: 0px;
+		overflow: hidden;
+    }
+
 	
 
 /* MERMAID */
