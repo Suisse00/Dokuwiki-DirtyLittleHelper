@@ -52,9 +52,11 @@ class syntax_plugin_dirtylittlehelper_divhtml extends DokuWiki_Syntax_Plugin
 		
         public function postConnect()
         {
-                $this->Lexer->addExitPattern('\<\/dlh\.div\.html\>',$mode,'plugin_dirtylittlehelper_'.$this->getPluginComponent());
+                $this->Lexer->addExitPattern('\<\/dlh\.div\.html\>','plugin_dirtylittlehelper_'.$this->getPluginComponent());
 
         }
+
+
 
 
         /**
