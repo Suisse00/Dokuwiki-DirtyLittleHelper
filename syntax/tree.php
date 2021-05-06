@@ -107,7 +107,7 @@ class syntax_plugin_dirtylittlehelper_tree extends DokuWiki_Syntax_Plugin
                 if ($mode == 'xhtml') {
 
                         if(  $data[1]=='TREE' ){
-                                if( $this->dlh_tree_false === false && $this->dlh_tree_count == 0 ) {
+                                if( $this->dlh_tree_no === false && $this->dlh_tree_count == 0 ) {
 
                                         if($this->dlh_tree_html==''){
                                                 //build the tree
@@ -195,14 +195,14 @@ class syntax_plugin_dirtylittlehelper_tree extends DokuWiki_Syntax_Plugin
 
                 // only extract headline
                 preg_match('/<h1>.*?<\/h1>/', p_locale_xhtml('index'), $match);
-                $this->dlh_thetree .=  $match[0];
+                $this->dlh_tree_html .=  $match[0];
 
                 $data = array();
                 search($data,$conf['datadir'],'search_index',array('ns' => $ns));
 
-                $this->dlh_thetree .=   '<div class="dlh_ontheleft"><div id="sb__index__tree">' . DOKU_LF;
-                $this->dlh_thetree .=   html_buildlist($data,'idx','html_list_index','html_li_index');
-                $this->dlh_thetree .=   '</div></div>' . DOKU_LF;
+                $this->dlh_tree_html .=   '<div class="dlh_ontheleft"><div id="sb__index__tree">' . DOKU_LF;
+                $this->dlh_tree_html .=   html_buildlist($data,'idx','html_list_index','html_li_index');
+                $this->dlh_tree_html .=   '</div></div>' . DOKU_LF;
 
         } //dlh_dokubook_p_index_xhtml
 
@@ -221,10 +221,10 @@ class syntax_plugin_dirtylittlehelper_tree extends DokuWiki_Syntax_Plugin
                 $svID  = cleanID(':');
                 }
 
-                $this->dlh_thetree .=   '<span class="sb_label">' . $lang['navigation'] . '</span>' . DOKU_LF;
-                $this->dlh_thetree .=   '<aside id="navigation" class="sidebar_box">' . DOKU_LF;
-                $this->dlh_thetree .=   $this->dlh_dokubook_p_index_xhtml(cleanID($svID));
-                $this->dlh_thetree .=   '</aside>' . DOKU_LF;
+                $this->dlh_tree_html .=   '<span class="sb_label">' . $lang['navigation'] . '</span>' . DOKU_LF;
+                $this->dlh_tree_html .=   '<aside id="navigation" class="sidebar_box">' . DOKU_LF;
+                $this->dlh_tree_html .=   $this->dlh_dokubook_p_index_xhtml(cleanID($svID));
+                $this->dlh_tree_html .=   '</aside>' . DOKU_LF;
 
         } //function dlh_dokubook_tree
 
