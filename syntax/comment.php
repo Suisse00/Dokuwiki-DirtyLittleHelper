@@ -75,15 +75,15 @@ class syntax_plugin_dirtylittlehelper_comment extends DokuWiki_Syntax_Plugin
 
                         case DOKU_LEXER_ENTER:
                                 if( substr($match,0,3) =='<dl>'){
-                                        return array($state, 'BEGIN',$match);
+                                        return array($state, 'BEGIN');
                                 }
 
                         case DOKU_LEXER_UNMATCHED :
-								return array($state, 'UNMATCHED', $match);
+								return array($state, 'UNMATCHED');
 
                         case DOKU_LEXER_EXIT :
                                 if( substr($match,0,3) =='</d'){
-                                        return array($state, '/END',$match);
+                                        return array($state, '/END');
                                 }
                 }
         return false;
