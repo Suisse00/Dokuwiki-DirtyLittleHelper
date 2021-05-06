@@ -54,11 +54,18 @@ struct_field "scheme_name.field_name_2" !
 put it in your sidebar page and be happy
 if there would be several trees -> only the first one is displayed
 
+```` <dlh.notree>````
+no tree will be rendered
+
+```` <dlh.forcetree>````
+only this tree will be rendered (overrides ````notree````)
+works only once
+
+
+
 ## nosidebar
-````
-<dlh.nosb>
-````
-The sidebar will not be shown (css) and the tree will not be generated.
+```` <dlh.nosb> ````
+The sidebar will not be shown (css) - beware that the sidebar / tree will be generated.
 
 ## mermaid
 ````
