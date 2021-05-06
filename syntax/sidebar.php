@@ -19,9 +19,9 @@ class syntax_plugin_dirtylittlehelper_sidebar extends DokuWiki_Syntax_Plugin
 						.'<input type="hidden" id="dlh_left_tmp_status" value="show">'
 						.'<button onClick="dlh_sb_toggle();" class="dlh_left_button_sb_toggle">&nbsp;</button>';
 
-		var $hidesb_html = 'document.addEventListener("DOMContentLoaded", function(event) { '
+		var $hidesb_html = '<script>document.addEventListener("DOMContentLoaded", function(event) { '
 						.' dlh_sb_toggle(\'hide\');'
-						.' }); ';
+						.' }); </script>';
 						
 		var $force_nosb = false;
 		
