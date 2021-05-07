@@ -7,7 +7,7 @@ I wanted a better way for inserting wiki-internal-links in the editor. After som
 
 Then I took the "overlay" plugin and modified it for my needs. After a while I thought that it would be cool not to click on a button to have the search input and the insert button.
 
-Some jQuery and it works. After the editor ist opened the dlh-page is loaded in the overlay, then the elements are transferred unter the toolbar. The overlay is not shown anymore - but it's still there.
+Some jQuery and it works. After the editor ist opened the dlh-page is loaded in the overlay, then the elements are transferred under the toolbar. The overlay is not shown anymore - but it's still there.
 
 Building and integrating flow-charts with mermaid: integrated. And dlh ships a mermaid live editor (till now the chart-data aren't transferred to the editor -> copy and paste).
 
@@ -63,30 +63,79 @@ works only once
 
 
 
-## nosidebar
+## sidebar
 ```` <dlh.nosb> ````
 The sidebar will not be shown (css) - beware that the sidebar / tree will be generated.
+
+```` <dlh.togglesb> ````
+there will be a button at the top left of the sidebar to toggle ist
+with 
+
+```` <dlh.hidesb ```` 
+you can hide the sidebar
+
 
 ## mermaid
 ````
 <dlh.mm>
 graph LR
 DOKUWIKI----DLH
-</dlh>
+</dlh.mm>
 ````
 When you click the mermaid live editor you can follow the links to syntax etc.
 
 ## comments
 ````
-<dlh.*> this one line comment will only be seen in the editor </dlh>
+<dlh.*> this one line comment will only be seen in the editor </dlh.*>
 
 <dlh.*>
 this 
 multi 
 line 
 comment will also only be seen in the editor 
-</dlh>
+</dlh.*>
 ````
+
+## div
+
+```` <dlh.div.html[ id="" class="" style=""...]> Your html content </dlh.div.html>````
+will build a html div like ````<html><div>Your html content</div></html>````
+
+```` <dlh.div.wiki [ id="" class="" style=""...]> **Your** WIKI __content__ </dlh.div.wiki>````
+will build a div around your wiki code  like ````<html><div></html>**Your** WIKI __content__ <html></div></html>````
+
+## table
+```` 
+<dlh.table.html[ id="" class="" style=""...]>
+  <caption>your caption</caption>
+  <tr>
+    <th>tablehead a</th>
+    <th>tablehead b</th>
+  </tr>
+  <tr>
+    <td> cell with text </td>
+    <td> amnother cell </td>
+  </tr>
+<dlh.table.html>
+```` 
+
+is for pure html and like ```` <dlh.div.wiki> ```` you can build a table around wiki content
+
+```` 
+<dlh.table.wiki [ id="" class="" style=""...]>
+  <dlh.caption.wiki> **wiki caption content** </dlh.caption.wiki>
+  <dlh.tr.wiki>
+    <dlh.th.wiki> table head __wiki__ syntax </dlh.th.wiki>
+    <dlh.th.wiki> **another** table head __wiki__ syntax </dlh.th.wiki>
+  </dlh.tr.wiki>
+  <dlh.tr.wiki>
+    <dlh.td.wiki> call a plugin or some other cool stuff </dlh.th.wiki>
+    <dlh.td.wiki> **wiki syntax here** </dlh.th.wiki>
+  </dlh.tr.wiki>
+</dlh.table.wiki>
+
+````
+
 
 ## BEWARE !
 This plugin is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
