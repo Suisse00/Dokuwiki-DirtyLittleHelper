@@ -394,28 +394,28 @@ function dlh_ini(count=0){
 
 						+ '<button class="dlh_button_36_32"  title="<dlh.table.html>..." accesskey="*" '
 						+ 'onClick="insertAtCarret(\'wiki__text\' , '
-						+ '   \'<dlh.table.html> \\n <tr> \\n <td> A </td> \\n <td> B </td> \\n <tr> \\n </dlh.table.html>\');">'
+						+ '   \'\\n<dlh.table.html> \\n <tr> \\n  <td> A </td> \\n  <td> B </td> \\n </tr> \\n</dlh.table.html>\');">'
 						+  '<img src="'+JSINFO['dlh']['DOKU_URL']+'lib/plugins/dirtylittlehelper/images/dlh_table_html.png" width="32px" height="32px">'
 						+ '</button> '
 
 						+ '<button class="dlh_button_36_32"  title="<dlh.table.wiki>..." accesskey="*" '
 						+ 'onClick="insertAtCarret(\'wiki__text\' , '
-						+ '   \'<dlh.table.wiki> \\n <dlh.tr.wiki> \\n <dlh.td.wiki> WIKI_CONTENT_A </dlh.td.wiki> \\n <dlh.td.wiki> WIKI_CONTENT_B </dlh.td.wiki> \\n <dlh.tr.wiki> \\n </dlh.table.wiki>\');">'
+						+ '   \'\\n<dlh.table.wiki> \\n <dlh.tr.wiki> \\n  <dlh.td.wiki> WIKI_CONTENT_A </dlh.td.wiki> \\n  <dlh.td.wiki> WIKI_CONTENT_B </dlh.td.wiki> \\n </dlh.tr.wiki> \\n</dlh.table.wiki>\');">'
 						+  '<img src="'+JSINFO['dlh']['DOKU_URL']+'lib/plugins/dirtylittlehelper/images/dlh_table_wiki.png" width="32px" height="32px">'
 						+ '</button> '
 
 						+ '<div class="dlh_sep"></div>'
 
 						+ '<button class="dlh_button_36_32"  title="<dlh.div.html>..." accesskey="*" '
-						+ 'onClick="insertAtCarret(\'wiki__text\' , '
-						+ '   \'<dlh.div.html>  \\n CONTENT \\n </dlh.div.html>\');">'
+						+ 'onClick="insertTags(\'wiki__text\' , '
+						+ '   \'<dlh.div.html>\\n\',\'\\n</dlh.div.html>\', \' HTML CONTENT \');">'
 						+  '<img src="'+JSINFO['dlh']['DOKU_URL']+'lib/plugins/dirtylittlehelper/images/dlh_div_html.png" width="32px" height="32px">'
 						+ '</button> '
 
 						+ '<button class="dlh_button_36_32"  title="<dlh.div.wiki>..." accesskey="*" '
-						+ 'onClick="insertAtCarret(\'wiki__text\' , '
-						+ '   \'<dlh.div.wiki> \\n WIKI_CONTENT \\n <dlh.div.wiki>\');">'
-						+  '<img src="'+JSINFO['dlh']['DOKU_URL']+'lib/plugins/dirtylittlehelper/images/dlh_div_html.png" width="32px" height="32px">'
+						+ 'onClick="insertTags(\'wiki__text\' , '
+						+ '   \'<dlh.div.wiki> \\n\' , \'\\n</dlh.div.wiki>\',\' WIKI_CONTENT \');">'
+						+  '<img src="'+JSINFO['dlh']['DOKU_URL']+'lib/plugins/dirtylittlehelper/images/dlh_div_wiki.png" width="32px" height="32px">'
 						+ '</button> '
 						;
 
