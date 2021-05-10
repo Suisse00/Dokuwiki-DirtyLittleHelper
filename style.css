@@ -31,7 +31,7 @@
     position: absolute;
     bottom: 0;
 }  
-#dirtylittlehelper_overlay div.dirtylittlehelper_ovl-insert {
+#dirtylittlehelper_overlay div.dirtylittlehelper_ovl_insert {
     padding: 4px;
 }
 #dirtylittlehelper_overlay div.close a { 
@@ -45,7 +45,7 @@
 
 /* THE ADMIN MENU AT THE TOP */
 
-.dlh_topmenu {
+#dlh_top0 {
     position: fixed;
     top: 0px;
     left: 0px;
@@ -63,26 +63,49 @@
     /* overflow: hidden; */
 }
 
-
-.dlh_topmenu_dropdown_admin { width: 100px; display:inline-block; }
-.dlh_topmenu_dropdown_admin:hover .dlh_topmenu_dropbtn_admin { background-color: #000000;}
-.dlh_topmenu_dropdown_admin:hover .dlh_topmenu_dropdown_content_admin { display: block;}
-
-.dlh_topmenu_dropbtn_admin { color: black; }
-
-.dlh_topmenu_dropdown_content_admin { position:relative; display: none; background-color: #f1f1f1; width: 500px; z-index: 999; margin-left: -200px;  margin-top: -20px;}
-.dlh_topmenu_dropdown_content_admin a { color: black; padding: 6px 8px;  border: 1px solid #CCCCCC; display: flex; text-decoration: none; font-size:12px; text-align: left; }
-.dlh_topmenu_dropdown_content_admin a:hover { background-color: #474747; color:#FFFFFF; text-decoration: none;}
-.dlh_topmenu_dropdown_content_admin a svg { width:16px; height:16px; margin-right:4px; }
-.dlh_topmenu_dropdown_content_admin table { width: 500px; }
-.dlh_topmenu_dropdown_content_admin table td { width: 50%; }
+#dlh_top_helper_a{ width:40px;margin-right:10px;display:inline-block;}
+#dlh_top_helper_b{ display:none; width:600px;border:1px solid red;position: relative; margin-top: -15px; background-color: #FFF;}
+#dlh_top_helper_b input{width:550px;display:inline;}
+#dlh_top_helper_a:hover #dlh_top_helper_b{ display: table; }
 
 
-#dlh_topmenu_page { display: inline; }
-#dlh_topmenu_page p { display: inline; }
+
+#dlh_top_struct_a { display:inline; }
+#dlh_top_struct_b { display:none; }
+#dlh_top_struct_c { display:none; }
+
+#dlh_top_struct_b button ,
+#dlh_top_struct_b div ,
+#dlh_top_struct_b span ,
+#dlh_top_struct_b input 
+{ display:inline; }
+
+#dlh_top_pagesuggest { display:inline; }
+
+#dlh_top_dlhid { display:inline; }
+
+
+.dlh_top_menu { display: inline; }
+.dlh_top_menu_dropdown_admin { width: 100px; display:inline-block; }
+.dlh_top_menu_dropdown_admin:hover .dlh_top_menu_dropbtn_admin { background-color: #000000;}
+.dlh_top_menu_dropdown_admin:hover .dlh_top_menu_dropdown_content_admin { display: block;}
+
+.dlh_top_menu_dropbtn_admin { color: black; }
+
+.dlh_top_menu_dropdown_content_admin { position:relative; display: none; background-color: #f1f1f1; width: 500px; z-index: 999; margin-left: -200px;  margin-top: -20px;}
+.dlh_top_menu_dropdown_content_admin a { color: black; padding: 6px 8px;  border: 1px solid #CCCCCC; display: flex; text-decoration: none; font-size:12px; text-align: left; }
+.dlh_top_menu_dropdown_content_admin a:hover { background-color: #474747; color:#FFFFFF; text-decoration: none;}
+.dlh_top_menu_dropdown_content_admin a svg { width:16px; height:16px; margin-right:4px; }
+.dlh_top_menu_dropdown_content_admin table { width: 500px; }
+.dlh_top_menu_dropdown_content_admin table td { width: 50%; }
+
+
+#dlh_top_menu_page { display: inline; }
+#dlh_top_menu_page p { display: inline; }
 #dlh_top_all { display: inline; }
 #dlh_top_all div.field { display: inline; }
-#dlh_top_struct { display: none; }
+.dlh_top_struct { display: none; }
+
 
 
 /* HACK THE WIKI STYLE */
@@ -154,14 +177,14 @@
 	}
 
 	
-	#dlh_mytimeid{ 
+	#dlh_edit_tb_dlhid{ 
 		width: 100px;
 		font-size: 16px;
 		height: 32px;
 	}
 
 	
-	#dlh_select{
+	.dlh_edit_tb_select{
 		width: 220px;
 		margin-right: 10px;
 		font-size: 16px;

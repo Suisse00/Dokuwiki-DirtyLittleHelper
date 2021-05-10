@@ -13,22 +13,363 @@ if(!defined('DOKU_INC')) die();
 
 class action_plugin_dirtylittlehelper extends DokuWiki_Action_Plugin {
 	
-    var $dlh_top_menu_make = true;
+	var $dlh_overlay = '';
+	var $dlh_topmenu = '';
 
     function register(Doku_Event_Handler $controller) {
 
 
-    $controller->register_hook('DOKUWIKI_STARTED', 'AFTER', $this, 'dirtylittlehelper_extendJSINFO');
-    $controller->register_hook('TPL_ACT_RENDER', 'AFTER',  $this, 'dirtylittlehelper_print_overlay', array('after'));
-    $controller->register_hook('MENU_ITEMS_ASSEMBLY', 'AFTER', $this, 'dirtylittlehelper_menu', array());
+    //$controller->register_hook('DOKUWIKI_STARTED', 'AFTER', $this, 'dirtylittlehelper_extendJSINFO');
+    //$controller->register_hook('TPL_ACT_RENDER', 'AFTER',  $this, 'dirtylittlehelper_print_overlay', array('after'));
+    //$controller->register_hook('MENU_ITEMS_ASSEMBLY', 'AFTER', $this, 'dirtylittlehelper_menu', array());
+
+
+    $controller->register_hook('DOKUWIKI_STARTED', 'AFTER', $this, 'dirtylittlehelper_varis');
+    $controller->register_hook('TPL_METAHEADER_OUTPUT', 'BEFORE', $this, 'dirtylittlehelper_add_js_mermaid');
     $controller->register_hook('TOOLBAR_DEFINE', 'AFTER', $this, 'dirtylittlehelper_insert_button', array ());
-    $controller->register_hook('TPL_METAHEADER_OUTPUT', 'BEFORE', $this, 'dirtylittlehelper_mermaid');
-        
+    $controller->register_hook('TPL_ACT_RENDER', 'AFTER',  $this, 'dirtylittlehelper_output', array('after'));
 
     }
 
+    function dirtylittlehelper_insert_button(Doku_Event $event, $param) {
+
+        $event->data[] = array (
+        'type' => 'dirtylittlehelper',
+        'title' => 'DLH', //$this->getLang('abutton'),
+        'icon' => '../../plugins/dirtylittlehelper/images/dirtylittlehelper_ovl_sprite.png',
+        );
+
+    }//function dirtylittlehelper_insert_button
+
+	
+	function dirtylittlehelper_output(&$event, $param) {
+		echo $this->dlh_overlay;
+		echo $this->dlh_topmenu;
+		
+	}
+	
+	
+
+
+	
+	function dirtylittlehelper_varis(&$event, $param){
+		
+		global $ACT, $JSINFO, $ID, $INPUT, $auth, $TPL, $INFO;
+		
+		$INFO['dlh'] = array(
+			  'isadmin' => (int) $INFO['isadmin']
+			, 'isauth'  => (int) $INFO['userinfo']
+		);
+		
+		$JSINFO['dlh'] = array(
+			  'QUOT'		=> '"'
+			, 'WL' 			=> wl('','',true)
+			, 'DOKU_BASE'	=> DOKU_BASE
+			, 'DOKU_URL'	=> DOKU_URL
+			, 'isadmin' 	=> (int) $INFO['isadmin']
+			, 'isauth'  	=> (int) $INFO['userinfo']
+		);
+
+        if(is_array($ACT)) {
+            $ACT = act_clean($ACT);
+        }
+        
+        $INFO['dlh']['act_edit'] = $regex = 'edit|preview';
+        $JSINFO['dlh']['act_edit'] = $regex = 'edit|preview';
+		
+		$JSINFO['dlh']['edit_active'] = 0;
+		
+		if($INFO['dlh']['act_edit'] && $INFO['dlh']['isadmin'] && $INFO['dlh']['isauth']){
+
+			$JSINFO['dlh']['edit_active'] = $this->getConf('edit_active');
+			
+			if( $JSINFO['dlh']['edit_active']){
+				$JSINFO['dlh']['edit_dlh_wikiid']	= $this->getConf('edit_dlh_wikiid');
+				$JSINFO['dlh']['edit_tb_min_max'] 	= $this->getConf('edit_tb_minmax');
+				$JSINFO['dlh']['edit_tb_maximize'] 	= $this->getConf('edit_tb_maximize');
+				$JSINFO['dlh']['edit_tb_code']	 	= $this->getConf('edit_tb_code');
+				$JSINFO['dlh']['edit_tb_mermaid']	= $this->getConf('edit_tb_mermaid');
+				$JSINFO['dlh']['edit_tb_drawio']	= $this->getConf('edit_tb_drawio');
+				$JSINFO['dlh']['edit_tb_struct']	= $this->getConf('edit_tb_struct');
+				$JSINFO['dlh']['edit_tb_dlhid']		= $this->getConf('edit_tb_dlhid');
+			}
+			
+		}//editor?
+
+		$JSINFO['dlh']['top_active'] = $this->getConf('top_active');
+		
+		
+		
+		//ONLY IF ACT = EDIT/PREVIEW && CONF = 1 && ISADMIN && ISAUTH
+		if( $INFO['dlh']['act_edit'] 
+			&& $this->getConf('edit_active') 
+			&& $INFO['dlh']['isadmin']
+			&& $INFO['dlh']['isauth']
+		){
+
+
+			$edit_dlh_wikiid = trim($this->getConf('edit_dlh_wikiid'));
+
+			if($edit_dlh_wikiid){ 
+				$edit_dlh_wiki_body =  p_wiki_xhtml($edit_dlh_wikiid);
+			}else{
+				$edit_dlh_wiki_body=false;
+			}
+
+			
+			if(!$edit_dlh_wiki_body){
+				$JSINFO['dlh']['edit_look4struct']='0';
+				$edit_dlh_wiki_body='';
+			}else{
+				$JSINFO['dlh']['edit_look4struct']='1';
+			}
+
+			$text = <<<TEXT
+<div id='dirtylittlehelper_overlay'>
+<div class = "close">
+<a href="javascript:jQuery('#dirtylittlehelper_overlay').toggle();void(0);"  rel="nofollow" title="close">close</a>
+</div><div class="dirtylittlehelper_overlay_insert">$edit_dlh_wiki_body</div></div>
+
+TEXT;
+		
+			$this->dlh_overlay .= $text;
   
-	function dirtylittlehelper_mermaid(Doku_Event $event, $param){
+
+		
+		}//overlay?
+		
+		
+		//TOPBAR
+		//ONLY IF CONF = 1 && ISADMIN && ISAUTH
+		if(   $this->getConf('top_active') 
+			&& $INFO['dlh']['isadmin']
+			&& $INFO['dlh']['isauth']
+		){
+		
+		
+		
+			
+			$topbar = '';
+			
+			
+			//HELPER
+			$top_helper_wikiid = trim($this->getConf('top_helper_wikiid'));
+
+			if($top_helper_wikiid){ 
+				$top_helper_wiki_body = p_wiki_xhtml($top_helper_wikiid);
+			}else{
+				$top_helper_wiki_body = false;
+			}
+
+			
+			if(!$top_helper_wiki_body){
+				$top_helper_wiki_body='';
+			}else{
+				$top_helper_wiki_body = '<div id="dlh_top_helper_a">&nbsp;&#128173;&nbsp;'
+										.'<div id="dlh_top_helper_b">'
+										.'<div id="dlh_top_helper_c1">'
+										.$top_helper_wiki_body
+										.'</div>'
+										.'<div id="dlh_top_helper_c2">'
+										.'<button class="dlh_top_helper_reload" title="reload" '
+										.' onClick="dlh_ajax_wikiid_body(\''.$top_helper_wikiid.'\',\'dlh_top_helper_c1\');">&#128472;'
+										.'</button>'
+										.'</div>'
+										.'</div>'
+										.'</div>';
+			}
+			
+			$topbar .= $top_helper_wiki_body;
+			
+			
+			
+			//STRUCT LOOKUP
+			
+			$top_struct_wikiid = trim($this->getConf('top_struct_wikiid'));
+
+			if($top_struct_wikiid){ 
+				$top_struct_wiki_body = p_wiki_xhtml($top_struct_wikiid);
+			}else{
+				$top_struct_wiki_body = false;
+			}
+
+			
+			if(!$top_struct_wiki_body){
+				$top_struct_wiki_body='';
+			}else{
+				$top_struct_wiki_body = '<div id="dlh_top_struct_a">'
+										.'<div id="dlh_top_struct_b">'
+										.'</div>'
+										.'<div id="dlh_top_struct_c">'
+										.$top_struct_wiki_body
+										.'</div>'
+										.'</div>';
+			}
+			
+			$topbar .= $top_struct_wiki_body;
+			
+			
+			// top_pagesuggest
+			if($this->getConf('top_pagesuggest')){
+
+				$topbar .= '<div id="dlh_top_pagesuggest">'
+							.'<input type="text" id="dlh_top_pagesuggest_input" title="pagesuggest">'
+							.'<button id="dlh_top_pagesuggest_button" onClick="dlh_top_call(\'dlh_top_pagesuggest_input\');" title="call pagesuggest...">&GT;</button>'
+							.'</div>';
+				
+			} //top_pagesuggest?
+
+			// top_dlhid
+			if($this->getConf('top_dlhid_active')){
+
+				$topbar .= '<div id="dlh_top_dlhid">'
+							.'<input type="text" id="dlh_top_dlhid_input" title="dlhID">'
+							.'<button id="dlh_top_dlhid_button" onClick="dlh_renew_dlhid(\'dlh_top_dlhid_input\');" title="renew dlhID">*</button>'
+							.'</div>';
+				
+			} //top_pagesuggest?
+			
+			
+			
+			
+			//MENU?
+			if( $this->getConf('top_adm_active') ){
+				
+				$topmenu = '';
+
+
+				$dlh_for_left_side = array('usermanager', 'acl', 'extension', 'config', 'styling', 'revert', 'popularity');
+				$dlh_left_side=array();
+				$dlh_right_side=array();
+			
+				$hidden = trim($this->getConf('top_adm_link_wikiid'));
+				$hidden_label = trim($this->getConf('top_adm_link_text'));
+			
+				if( $hidden_label == '') { $hidden_label = '&#8734 hidden area';}
+				if( $hidden !='' ){
+			
+					$dlh_left_side[]=array('item'=>'hidden area'
+											,'menutext'=> $hidden_label
+											,'menuicon'=> false
+											,'adminonly'=> 1
+											,'link' => '?id=' . $hidden //wl($ID, array('id' => $hidden) )
+											,'inline_icon' => ''
+											);
+				}//if hidden != ''
+
+				$dlh_left_side[]=array('item'=>'check'
+							,'menutext'=> '&#128736; check'
+							,'menuicon'=> false
+							,'adminonly'=> 1
+							,'link' => '?do=check'
+							,'inline_icon' => ''
+							);
+
+				$dlh_left_side[]=array('item'=>'purge'
+							,'menutext'=> '&#128736; purge'
+							,'menuicon'=> false
+							,'adminonly'=> 1
+							,'link' => '?purge=true'
+							,'inline_icon' => ''
+							);
+
+				$dlh_left_side[]=array('item'=>'export_xhtmlbody'
+							,'menutext'=> '&#128736; export_xhtmlbody'
+							,'menuicon'=> false
+							,'adminonly'=> 1
+							,'link' => '?do=export_xhtmlbody'
+							,'inline_icon' => ''
+							);
+
+
+				$dlh_left_side[]=array('item'=>'export_raw'
+							,'menutext'=> '&#128736; export_raw !! .TXT FILE !!'
+							,'menuicon'=> false
+							,'adminonly'=> 1
+							,'link' => '?do=export_raw'
+							,'inline_icon' => ''
+							);
+
+			
+			
+				$dlh_plugin_list = plugin_list('admin',false);
+			
+
+				foreach($dlh_plugin_list as $thisplugin) {
+					
+					$tmp_plugin = plugin_load('admin', $thisplugin);
+					
+					if( $tmp_plugin !== null){
+						
+						$this_data = array(  'item'=>$thisplugin
+											,'menutext'=> $tmp_plugin->getMenuText($conf['lang'])
+											,'menuicon'=> $tmp_plugin->getMenuIcon()
+											,'adminonly'=> $tmp_plugin->forAdminOnly()
+											,'linkx' => wl($ID, array('do' => 'admin', 'page' => $thisplugin))
+											,'link' => '?do=admin&page='.$thisplugin
+											,'inline_icon' => preg_replace('/style="[^"]{1,99}"/i', '', 
+																preg_replace('/width="[0-9a-z]{1,9}"/i', '', 
+																	preg_replace('/height="[0-9a-z]{1,9}"/i', '', 
+																	inlineSVG( $tmp_plugin->getMenuIcon() ) 
+																	)
+																) 
+															  ) 
+											);
+						
+						if( trim($this_data['menutext']) == '') { $this_data['menutext'] = ucfirst( $thisplugin );}
+						
+						if( in_array($thisplugin, $dlh_for_left_side )) {
+							$dlh_left_side[] = $this_data;
+							
+						}else{
+							$dlh_right_side[] = $this_data;
+							
+						}//left or right?
+
+					}//if( $tmp_plugin !== null){
+				
+				}//foreach($dlh_plugin_list as $thisplugin) {
+
+				$topmenu.= '<div class="dlh_top_menu">'
+						 .'<div class="dlh_top_menu_dropdown_admin" id="dlh_topmenu_admin">'
+						 .'<a class="dlh_top_menu_dropbtn_admin">~MENU~</a>'
+						 .'<div class="dlh_top_menu_dropdown_content_admin">'
+						 .'<table><tr><td>';
+
+		  
+				foreach( $dlh_left_side as $item){
+					$topmenu .= '<a title="'.$item['menutext'].'" href="'.$item['link'].'">'.$item['inline_icon'].' '. $item['menutext'] .'</a>';
+				}
+			  
+				$topmenu .= '</td><td>';
+			  
+				foreach( $dlh_right_side as $item){
+					$topmenu .= '<a title="'.$item['menutext'].'" href="'.$item['link'].'">'.$item['inline_icon'].' '. $item['menutext'] .'</a>';
+				}
+			  
+				$topmenu.= '</td></tr></table></div></div></div>';
+
+
+				$topbar .= $topmenu;
+
+			
+			}//MENU?
+			
+			if( $topbar != ''){
+				$this->dlh_topmenu .= '<div id="dlh_top0">'.$topbar.'</div>';
+			}
+
+
+		}//TOPBAR??
+
+
+
+		
+	} //function dirtylittlehelper_get_set_varis
+	
+	
+  
+	function dirtylittlehelper_add_js_mermaid(Doku_Event $event, $param){
 		$event->data['script'][] = array(
                             'type'    => 'text/javascript',
                             'charset' => 'utf-8',
@@ -42,6 +383,29 @@ class action_plugin_dirtylittlehelper extends DokuWiki_Action_Plugin {
 		    );
 	}
     
+	
+	
+	
+
+
+
+/*
+
+================== ================== ================== ================== ================== ================== ================== 
+================== ================== ================== ================== ================== ================== ================== 
+================== ================== ================== ================== ================== ================== ================== 
+================== ================== ================== ================== ================== ================== ================== 
+================== ================== ================== ================== ================== ================== ================== 
+================== ================== ================== ================== ================== ================== ================== 
+
+
+*/	
+	
+	
+	
+	
+	
+	
     function dirtylittlehelper_active(){
 
         global $ACT;
@@ -56,15 +420,6 @@ class action_plugin_dirtylittlehelper extends DokuWiki_Action_Plugin {
     }//function dirtylittlehelper_active
 
 
-    function dirtylittlehelper_insert_button(Doku_Event $event, $param) {
-
-        $event->data[] = array (
-        'type' => 'dirtylittlehelper',
-        'title' => 'DLH', //$this->getLang('abutton'),
-        'icon' => '../../plugins/dirtylittlehelper/images/dirtylittlehelper_ovl_sprite.png',
-        );
-
-    }//function dirtylittlehelper_insert_button
 
 
 
@@ -78,11 +433,11 @@ class action_plugin_dirtylittlehelper extends DokuWiki_Action_Plugin {
         'isadmin' => (int) $INFO['isadmin'],
         'isauth'  => (int) $INFO['userinfo'],
         'overlay' => $this->dirtylittlehelper_active(),
-	'show_id' => $this->getConf('show_id'),
-	'show_mermaid' => $this->getConf('show_mermaid'),
-	'show_drawio' =>  $this->getConf('show_drawio'),
+		'show_id' => $this->getConf('show_id'),
+		'show_mermaid' => $this->getConf('show_mermaid'),
+		'show_drawio' =>  $this->getConf('show_drawio'),
         'fullscreen_edit' =>  $this->getConf('fullscreen_edit'),
-	'WL' => wl('','',true),
+		'WL' => wl('','',true),
         'DOKU_BASE'=> DOKU_BASE,
         'DOKU_URL'=>DOKU_URL,
         'QUOT'=>'"'
@@ -189,7 +544,7 @@ $toptext = <<<TOPTEXT
     display: inline;
     width: 80px;
     margin-left: 5px;
-"><button onClick="dlh_renew_timeid('dlh_top_id');" title="RENEW DLH AutoID" style="
+"><button onClick="dlh_renew_dlhid('dlh_top_id');" title="RENEW DLH AutoID" style="
     display: inline;
     margin-left: 5px;
 ">*</button></div>
