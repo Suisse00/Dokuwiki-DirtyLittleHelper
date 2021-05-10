@@ -12,54 +12,57 @@ if(!defined('DOKU_INC')) die();
 
 
 class action_plugin_dirtylittlehelper extends DokuWiki_Action_Plugin {
-	
+
 	var $dlh_overlay = '';
 	var $dlh_topmenu = '';
 
-    function register(Doku_Event_Handler $controller) {
+
+	function register(Doku_Event_Handler $controller) {
+
+		$controller->register_hook('DOKUWIKI_STARTED', 'AFTER', $this, 'dirtylittlehelper_varis');
+		$controller->register_hook('TPL_METAHEADER_OUTPUT', 'BEFORE', $this, 'dirtylittlehelper_add_js_mermaid');
+		$controller->register_hook('TOOLBAR_DEFINE', 'AFTER', $this, 'dirtylittlehelper_insert_button', array ());
+		$controller->register_hook('TPL_ACT_RENDER', 'AFTER',  $this, 'dirtylittlehelper_output', array('after'));
+
+	}
+
+	function dirtylittlehelper_insert_button(Doku_Event $event, $param) {
+
+		$event->data[] = array (
+		'type' => 'dirtylittlehelper',
+		'title' => 'DLH', //$this->getLang('abutton'),
+		'icon' => '../../plugins/dirtylittlehelper/images/dirtylittlehelper_ovl_sprite.png',
+		);
+
+	}//function dirtylittlehelper_insert_button
 
 
-    //$controller->register_hook('DOKUWIKI_STARTED', 'AFTER', $this, 'dirtylittlehelper_extendJSINFO');
-    //$controller->register_hook('TPL_ACT_RENDER', 'AFTER',  $this, 'dirtylittlehelper_print_overlay', array('after'));
-    //$controller->register_hook('MENU_ITEMS_ASSEMBLY', 'AFTER', $this, 'dirtylittlehelper_menu', array());
-
-
-    $controller->register_hook('DOKUWIKI_STARTED', 'AFTER', $this, 'dirtylittlehelper_varis');
-    $controller->register_hook('TPL_METAHEADER_OUTPUT', 'BEFORE', $this, 'dirtylittlehelper_add_js_mermaid');
-    $controller->register_hook('TOOLBAR_DEFINE', 'AFTER', $this, 'dirtylittlehelper_insert_button', array ());
-    $controller->register_hook('TPL_ACT_RENDER', 'AFTER',  $this, 'dirtylittlehelper_output', array('after'));
-
-    }
-
-    function dirtylittlehelper_insert_button(Doku_Event $event, $param) {
-
-        $event->data[] = array (
-        'type' => 'dirtylittlehelper',
-        'title' => 'DLH', //$this->getLang('abutton'),
-        'icon' => '../../plugins/dirtylittlehelper/images/dirtylittlehelper_ovl_sprite.png',
-        );
-
-    }//function dirtylittlehelper_insert_button
-
-	
 	function dirtylittlehelper_output(&$event, $param) {
 		echo $this->dlh_overlay;
 		echo $this->dlh_topmenu;
-		
 	}
-	
-	
 
 
-	
 	function dirtylittlehelper_varis(&$event, $param){
-		
+
 		global $ACT, $JSINFO, $ID, $INPUT, $auth, $TPL, $INFO;
-		
+
 		$INFO['dlh'] = array(
 			  'isadmin' => (int) $INFO['isadmin']
 			, 'isauth'  => (int) $INFO['userinfo']
 		);
+
+
+
+		//LOGIN NEEDED ?
+		//NOT LOGGED IN ? -> FORCE LOGIN
+		if( !$INFO['userinfo'] && $_GET['do']!='login' && $this->getConf('must_login') ) {
+		  header("Location: ?do=login");
+		  die('<a href="?do=login">LOGIN</a>');
+		}
+
+
+
 		
 		$JSINFO['dlh'] = array(
 			  'QUOT'		=> '"'
@@ -76,13 +79,13 @@ class action_plugin_dirtylittlehelper extends DokuWiki_Action_Plugin {
         
         $INFO['dlh']['act_edit'] = $regex = 'edit|preview';
         $JSINFO['dlh']['act_edit'] = $regex = 'edit|preview';
-		
+
 		$JSINFO['dlh']['edit_active'] = 0;
-		
+
 		if($INFO['dlh']['act_edit'] && $INFO['dlh']['isadmin'] && $INFO['dlh']['isauth']){
 
 			$JSINFO['dlh']['edit_active'] = $this->getConf('edit_active');
-			
+
 			if( $JSINFO['dlh']['edit_active']){
 				$JSINFO['dlh']['edit_dlh_wikiid']	= $this->getConf('edit_dlh_wikiid');
 				$JSINFO['dlh']['edit_tb_min_max'] 	= $this->getConf('edit_tb_minmax');
@@ -93,13 +96,11 @@ class action_plugin_dirtylittlehelper extends DokuWiki_Action_Plugin {
 				$JSINFO['dlh']['edit_tb_struct']	= $this->getConf('edit_tb_struct');
 				$JSINFO['dlh']['edit_tb_dlhid']		= $this->getConf('edit_tb_dlhid');
 			}
-			
+
 		}//editor?
 
 		$JSINFO['dlh']['top_active'] = $this->getConf('top_active');
-		
-		
-		
+
 		//ONLY IF ACT = EDIT/PREVIEW && CONF = 1 && ISADMIN && ISAUTH
 		if( $INFO['dlh']['act_edit'] 
 			&& $this->getConf('edit_active') 
@@ -116,7 +117,6 @@ class action_plugin_dirtylittlehelper extends DokuWiki_Action_Plugin {
 				$edit_dlh_wiki_body=false;
 			}
 
-			
 			if(!$edit_dlh_wiki_body){
 				$JSINFO['dlh']['edit_look4struct']='0';
 				$edit_dlh_wiki_body='';
@@ -131,26 +131,22 @@ class action_plugin_dirtylittlehelper extends DokuWiki_Action_Plugin {
 </div><div class="dirtylittlehelper_overlay_insert">$edit_dlh_wiki_body</div></div>
 
 TEXT;
-		
+
 			$this->dlh_overlay .= $text;
   
 
-		
+
 		}//overlay?
-		
-		
+
+
 		//TOPBAR
 		//ONLY IF CONF = 1 && ISADMIN && ISAUTH
 		if(   $this->getConf('top_active') 
 			&& $INFO['dlh']['isadmin']
 			&& $INFO['dlh']['isauth']
 		){
-		
-		
-		
-			
+
 			$topbar = '';
-			
 			
 			//HELPER
 			$top_helper_wikiid = trim($this->getConf('top_helper_wikiid'));
@@ -161,7 +157,6 @@ TEXT;
 				$top_helper_wiki_body = false;
 			}
 
-			
 			if(!$top_helper_wiki_body){
 				$top_helper_wiki_body='';
 			}else{
@@ -178,11 +173,41 @@ TEXT;
 										.'</div>'
 										.'</div>';
 			}
-			
+
 			$topbar .= $top_helper_wiki_body;
-			
-			
-			
+
+
+			//TEMPLATES
+			$templates = trim($this->getConf('top_templates') );
+			if( $templates  != '' ) {
+
+				$templates_out='';
+
+				$templates = explode("\n" , $templates);
+
+				foreach ($templates as $value){
+					$value=explode('|',$value);
+
+					if( isset( $value[0] ) && isset( $value[1] )){
+						$value[0] = htmlspecialchars(trim($value[0]), ENT_QUOTES);
+						$value[1] = htmlspecialchars(trim($value[1]), ENT_QUOTES);
+
+						$templates_out .= '<option value="'.$value[1].'">'.$value[0].'</option>';
+					}
+				}
+
+				if( $templates_out != '' ){
+
+					$templates_out = '<select id="dlh_top_template">'
+									. $templates_out
+									. '</select>';
+				}
+
+				$topbar .= $templates_out;
+			}
+			//TEMPLATES
+
+
 			//STRUCT LOOKUP
 			
 			$top_struct_wikiid = trim($this->getConf('top_struct_wikiid'));

@@ -11,6 +11,8 @@ $meta['hidden_area'] = array('string');
 $meta['fullscreen_edit'] = array('onoff');
 */
 
+$meta['must_login'] = array('onoff');
+
 $meta['edit_active'] = array('onoff');
 $meta['edit_dlh_wikiid'] = array('string');
 $meta['edit_tb_struct'] = array('onoff');
@@ -22,6 +24,7 @@ $meta['edit_tb_drawio'] = array('onoff');
 $meta['edit_tb_dlhid'] = array('onoff');
 
 $meta['top_active'] = array('onoff');
+$meta['top_templates'] = '';
 $meta['top_helper_wikiid'] = array('string');
 $meta['top_struct_wikiid'] = array('string');
 $meta['top_pagesuggest'] = array('onoff');

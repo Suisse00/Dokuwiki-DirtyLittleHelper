@@ -813,7 +813,7 @@ function dlh_ini(count=0){
 			dlh_renew_dlhid('dlh_top_dlhid_input');
 		}
 		
-		if( JSINFO['dlh']['top_active'] ) {
+		if( JSINFO['dlh']['top_active'] && JSINFO['dlh']['isadmin']  && JSINFO['dlh']['isauth'] ) {
 			jQuery('body').css({'margin-top':'30px'});
 			jQuery('#dokuwiki__usertools').css({'margin-top':'30px'});
 		}
@@ -842,7 +842,7 @@ function dlh_ini(count=0){
 
 
 		//EDITOR
-		if( JSINFO['dlh']['act_edit'] ){
+		if( JSINFO['dlh']['act_edit']  && JSINFO['dlh']['isadmin']  && JSINFO['dlh']['isauth']  ){
 			jQuery('button.toolbutton').css({'height':'32px','width':'32px'});
 			jQuery('#dokuwiki__site').css( {'max-width':'1700px','width':'' } );
 			jQuery('.preview').css({'width':'900px','border':'1px solid #AAAAAA','resize':'both','display':'block','overflow':'scroll'});
