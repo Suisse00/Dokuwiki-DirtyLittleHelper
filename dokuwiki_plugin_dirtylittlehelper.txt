@@ -1,0 +1,390 @@
+====== dirtylittlehelper Plugin ======
+
+---- plugin ----
+description: 
+author     : KalleAPunkt 
+email      : dokuwiki@kallearsch.de 
+type       : 
+lastupdate : 2021-05-11
+compatible : Hogfather
+depends    : bureaucracy, struct
+conflicts  : 
+similar    : 
+tags       : 
+
+downloadurl: https://github.com/KalleAPunkt/Dokuwiki-DirtyLittleHelper/archive/refs/heads/master.zip
+bugtracker : 
+sourcerepo : https://github.com/KalleAPunkt/Dokuwiki-DirtyLittleHelper
+donationurl: 
+
+screenshot_img : https://raw.githubusercontent.com/KalleAPunkt/Dokuwiki-DirtyLittleHelper/master/images/dlh_screenshot.png
+----
+
+
+===== Note =====
+
+:!: **only admins** can use all things this plugin provides (editor, topbar are for admins only!)
+
+:!: This plugin is tested (and used) with the dokuwiki **release 2020-07-29 "Hogfather"** and the standard template.
+
+----
+
+===== Installation =====
+
+:!: **External requirements:** This plugin requires the following additional components that must be installed separately: 
+  * [[struct]]  (needed for autocomplete search in editor and topbar)
+  * [[bureaucracy]] (needed for autocomplete search in editor and topbar)
+  * [[svgembed]] (optional - dlh ships a nice button for the editor)
+
+Install the plugin using the [[plugin:plugin|Plugin Manager]] and the download URL above, which points to latest version of the plugin. Refer to [[:Plugins]] on how to install plugins manually.
+
+----
+
+===== THANK YOU =====
+@turnermm: [[https://github.com/turnermm/Dokuwiki-Nav-Overlay|overlay plugin]] - the base I began with  \\
+@samfisch: [[https://github.com/samfisch/dokuwiki-template-dokubook|dokubook template]] - here I found the tree  \\
+@lisps: [[https://github.com/lisps/plugin-linksuggest/|linksuggest plugin]] - yes, I copied it \\
+@giterlizzi [[https://github.com/giterlizzi/dokuwiki-template-bootstrap3|bootstrap3 template]] - there I found the inspiration for the admin menu  \\
+@jakob1111 [[https://github.com/jakob1111/dokuwiki-plugin-flowcharts/|flowcharts plugin]] - the base for mermaid integration  \\
+@mermaid-js [[https://github.com/mermaid-js/mermaid-live-editor|mermaid-live-editor]] - the mermaid live editor  \\
+
+
+----
+
+
+===== Why? / History =====
+I wanted a better way for inserting wiki-internal-links in the editor. After some searching and probing I found the way that fits best for me: with "bureaucracy" and "struct" plugin  you can build nice lookups for namespaces...  
+
+Then I took the "overlay" plugin and modified it for my needs. After a while I thought that it would be cool not to click on a button to have the search input and the insert button.  
+
+Some jQuery later: it works. After the editor ist opened the dlh-page is loaded in the overlay, then the elements are transferred in a new line under the toolbar in the editor. The overlay is not shown anymore - but it's still there.  
+
+Building and integrating flow-charts with mermaid: integrated. And dlh ships a mermaid live editor (the first chart in the wiki-editor is now transferred to the live editor; the rest: copy and paste).  
+
+And i needed / wanted a quick-admin-menu -> added (inspired by bootstrap3 template)  
+
+And sometimes the wiki should be wider - especially when editing and with "advanced config" plugin - done ...that means that after install of this plugin your wiki can look a bit different (thats life).  
+
+Then i thought it would be nice to have a tree on the left side like "dokubook" template  -> added syntax for the tree.  
+
+The tree on the left is not always needed - added syntax for "no sidebar"...  
+
+I like comments -> syntax added  
+
+right now it works fine...  
+
+
+----
+
+===== what can dlh do four you? (syntax and more) =====
+
+
+==== main feature - page-search in the editor ====
+
+== you need: ==
+[[https://www.dokuwiki.org/plugin:bureaucracy|bureaucracy-plugin]] \\
+[[https://www.dokuwiki.org/plugin:struct|struct-plugin]] \\
+
+== let's go  ==
+
+   * install the both plugins  
+   * create a struct-scheme   
+   * create at least one field in this scheme  
+   * typ "page"  
+   * config "usetitles" > thats better  
+   * config "autocomplete" - "namespace" > put your namespace here  
+   * create the dokuwiki page that is configured  "plugin»dirtylittlehelper»page"  
+
+<code>
+~~NOCACHE~~
+~~NOTOC~~
+=== DLH ===
+<form>
+action script dummy.php
+struct_field "scheme_name.field_name_1" !
+struct_field "scheme_name.field_name_2" !
+</form>
+</code>
+
+  * open the editor and smile  
+
+----
+
+==== wiki-editor ====
+
+in the config you can switch several buttons on and off.\\
+a button for maximizing the editor (and auto maximize)\\ 
+buttons for inserting code tags for several languages\\
+buttons for mermaid (look a bit down)\\
+buttons for svg-image (needs [[https://www.dokuwiki.org/plugin:svgembed|svgEmbed Plugin]] )\\
+input and buttons for dlhID (look [[#dlhID]])
+
+
+----
+
+==== dlh tree ====
+
+<code> <dlh.tree> </code>
+put it in your sidebar page and be happy  \\
+if there would be several trees -> only the first one is displayed  
+
+<code> <dlh.notree> </code>
+no tree will be rendered  
+
+<code> <dlh.forcetree> </code>
+only this tree will be rendered (overrides ''%%<dlh.notree>%%'')  
+works only once  
+
+----
+
+==== sidebar ====
+<code> <dlh.nosb> </code>
+The sidebar will not be shown (css) - beware that the sidebar / tree will be generated.  
+
+<code> <dlh.togglesb> </code>
+there will be a button at the top left of the sidebar to toggle it  
+with   
+
+<code> <dlh.hidesb> </code>
+you can hide the sidebar  
+
+----
+
+==== mermaid ====
+<code>
+<dlh.mm>
+graph LR
+DOKUWIKI----DLH
+</dlh.mm>
+</code>
+When you click the mermaid live editor you can follow the links to syntax etc.  
+
+----
+
+==== comments ====
+<code>
+<dlh.*> this one line comment will only be seen in the editor / pagesource </dlh.*>
+
+<dlh.*>
+this 
+multi 
+line 
+comment will also only be seen in the editor / pagesource 
+</dlh.*>
+</code>
+
+----
+
+==== div ====
+
+<code> <dlh.div.html[ id="" class="" style=""...]> Your html content </dlh.div.html></code>
+will build a html div like ''%%<html><div>Your html content</div></html>%%'' 
+
+<code> <dlh.div.wiki [ id="" class="" style=""...]> **Your** WIKI __content__ </dlh.div.wiki></code>
+will build a div around your wiki code  like ''%%<html><div></html>**Your** WIKI __content__ <html></div></html>%%''
+
+----
+
+==== table ====
+<code>
+<dlh.table.html[ id="" class="" style=""...]>
+  <caption>your caption</caption>
+  <tr>
+    <th>tablehead a</th>
+    <th>tablehead b</th>
+  </tr>
+  <tr>
+    <td> cell with text </td>
+    <td> amnother cell </td>
+  </tr>
+<dlh.table.html>
+</code>
+
+is for pure html and like ''%% <dlh.div.wiki> %%'' you can build a table around wiki content  
+
+<code>
+<dlh.table.wiki [ id="" class="" style=""...]>
+  <dlh.caption.wiki> **wiki caption content** </dlh.caption.wiki>
+  <dlh.tr.wiki>
+    <dlh.th.wiki> table head __wiki__ syntax </dlh.th.wiki>
+    <dlh.th.wiki> **another** table head __wiki__ syntax </dlh.th.wiki>
+  </dlh.tr.wiki>
+  <dlh.tr.wiki>
+    <dlh.td.wiki> call a plugin or some other cool stuff </dlh.td.wiki>
+    <dlh.td.wiki> **wiki syntax here** </dlh.td.wiki>
+  </dlh.tr.wiki>
+</dlh.table.wiki>
+
+</code>
+
+----
+
+==== the top bar ====
+
+you can have an additional bar at the top of your wiki. \\
+**this is something very special I built for my needs... that's why it's a bit tricky...**
+
+the bar has several sections from left to right\\
+  * HELPER-ICON - on mouseover the helper page is displayed
+  * template list - configured via configuration
+  * call button
+  * struct autocomplete (like the dlh page in the editor BUT only one field)
+  * pagesuggest inspired input for path to wiki id
+  * call button
+  * dlhID field
+  * renew Button for dlhID
+
+the both call buttons will open a new window with the id from the input left to the button.\\
+A ''%%*%%'' in these inputs will be replaced with the dlhID that is in the most right input\\ 
+
+=== the helper page ===
+
+in the config you can define a helper page which will be displayed in the top bar **width is 600px**\\
+here I have some useful infos and things i often need...
+
+=== template list ===
+
+in the config you can define a list of templates that shall be in the dropdown. Empty config = no dropdown
+
+=== struct field ===
+
+in the config define a pageid for a page that contains **ONE** autocomplete struct field\\
+Example:
+<code>
+~~NOCACHE~~
+~~NOTOC~~
+<form>
+action script dummy.php
+struct_field "wiki42.all_title" !
+</form>
+</code>
+
+ALSO
+
+<code>
+~~NOCACHE~~
+~~NOTOC~~
+---- struct serial ----
+schema: wiki42
+----
+</code>
+will work
+
+=== Menu ===
+
+in the config you can define a wikiid and a label for a link that will be displayed in the menu\\
+
+there will be two columns:
+| your link | links to admin plugin pages   |
+| ?do=check |::: |
+| ?purge=true |::: |
+| ?do=export_xhtmlbody |::: |
+| ?do=export_raw |::: |
+| ACL  |::: |
+| Config |::: |
+| Extension Manager |::: |
+| Revert Manager |::: |
+| Template Style Settings |::: |
+| User Manager |::: |
+
+
+----
+
+==== dlhID ====
+
+The dlhID is a TwoDigitSixChars ID based on the time.\\
+The first two digits stand for the year (20=2020, 21=2021 ...)\\
+The six letters are for the seconds since the year began.\\ 
+This ID is shorter than only digits and i found that it is easier to use\\
+
+''21fwkntf'' is 2021-05-11 15:03:05
+
+----
+
+
+
+===== Design / css =====
+
+dlh changes som css
+<code css>
+
+/* no footer */
+
+        #dokuwiki__footer {
+                display: none;
+        }
+
+/* buttons not so white */
+        button{
+                background-color:rgba(222, 222, 222, 0.3) !important;
+                /* background-image: none !important; */
+        }
+
+/* the page content is horizontal scrollabale */
+        .page {
+                overflow-x: auto !important;
+        }
+
+
+/* docInfo brighter */
+        .dokuwiki .docInfo{
+                color: #AAAAAA;
+        }
+
+/* preview gets a border etc */
+        .preview{
+                   border: 1px solid #777777 !important;
+                   max-width: 900px;
+                   resize: both;
+                   overflow: auto;
+        }
+
+/* top bar no margin-bottom */
+        #dokuwiki__header .tools {
+                margin-bottom: 0px !important;
+        }
+
+
+
+
+/* autocomplete on top */
+.ui-autocomplete{ z-index: 99999 !important; }
+
+.textcomplete-dropdown{ z-index: 999999 !important; }
+
+/* search info wider */
+.dokuwiki form.search div.ajax_qsearch{
+  left: -21.5em;
+  width: 20em;
+}
+
+
+
+
+</code>
+
+----
+
+  
+
+===== beware! =====
+This plugin is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
+This plugin is generally made for MY personal needs.
+
+This plugin is tested with the dokuwiki **release 2020-07-29 "Hogfather"** and the standard template.\\
+
+----
+
+===== SORRY =====
+
+  * for my english 
+  * for errors - if you find some
+  * for everything I did the wrong way
+
+
+
+===== ToDo/Wish List =====
+
+  * dont be dirty on mobile devices
+  * build config for design changes
+  * clean up

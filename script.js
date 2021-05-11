@@ -498,7 +498,7 @@ function dlh_ini(count=0){
 				}
 
 
-				if(  JSINFO['dlh']['edit_dlh_wikiid'] && JSINFO['dlh']['edit_tb_struct'] ) {
+				if(  JSINFO['dlh']['edit_dlh_wikiid'] && JSINFO['dlh']['edit_tb_struct'] && JSINFO['dlh']['dlh_fields'].length > 0) {
 					dlh_append += '<br>'
 						+ '<select id="dlh_edit_tb_select" '
 						+ ' class="dlh_edit_tb_select" '
@@ -513,8 +513,10 @@ function dlh_ini(count=0){
 
 					dlh_append += '</select></div>';
 
-					jQuery('#tool__bar').append(dlh_append);
+				}
+				jQuery('#tool__bar').append(dlh_append);
 
+				
 					if(JSINFO['dlh']['edit_tb_dlhid']){
 						dlh_renew_dlhid('dlh_edit_tb_dlhid');
 					}
@@ -565,7 +567,7 @@ function dlh_ini(count=0){
 
 					dlh_edit_tb_select();
 
-				}//if struct...
+				//}//if struct...
 
 
 				if( JSINFO['dlh']['edit_tb_maximize'] && JSINFO['dlh']['edit_tb_min_max'] ){
@@ -584,11 +586,11 @@ function dlh_ini(count=0){
 	// TOP BAR
 	if( dlh_ini_step_at > JSINFO['dlh']['ini_step_done'] ){
 
-		// STRUCT
+		// STRUCT SERIAL
 		if( JSINFO['dlh']['top_active'] && document.getElementById('dlh_top_struct_c') ){
 			JSINFO['dlh']['top_skip'] = false;
 
-			if( jQuery('#dlh_top_struct_c').prop('tagName')!== undefined || jQuery('#dlh_top_struct_c div.struct_entry_form div.field input.struct_page').prop("tagName") == 'INPUT'){
+			if( jQuery('#dlh_top_struct_c').prop('tagName')!== undefined && jQuery('#dlh_top_struct_c div.struct_entry_form div.field input.struct_page').prop("tagName") == 'INPUT'){
 
 				if( jQuery('#dlh_top_struct_c div.struct_entry_form div.field input.struct_page').data('uiAutocomplete') === undefined){
 
@@ -618,6 +620,37 @@ function dlh_ini(count=0){
 					jQuery('#dlh_top_struct_b').css({'display':'inline'});
 
 				}
+			// STRUCT SERIAL FOUND
+			
+			}else if( jQuery('#dlh_top_struct_c').prop('tagName')!== undefined && jQuery('#dlh_top_struct_c form.bureaucracy__plugin div.field input.struct_page').prop("tagName") == 'INPUT'){
+
+				if( jQuery('#dlh_top_struct_c form.bureaucracy__plugin div.field input.struct_page').data('uiAutocomplete') === undefined){
+
+					if( count < 80 ){
+						setTimeout(dlh_ini, 100, count);
+						return false;
+					}else{
+						JSINFO['dlh']['top_skip'] = true;
+					}
+
+				}
+
+				if( JSINFO['dlh']['top_skip'] == false ){
+					jQuery('#dlh_top_struct_c form.bureaucracy__plugin div.field span.label').css({'display':'none'});
+					jQuery('#dlh_top_struct_c form.bureaucracy__plugin div.field input.struct_page').prop('title','STRUCT SEARCH');
+
+					JSINFO['dlh']['top_struct_id'] =  jQuery('#dlh_top_struct_c form.bureaucracy__plugin div.field input.struct_page').attr('id') ;
+
+					dlh_objectValueSet( JSINFO['dlh']['top_struct_id'] , JSINFO['namespace']);
+
+					jQuery('#dlh_top_struct_b').append( jQuery('#dlh_top_struct_c form.bureaucracy__plugin div.field') );
+					jQuery('#dlh_top_struct_b').append( '<button title="call struct in new window" onClick="dlh_top_call(\''+ JSINFO['dlh']['top_struct_id'] + '\');">&GT;</button>' );
+
+					jQuery('#dlh_top_struct_c').css({'display':'none'});
+					jQuery('#dlh_top_struct_b').css({'display':'inline'});
+
+				}
+
 			} // STRUCT FOUND
 
 		} // STRUCT
