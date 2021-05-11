@@ -77,8 +77,10 @@ class action_plugin_dirtylittlehelper extends DokuWiki_Action_Plugin {
             $ACT = act_clean($ACT);
         }
         
-        $INFO['dlh']['act_edit'] = $regex = 'edit|preview';
-        $JSINFO['dlh']['act_edit'] = $regex = 'edit|preview';
+		$regex = 'edit|preview';
+				
+        $INFO['dlh']['act_edit'] = preg_match("/" . $regex ."/",$ACT);
+        $JSINFO['dlh']['act_edit'] = preg_match("/" . $regex ."/",$ACT);
 
 		$JSINFO['dlh']['edit_active'] = 0;
 
