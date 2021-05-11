@@ -1,7 +1,7 @@
 base   dirtylittlehelper
 author KalleAPunkt 
-email  noreplay@example.com
-date   2021-05-05
+email  dlh@kallearsch.de
+date   2021-05-11
 name   Dokuwiki DirtyLittleHelper
 desc   enhances editor, can build a navi-tree, mermaid integration, design fine tuning and some other cool stuff
 url    https://github.com/KalleAPunkt/Dokuwiki-DirtyLittleHelper/
