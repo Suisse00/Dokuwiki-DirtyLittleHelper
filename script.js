@@ -14,6 +14,41 @@ function addBtnActionDirtylittlehelper($btn, props, edid) {
 /* DLH FUNCTIONS */
 
 
+function dlh_call_mermaid(source_obj = false){
+
+	thecode = '';
+
+	if( source_obj !== false ){
+
+		if( document.getElementById( source_obj ) ){
+
+			the_code = dlh_objectValueGet(source_obj).replace(/\n/g,'\\n').match(/<dlh.mm>(.*?)<\/dlh.mm>/g);
+
+			if( Array.isArray( the_code ) ){
+
+				the_code = btoa('{"code":"' + the_code[0].replace('<dlh.mm>','').replace('<\/dlh.mm>','') + '","mermaid":{},"updateEditor":false}');
+
+			}else{
+
+				the_code = '';
+
+			}
+
+		}
+	}
+
+	if( the_code == '' ){
+		the_code = 'eyJjb2RlIjoiZ3JhcGggVEQgXG5JLS0tTElLRS0tLURPS1VXSUtJXG4iLCJtZXJtYWlkIjp7fSwidXBkYXRlRWRpdG9yIjpmYWxzZX0';
+	}
+
+	window.open(JSINFO['dlh']['DOKU_URL']+'lib/plugins/dirtylittlehelper/mermaid/editor/#/edit/'+the_code);
+	return true;
+
+
+} //function dlh_call_mermaid
+
+
+
 function dlh_objectValueGet(dlh_source){
     var dlh_source_obj = document.getElementById(dlh_source);
 
@@ -429,7 +464,7 @@ function dlh_ini(count=0){
 						+ '   \'<dlh.mm> \',\' </dlh.mm>\',\' \\n graph TD \\n A---B\\n \'     '
 						+ ');"><img src="'+JSINFO['dlh']['DOKU_URL']+'lib/plugins/dirtylittlehelper/images/dlh_mermaid_code.png" width="32px" height="32px"></button>'
 						+ '<button class="dlh_button_36_32" '
-						+ 'onClick="window.open(\''+JSINFO['dlh']['DOKU_URL']+'lib/plugins/dirtylittlehelper/mermaid/editor/\');" '
+						+ 'onClick="dlh_call_mermaid(\'wiki__text\');" '
 						+ 'title="mermaid live editor">'
 						+ '<img src="'+JSINFO['dlh']['DOKU_URL']+'lib/plugins/dirtylittlehelper/images/dlh_mermaid.png" width="32px" height="32px">'
 						+ '</button>'

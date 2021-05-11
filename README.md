@@ -2,6 +2,10 @@
 
 dirtylittlehelper (dlh) is as plugin for  [Dokuwiki](https://www.dokuwiki.org). 
 
+##THANK YOU / credits
+
+
+
 ## why? / history
 I wanted a better way for inserting wiki-internal-links in the editor. After some searching and probing I found the way that fits best for me: with "bureaucracy" and "struct" plugin  you can build nice lookups for namespaces... 
 
