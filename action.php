@@ -22,9 +22,10 @@ class action_plugin_dirtylittlehelper extends DokuWiki_Action_Plugin {
 		$controller->register_hook('DOKUWIKI_STARTED', 'AFTER', $this, 'dirtylittlehelper_varis');
 		$controller->register_hook('TPL_METAHEADER_OUTPUT', 'BEFORE', $this, 'dirtylittlehelper_add_js_mermaid');
 		$controller->register_hook('TOOLBAR_DEFINE', 'AFTER', $this, 'dirtylittlehelper_insert_button', array ());
-		$controller->register_hook('TPL_ACT_RENDER', 'AFTER',  $this, 'dirtylittlehelper_output', array('after'));
+		$controller->register_hook('TPL_ACT_RENDER', 'AFTER',  $this, 'dirtylittlehelper_after_render', array('after'));
 
 	}
+
 
 	function dirtylittlehelper_insert_button(Doku_Event $event, $param) {
 
@@ -37,20 +38,52 @@ class action_plugin_dirtylittlehelper extends DokuWiki_Action_Plugin {
 	}//function dirtylittlehelper_insert_button
 
 
-	function dirtylittlehelper_output(&$event, $param) {
+
+
+	function dirtylittlehelper_after_render(&$event, $param) {
+		global $INFO;
+
+		if( $INFO['dlh']['tabs_count'] > 0 ){
+			echo '<div id="dlh_tabs4jQuery" style="display:none;" '
+				.' data-tabs_count="'.$INFO['dlh']['tabs_count'].'" ';
+				
+			for( $i=0; $i < $INFO['dlh']['tabs_count']; $i++ ){
+				$ip1 = $i+1;
+				echo ' data-group'.$ip1.'_id="'.$INFO['dlh']['tabs'][$i]['id'].'" ' ;
+				echo ' data-group'.$ip1.'_count="'. $INFO['dlh']['tabs'][$i]['count'] .'"' ;
+				
+				for( $ii = 0; $ii < $INFO['dlh']['tabs'][$i]['count']; $ii++){
+					$iip1 = $ii+1;
+					echo ' data-group'.$ip1.'_title_'.$iip1.'="'. htmlspecialchars(trim( $INFO['dlh']['tabs'][$i]['titles'][$iip1] ) , ENT_QUOTES) .'" ';
+				}//walk inside group
+				
+			}// walk tab_groups
+			
+			
+			
+			echo '></div>';
+			
+		} //TABS?
+
+		echo '<!-- dirtylittlehelper START --><div id="dlh_is_tablet"></div><div id="dlh_is_phone"></div>';
 		echo $this->dlh_overlay;
 		echo $this->dlh_topmenu;
+		echo '<!-- dirtylittlehelper END -->';
 	}
-
 
 	function dirtylittlehelper_varis(&$event, $param){
 
-		global $ACT, $JSINFO, $ID, $INPUT, $auth, $TPL, $INFO;
+		global $ACT, $JSINFO, $ID, $INPUT, $auth, $TPL, $INFO, $conf;
 
 		$INFO['dlh'] = array(
-			  'isadmin' => (int) $INFO['isadmin']
-			, 'isauth'  => (int) $INFO['userinfo']
-		);
+			  'isadmin' 	=> (int) $INFO['isadmin']
+			, 'isauth'  	=> (int) $INFO['userinfo']
+			, 'ACT' 		=> $ACT
+			, 'title'       => $conf['title']
+			, 'tabs'		=> array()
+			, 'tabs_count'  => 0
+
+			);
 
 
 
@@ -61,72 +94,71 @@ class action_plugin_dirtylittlehelper extends DokuWiki_Action_Plugin {
 		  die('<a href="?do=login">LOGIN</a>');
 		}
 
-
-
-		
 		$JSINFO['dlh'] = array(
-			  'QUOT'		=> '"'
-			, 'WL' 			=> wl('','',true)
-			, 'DOKU_BASE'	=> DOKU_BASE
-			, 'DOKU_URL'	=> DOKU_URL
-			, 'isadmin' 	=> (int) $INFO['isadmin']
-			, 'isauth'  	=> (int) $INFO['userinfo']
+			  'QUOT'                => '"'
+			, 'WL'                  => wl('','',true)
+			, 'DOKU_BASE'   => DOKU_BASE
+			, 'DOKU_URL'    => DOKU_URL
+			, 'isadmin'     => (int) $INFO['isadmin']
+			, 'isauth'      => (int) $INFO['userinfo']
+			, 'title'       => $conf['title']
 		);
 
-        if(is_array($ACT)) {
-            $ACT = act_clean($ACT);
-        }
-        
-		$regex = 'edit|preview';
-				
-        $INFO['dlh']['act_edit'] = preg_match("/" . $regex ."/",$ACT);
-        $JSINFO['dlh']['act_edit'] = preg_match("/" . $regex ."/",$ACT);
+	if(is_array($ACT)) {
+		$ACT = act_clean($ACT);
+	}
 
-		$JSINFO['dlh']['edit_active'] = 0;
+   
+	$regex = 'edit|preview';
 
-		if($INFO['dlh']['act_edit'] && $INFO['dlh']['isadmin'] && $INFO['dlh']['isauth']){
+	$INFO['dlh']['act_edit'] = preg_match("/" . $regex ."/",$ACT);
+	$JSINFO['dlh']['act_edit'] = preg_match("/" . $regex ."/",$ACT);
 
-			$JSINFO['dlh']['edit_active'] = $this->getConf('edit_active');
+			$JSINFO['dlh']['edit_active'] = 0;
 
-			if( $JSINFO['dlh']['edit_active']){
-				$JSINFO['dlh']['edit_dlh_wikiid']	= $this->getConf('edit_dlh_wikiid');
-				$JSINFO['dlh']['edit_tb_min_max'] 	= $this->getConf('edit_tb_minmax');
-				$JSINFO['dlh']['edit_tb_maximize'] 	= $this->getConf('edit_tb_maximize');
-				$JSINFO['dlh']['edit_tb_code']	 	= $this->getConf('edit_tb_code');
-				$JSINFO['dlh']['edit_tb_mermaid']	= $this->getConf('edit_tb_mermaid');
-				$JSINFO['dlh']['edit_tb_drawio']	= $this->getConf('edit_tb_drawio');
-				$JSINFO['dlh']['edit_tb_struct']	= $this->getConf('edit_tb_struct');
-				$JSINFO['dlh']['edit_tb_dlhid']		= $this->getConf('edit_tb_dlhid');
-			}
+			if($INFO['dlh']['act_edit'] && $INFO['dlh']['isadmin'] && $INFO['dlh']['isauth']){
 
-		}//editor?
+					$JSINFO['dlh']['edit_active'] = $this->getConf('edit_active');
 
-		$JSINFO['dlh']['top_active'] = $this->getConf('top_active');
+					if( $JSINFO['dlh']['edit_active']){
+							$JSINFO['dlh']['edit_dlh_wikiid']       = $this->getConf('edit_dlh_wikiid');
+							$JSINFO['dlh']['edit_tb_min_max']       = $this->getConf('edit_tb_minmax');
+							$JSINFO['dlh']['edit_tb_maximize']      = $this->getConf('edit_tb_maximize');
+							$JSINFO['dlh']['edit_tb_code']          = $this->getConf('edit_tb_code');
+							$JSINFO['dlh']['edit_tb_mermaid']       = $this->getConf('edit_tb_mermaid');
+							$JSINFO['dlh']['edit_tb_drawio']        = $this->getConf('edit_tb_drawio');
+							$JSINFO['dlh']['edit_tb_struct']        = $this->getConf('edit_tb_struct');
+							$JSINFO['dlh']['edit_tb_dlhid']         = $this->getConf('edit_tb_dlhid');
+					}
 
-		//ONLY IF ACT = EDIT/PREVIEW && CONF = 1 && ISADMIN && ISAUTH
-		if( $INFO['dlh']['act_edit'] 
-			&& $this->getConf('edit_active') 
-			&& $INFO['dlh']['isadmin']
-			&& $INFO['dlh']['isauth']
-		){
+			}//editor?
+
+			$JSINFO['dlh']['top_active'] = $this->getConf('top_active');
+
+			//ONLY IF ACT = EDIT/PREVIEW && CONF = 1 && ISADMIN && ISAUTH
+			if( $INFO['dlh']['act_edit']
+					&& $this->getConf('edit_active')
+					&& $INFO['dlh']['isadmin']
+					&& $INFO['dlh']['isauth']
+			){
 
 
-			$edit_dlh_wikiid = trim($this->getConf('edit_dlh_wikiid'));
+					$edit_dlh_wikiid = trim($this->getConf('edit_dlh_wikiid'));
 
-			if($edit_dlh_wikiid){ 
-				$edit_dlh_wiki_body =  p_wiki_xhtml($edit_dlh_wikiid);
-			}else{
-				$edit_dlh_wiki_body=false;
-			}
+					if($edit_dlh_wikiid){
+							$edit_dlh_wiki_body =  p_wiki_xhtml($edit_dlh_wikiid);
+					}else{
+							$edit_dlh_wiki_body=false;
+					}
 
-			if(!$edit_dlh_wiki_body){
-				$JSINFO['dlh']['edit_look4struct']='0';
-				$edit_dlh_wiki_body='';
-			}else{
-				$JSINFO['dlh']['edit_look4struct']='1';
-			}
+					if(!$edit_dlh_wiki_body){
+							$JSINFO['dlh']['edit_look4struct']='0';
+							$edit_dlh_wiki_body='';
+					}else{
+							$JSINFO['dlh']['edit_look4struct']='1';
+					}
 
-			$text = <<<TEXT
+					$text = <<<TEXT
 <div id='dirtylittlehelper_overlay'>
 <div class = "close">
 <a href="javascript:jQuery('#dirtylittlehelper_overlay').toggle();void(0);"  rel="nofollow" title="close">close</a>

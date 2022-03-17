@@ -94,12 +94,16 @@ function dlh_open_wiki_link(dlh_wikilink){
 
 
 function dlh_fullcreen_edit(){
+	
+	if( dlh_check_mobile() ) {return false;}
 
 	if ( JSINFO['dlh']['dlh_edit_maximized'] === true){
-		jQuery('#dokuwiki__content').css({'position':'','top':'','left':'','right':'','bottom':'','overflow':'', 'max-width':''});
+		jQuery('#dokuwiki__content').css({'position':'','top':'','left':'','right':'','bottom':'','overflow':'', 'max-width':'', 'padding-right':''});
+		jQuery('#dokuwiki__content #dokuwiki__pagetools').css({'display':'block'});
 		JSINFO['dlh']['dlh_edit_maximized'] = false ;
 	}else{
-		jQuery('#dokuwiki__content').css({'position':'fixed','top':'10px','left':'10px','right':'10px','bottom':'10px','overflow':'scroll','max-width':'1700px'});
+		jQuery('#dokuwiki__content').css({'position':'fixed','top':'10px','left':'10px','right':'10px','bottom':'10px','overflow':'scroll','max-width':'1700px','padding-right':'30px'});
+		jQuery('#dokuwiki__content #dokuwiki__pagetools').css({'display':'none'});
 		JSINFO['dlh']['dlh_edit_maximized'] = true ;
 	}
 
@@ -205,6 +209,8 @@ function dlh_edit_tb_select(){
 
 
 function dlh_sb_toggle(force=''){
+	
+	if( dlh_check_mobile() ) {return false;}
 
 	if ( dlh_objectValueGet('dlh_left_tmp_sb') == "x"){dlh_objectValueSet('dlh_left_tmp_sb',jQuery('#dokuwiki__aside').css('width').replace('px',''));}
 	if ( dlh_objectValueGet('dlh_left_tmp_content') == "x"){dlh_objectValueSet('dlh_left_tmp_content',jQuery('.showSidebar #dokuwiki__content > .pad').css('margin-left').replace('px',''));}
@@ -225,7 +231,20 @@ function dlh_sb_toggle(force=''){
 	
 } //function dlh_sb_toggle
 
-
+function dlh_check_mobile(){
+	if( JSINFO['dlh']['mobile']===undefined ){
+		
+		if( jQuery('#dlh_is_phone').css('width')===undefined ||  jQuery('#dlh_is_tablet').css('width')===undefined ){
+			JSINFO['dlh']['mobile'] = false;
+			return false;
+		}
+		
+		JSINFO['dlh']['notmobile'] = screen.availWidth <= jQuery('#dlh_is_phone').css('width').replace('px','')*1  ||  screen.availWidth <= jQuery('#dlh_is_tablet').css('width').replace('px','')*1;
+	}
+	
+	return JSINFO['dlh']['notmobile'];
+	
+}
 
 
 /* DLH INI */
@@ -249,6 +268,7 @@ function dlh_ini(count=0){
 
 
 	var dlh_ini_step_at = 1;
+
 
 
 	//OVERLAY
@@ -421,7 +441,7 @@ function dlh_ini(count=0){
 
 						+ '<button class="dlh_button_36_32"  title="<dlh.*> COMMENT </dlh.*>" accesskey="*" '
 						+ 'onClick="insertTags(\'wiki__text\' , '
-						+ '   \'<dlh.*> \',\' </dlh>\',\' YOU WILL NOT SEE ME \'     '
+						+ '   \'<dlh.*> \',\' </dlh.*>\',\' YOU WILL NOT SEE ME \'     '
 						+  ');"><img src="'+JSINFO['dlh']['DOKU_URL']+'lib/plugins/dirtylittlehelper/images/dlh_comment.png" width="32px" height="32px">'
 						+ '</button> '
 
@@ -901,8 +921,8 @@ function dlh_ini(count=0){
 			'resize':' horizontal', 
 			'overflow':' auto', 
 			'display':' block', 
-			'padding-right':' 10px', 
-			'max-width':'1300px' });
+			'padding-right':' 10px'
+			});
 
 		// logo home button...
 		jQuery('#dokuwiki__header div.pad div.headings a span').css({'display':'inline-flex'});
@@ -929,13 +949,62 @@ function dlh_ini(count=0){
 			jQuery('#dokuwiki__site').css( {'max-width':'1700px','width':'' } );
 			jQuery('textarea').css({'height':'500px'});
 		}
+		
+		/* sidebar toggle NOT on mobile */
+		if(!dlh_check_mobile() ){
+				jQuery('.dlh_left_button_sb_toggle').css({'display':'block'});
+		}
+
 
 		++JSINFO['dlh']['ini_step_done'];
 
 	} //STYLE
 	++dlh_ini_step_at;
 
+	
+	//GRAPH FROM STRATABASE TABLE
+	if( dlh_ini_step_at > JSINFO['dlh']['ini_step_done'] ){
+		dlh_mermaid_from_relation();
+	++JSINFO['dlh']['ini_step_done'];
+	} //GRAPH FROM STRATABASE TABLE
+	++dlh_ini_step_at;
+	
+	
+	
+	// TABS
+	if( dlh_ini_step_at > JSINFO['dlh']['ini_step_done'] ){
+		if( document.getElementById('dlh_tabs4jQuery')){
+			var dlh_tab_groups_count = jQuery('#dlh_tabs4jQuery').data('tabs_count');
+			var dlh_tabs_html='';
+			var dlh_this_group_count =0;
+			var dlh_this_group_id = '';
 
+			for( i=1; i<dlh_tab_groups_count+1; ++i){
+				dlh_this_group_count = jQuery('#dlh_tabs4jQuery').data('group'+i+'_count');
+				dlh_this_group_id = jQuery('#dlh_tabs4jQuery').data('group'+i+'_id');
+				dlh_tabs_html = '<ul>';
+
+				for( ii=1; ii<dlh_this_group_count+1; ++ii){
+					dlh_tabs_html += '<li><a href="#dlh_tab__'+dlh_this_group_id+'_'+ii+'">'+jQuery('#dlh_tabs4jQuery').data('group'+i+'_title_'+ii)+'</a></li>'   
+				}
+				
+				dlh_tabs_html += '</ul>';
+				
+				document.getElementById('dlh_tab_head_'+dlh_this_group_id).innerHTML=dlh_tabs_html;
+				
+				jQuery('#dlh_tab_head_'+dlh_this_group_id).css({'display':'block'});
+				jQuery('#dlh_tab_master_'+dlh_this_group_id).tabs();
+
+			}
+			jQuery('#dlh_tabs4jQuery').remove();
+		} // div 4jQuery??
+		
+	++JSINFO['dlh']['ini_step_done'];
+	} //TABS
+	++dlh_ini_step_at;
+	
+
+	
 } //function dlh_ini
 
 
@@ -969,6 +1038,819 @@ function dlh_ajax_wikiid_body(the_wikiid=':',the_targetid){
 	}});
 
 } //function dlh_ajax_wikiid_body
+
+
+
+
+function dlh_mermaid_from_relation(){
+
+
+
+jQuery('.dlh_stratabase_relation').each( function(){if(this){
+
+	var dlh_mm=[];
+	dlh_mm['col']=[];
+	dlh_mm['col']['obj']=[];
+	dlh_mm['col']['port']=[];
+	dlh_mm['col']['info']=[];
+
+	dlh_mm['col']['obj'][1]=false;
+	dlh_mm['col']['port'][1]=false;
+	dlh_mm['col']['info'][1]=false;
+	dlh_mm['col']['obj'][2]=false;
+	dlh_mm['col']['port'][2]=false;
+	dlh_mm['col']['info'][2]=false;
+	dlh_mm['col']['conn']=false;
+	dlh_mm['conn_as_object']=false;
+
+
+	dlh_mm['design_obj1']=false;
+	dlh_mm['design_obj2']=false;
+	dlh_mm['design_port']=false;
+
+	dlh_mm['data']=[];
+
+	dlh_mm['data']['object_count']=0;
+	dlh_mm['data']['obj_data'] = [];
+	dlh_mm['data']['obj_by_name'] = [];
+	dlh_mm['data']['port_count']=0;
+	dlh_mm['data']['port_data'] = [];
+	dlh_mm['data']['conn_count']=0;
+	dlh_mm['data']['conn_data'] = [];
+
+
+	//get config from data-...
+	//OBJ
+	if( jQuery(this).data('obj') ) { 
+		var x = jQuery(this).data('obj');
+		x += ',false,false,false,';
+		x = x.replace(/,,/g, ",");
+		x = x.split(',');
+		if( Number.isInteger(x[0]*1) && Number.isInteger(x[1]*1) ){
+			dlh_mm['col']['obj'][1]=x[0];
+			dlh_mm['col']['obj'][2]=x[1];
+		}
+	}
+
+	//PORT
+	if( jQuery(this).data('port') ) { 
+		var x = jQuery(this).data('port');
+		x += ',false,false,false,';
+		x = x.replace(/,,/g, ",");
+		x = x.split(',');
+		if( Number.isInteger(x[0]*1) && Number.isInteger(x[1]*1) ){
+			dlh_mm['col']['port'][1]=x[0];
+			dlh_mm['col']['port'][2]=x[1];
+		}
+	}
+
+	//INFO
+	if( jQuery(this).data('info') ) {
+		var x = jQuery(this).data('info');
+		x += ',false,false,false,';
+		x = x.replace(/,,/g, ",");
+		x = x.split(',');
+		if( Number.isInteger(x[0]*1) && Number.isInteger(x[1]*1) ){
+			dlh_mm['col']['info'][1]=x[0];
+			dlh_mm['col']['info'][2]=x[1];
+		}
+	}
+
+	//CONN
+	if( jQuery(this).data('conn') ) {
+		var x = jQuery(this).data('conn');
+		x += ',false,false,false,';
+		x = x.replace(/,,/g, ",");
+		x = x.split(',');
+		if( Number.isInteger(x[0]*1) ){
+			dlh_mm['col']['conn']=x[0];
+		}
+	}
+	
+	//CONN as Object
+	if( jQuery(this).data('conn_as_o') ) {
+		var x = jQuery(this).data('conn_as_o');
+		x += ',false,false,false,';
+		x = x.replace(/,,/g, ",");
+		x = x.split(',');
+		if( x[0] === "1" ){
+			dlh_mm['conn_as_object']=true;
+		}
+
+	}
+	
+	
+	//DESIGN
+	if( jQuery(this).data('design') ) {
+		var x = jQuery(this).data('design');
+		x += ',false,false,false,';
+		x = x.replace(/,,/g, ",");
+		x = x.split(',');
+		if( Number.isInteger(x[0]*1) ){
+			dlh_mm['design_obj1']=x[0]; 
+			jQuery('.col'+x[0],this).css({'display':'none'});
+		}
+		if( Number.isInteger(x[1]*1) ){
+			dlh_mm['design_obj2']=x[1]; 
+			jQuery('.col'+x[1],this).css({'display':'none'});
+		}
+		if( Number.isInteger(x[2]*1) ){
+			dlh_mm['design_port']=x[2]; 
+			jQuery('.col'+x[2],this).css({'display':'none'});
+		}
+	}
+	
+	
+	jQuery('.dlh_mm', this).each(
+
+		function(){if(this){
+
+			jQuery('tbody tr',this).each(
+				function(){if(this){
+					var row_data=[];
+
+					//DESIGN...
+					var design = [];
+					design['obj']=[];
+					design['obj'][1]='';
+					design['obj'][2]='';
+					design['port']='';
+					
+					if( dlh_mm['design_port'] !== false ){
+						jQuery('.col'+ dlh_mm['design_port'] , this).each(
+							function(){if(this){
+
+								if( jQuery(this).text() ){
+									design['port'] = jQuery(this).text();
+								}
+								
+							}} // col has data
+						); // each design port
+					}//port
+					
+					if( dlh_mm['design_obj1'] !== false ){
+						jQuery('.col'+ dlh_mm['design_obj1'] , this).each(
+							function(){if(this){
+
+								if( jQuery(this).text() ){
+									design['obj'][1] = jQuery(this).text();
+								}
+								
+							}} // col has data
+						); // each design obj1
+					}//obj1
+
+					if( dlh_mm['design_obj2'] !== false ){
+						jQuery('.col'+ dlh_mm['design_obj2'] , this).each(
+							function(){if(this){
+
+								if( jQuery(this).text() ){
+									design['obj'][2] = jQuery(this).text();
+								}
+								
+							}} // col has data
+						); // each design obj2
+					}//obj2
+					
+					//DESIGN END
+					
+					for(i=1;i<3;i++){
+						row_data[i]=[];
+						this_obj_name = false;
+						this_obj_id = false;
+						this_port_name = false;
+						this_port_id = false;
+						
+
+						if( dlh_mm['col']['obj'][i] !== undefined && dlh_mm['col']['obj'][i] !== false){
+							jQuery('.col'+ dlh_mm['col']['obj'][i]+' a' , this).each(
+								function(){if(this){
+									// console.log(this);
+
+									if( jQuery(this).data('wiki-id') ){
+
+										this_obj_name = jQuery(this).data('wiki-id');
+
+										if( dlh_mm['data']['obj_by_name'][ this_obj_name ] !== undefined ){
+											this_obj_id = dlh_mm['data']['obj_by_name'][ this_obj_name ];
+										}else{
+											dlh_mm['data']['obj_by_name'][ this_obj_name ] = dlh_mm['data']['object_count'];
+											this_obj_id = dlh_mm['data']['obj_by_name'][ this_obj_name ];
+
+											dlh_mm['data']['obj_data'][ this_obj_id ]=[];
+											dlh_mm['data']['obj_data'][ this_obj_id ]['port_count'] = 0;
+											dlh_mm['data']['obj_data'][ this_obj_id ]['port_data'] = [];
+											dlh_mm['data']['obj_data'][ this_obj_id ]['port_by_name'] = [];
+											dlh_mm['data']['obj_data'][ this_obj_id ]['link'] = jQuery(this).attr('href');
+											dlh_mm['data']['obj_data'][ this_obj_id ]['label'] = jQuery(this).text();
+											dlh_mm['data']['obj_data'][ this_obj_id ]['design'] = design['obj'][i];
+
+											dlh_mm['data']['object_count']++;									
+										} // obj exists?
+
+									} // col obj has wiki-id?
+
+								}} // col has data
+							); // each col obj
+						} // cfg col object
+
+						// PORT BEGIN
+						if( this_obj_id !== false && dlh_mm['col']['port'][i] !== undefined && dlh_mm['col']['port'][i] !== false){
+							jQuery('.col'+ dlh_mm['col']['port'][i] , this).each(
+								function(){if(this){
+
+									if( jQuery(this).text() ){
+										this_port_name = jQuery(this).text();
+									}else{
+										this_port_name = '[oo]';
+									}
+									
+									if( dlh_mm['data']['obj_data'][this_obj_id]['port_by_name'][ this_port_name ] !== undefined){
+										this_port_id = dlh_mm['data']['obj_data'][this_obj_id]['port_by_name'][ this_port_name ];
+										last_port = this_port_id;
+									}else{
+										this_port_id = dlh_mm['data']['port_count'];
+										this_port_count = dlh_mm['data']['obj_data'][ this_obj_id ]['port_count'];
+										
+										dlh_mm['data']['obj_data'][ this_obj_id ]['port_data'][ this_port_count ] = this_port_id;
+										dlh_mm['data']['obj_data'][ this_obj_id ]['port_by_name'][ this_port_name ] = this_port_id;
+
+										dlh_mm['data']['port_data'][ this_port_id ] = [];
+										dlh_mm['data']['port_data'][ this_port_id ]['label'] = this_port_name;
+										dlh_mm['data']['port_data'][ this_port_id ]['design'] = design['port'];
+
+										dlh_mm['data']['obj_data'][ this_obj_id ]['port_count']++;
+										dlh_mm['data']['port_count']++;
+
+										last_port = this_port_id;
+
+									} // port exists?
+
+
+								}} // col has data
+							); // each col port
+						} // cfg col port
+						// PORT END
+
+
+					row_data[i]['obj']= this_obj_id;
+					row_data[i]['port']= this_port_id;
+
+					} // for i<3
+
+
+					if(row_data[1]['obj']!==false && row_data[2]['obj'] !== false){
+
+						jQuery('.col'+dlh_mm['col']['conn']+' a',this).each(
+							function(){if(this){
+								if( jQuery(this).data('wiki-id') ){
+
+									row_data['wikiid']=jQuery(this).data('wiki-id');
+									row_data['title']=jQuery(this).text();
+									row_data['link']=jQuery(this).attr('href');
+
+									this_conn_id = dlh_mm['data']['conn_count'];
+									dlh_mm['data']['conn_data'][ this_conn_id ] = row_data;
+									dlh_mm['data']['conn_count']++;
+
+									} // col wiki id
+							}} // col has data
+						);// col conn
+
+
+					} // row data ?
+					
+				}} // tr has data
+			); // each tbody tr
+
+
+			// BUILD GRAPH START
+			var dlh_mm_out='';
+			// the objects 
+			for(i=0;i<dlh_mm['data']['object_count'];i++){
+				dlh_mm_out += 'subgraph Obj'+i+'["'+ dlh_mm['data']['obj_data'][i]['label'] +'"]\n';
+				
+				//PORTS?
+				if( dlh_mm['col']['port'][1] !== false && dlh_mm['col']['port'][2] !== false){
+					for(ii=0;ii<dlh_mm['data']['obj_data'][i]['port_count'];ii++){
+						this_port_id = dlh_mm['data']['obj_data'][i]['port_data'][ii];
+						dlh_mm_out +=' Port'+this_port_id;
+						dlh_mm_out +='["'+dlh_mm['data']['port_data'][this_port_id]['label']+'"]\n';
+						dlh_mm_out +=' click Port'+this_port_id+' "';
+						dlh_mm_out += dlh_mm['data']['obj_data'][i]['link'] + '" "open object" _blank\n';
+						
+						//port design?
+						if(  dlh_mm['data']['port_data'][this_port_id]['design'] != ''){
+						  dlh_mm_out += 'style Port'+this_port_id+' '+dlh_mm['data']['port_data'][this_port_id]['design']+'\n';	
+						}
+					}//walk the ports
+				}//ports?
+				//obj design?
+				if( dlh_mm['data']['obj_data'][i]['design'] != ''){
+					dlh_mm_out += 'style Obj'+i+' '+dlh_mm['data']['obj_data'][i]['design']+'\n';	
+				}
+				
+				
+				dlh_mm_out += 'end\n\n';
+				
+			}
+			
+			// the connections 
+			
+			for(i=0;i<dlh_mm['data']['conn_count'];i++){
+				//PORTS?
+				if( dlh_mm['col']['port'][1] !== false && dlh_mm['col']['port'][2] !== false){				
+					dlh_mm_out += 'Port'+dlh_mm['data']['conn_data'][i][1]['port'];
+					dlh_mm_out += '-->';
+					
+					if(dlh_mm['conn_as_object'] === true || dlh_mm['conn_as_object'] == "true" ){
+						dlh_mm_out += 'conn'+i+'{{"'+dlh_mm['data']['conn_data'][i]['title']+'"}}-->';
+						dlh_mm_out += 'Port'+dlh_mm['data']['conn_data'][i][2]['port']+'\n';
+						
+						if( dlh_mm['data']['port_data'][dlh_mm['data']['conn_data'][i][1]['port']]['design'] != ''){
+							dlh_mm_out += 'style conn'+i+' '+dlh_mm['data']['port_data'][dlh_mm['data']['conn_data'][i][1]['port']]['design']+'\n';
+						}
+					
+						dlh_mm_out += 'click conn'+i+' "';
+						dlh_mm_out += dlh_mm['data']['conn_data'][i]['link'] + '" "open conn object" _blank\n';
+					}else{
+						dlh_mm_out += '|"'+dlh_mm['data']['conn_data'][i]['title']+'"|Port';
+						dlh_mm_out += dlh_mm['data']['conn_data'][i][2]['port']+'\n';
+					}
+				}else{ //PORTS?
+					dlh_mm_out += 'Obj'+dlh_mm['data']['conn_data'][i][1]['obj'];
+					dlh_mm_out += '-->';
+					
+					if(dlh_mm['conn_as_object'] === true || dlh_mm['conn_as_object'] == "true" ){
+						dlh_mm_out += 'conn'+i+'{{"'+dlh_mm['data']['conn_data'][i]['title']+'"}}---';
+						dlh_mm_out += 'Obj'+dlh_mm['data']['conn_data'][i][2]['obj']+'\n';
+						
+						dlh_mm_out += 'click conn'+i+' "';
+						dlh_mm_out += dlh_mm['data']['conn_data'][i]['link'] + '" "open conn object" _blank\n';
+					}else{
+						dlh_mm_out += '|"'+dlh_mm['data']['conn_data'][i]['title']+'"|Obj';
+						dlh_mm_out += dlh_mm['data']['conn_data'][i][2]['obj']+'\n';
+					}
+				}
+				
+			}//walk the conns
+			
+			// BUILD END 
+			if(dlh_mm_out != ''){
+				dlh_mm_out = '<div class="mermaid">\n\ngraph TD\n\n'+dlh_mm_out+'\n\n</div>';
+				jQuery(this).append(dlh_mm_out);
+				//console.log(dlh_mm_out);
+			}
+
+			
+			//console.log(dlh_mm['data']);
+
+		}}
+	); //each dlh_mm
+}} ); //each dlh_stratabase_relation
+
+
+
+mermaid.init();
+
+// mark this object in tables and graphs
+var this_id = jQuery('div.strata-entry span.strata-field span.curid').text();
+if(this_id){
+
+	jQuery('.dlh_mm td').each(
+		function(){if(this){
+			if(jQuery(this).text()==this_id){
+				//jQuery(this).css({'background-color':'#91ef86'});
+				jQuery(this).css({'border':'2px solid #91ef86;'});
+			}
+		}}
+	);
+
+    jQuery('.dlh_mm g.output g.label').each(
+		function(){ if(this){
+			if(jQuery(this).text()==this_id){
+				jQuery(this).parent().each(
+					function(){ if(this){
+						//jQuery('*',this ).css({'fill':'#baeab5'});
+						jQuery('*',this ).css({'stroke-width':'2px','stroke':'#baeab5'});
+					}}
+				);
+				}
+		}}
+    );
+
+
+}// if (this id)
+
+
+
+} // function dlh_mermaid_from_relation
+
+
+
+
+
+
+
+
+/*
+
+
+
+
+if(1==4){
+var dlh_mm=[];
+dlh_mm['object_name']=[];
+dlh_mm['object_data']=[];
+dlh_mm['object_count']=0;
+
+dlh_mm['port_data']=[];
+dlh_mm['port_count']=0;
+dlh_mm['conn_data']=[];
+dlh_mm['conn_count']=0;
+
+var dlh_mm_out='';
+
+var dlh_obj1=2;
+var dlh_obj1_port=3;
+var dlh_obj1_info=1;
+var dlh_obj2=6;
+var dlh_obj2_port=5;
+var dlh_obj2_info=7;
+var dlh_conn=4;
+
+
+dlh_cols=[];
+dlh_cols['obj'][1]=2;
+dlh_cols['port'][1]=3;
+dlh_cols['info'][1]=1;
+dlh_cols['obj'][2]=6;
+dlh_cols['port'][2]=5;
+dlh_cols['info'][2]=7;
+dlh_cols['conn']=4;
+
+jQuery('.dlh_mm').each(
+	function(){if(this){
+		jQuery('tbody tr',this).each(
+			function(){if(this){
+				row_data=[];
+
+				for(i=1;i<3;i++){
+
+					if(dlh_cols['obj'][i] !== undefined && dlh_cols['obj'][i] !== false){
+						jQuery('.col'+dlh_cols['obj'][i],this).each(
+						function(){if(this){
+							this_object_id = false;
+							this_object_name=false;
+
+							jQuery('a',this).each(
+								function(){if(this){
+									if( jQuery(this).data('wiki-id') ){
+
+										this_obj_name = jQuery(this).data('wiki-id');
+
+										if( dlh_mm['object_name'][ this_object_name ] == undefined ){
+											this_object_id = dlh_mm['object_count'];
+											dlh_mm['object_name'][ this_object_name ] = this_object_id;
+
+											dlh_mm['object_data'][this_object_id]=[];
+											dlh_mm['object_data'][this_object_id]['name']=this_object_name;
+											dlh_mm['object_data'][this_object_id]['wikiid']=jQuery(this).data('wiki-id');
+											dlh_mm['object_data'][this_object_id]['title']= jQuery(this).text();
+											dlh_mm['object_data'][this_object_id]['link']=jQuery(this).attr('href');
+											dlh_mm['object_data'][this_object_id]['ports_count']=0;
+											dlh_mm['object_data'][this_object_id]['ports_data']=[];
+											dlh_mm['object_data'][this_object_id]['ports_names']=[];
+
+											dlh_mm['object_count']++;
+										}else{
+											this_object_id = dlh_mm['object_name'][ this_object_name ];
+										}
+										row_data['obj'][i] = this_object_id;
+									}
+								}}
+							);
+							
+							
+							
+						}}
+						);
+					} //col_obj?
+					
+					if( row_data['obj'][i] !== undefined && dlh_cols['port'][i] !== undefined && dlh_cols['port'][i] !== false){
+						jQuery('.col'+dlh_cols['port'][i],this).each(
+						function(){if(this){
+							this_port_id=false;
+							this_port_name=false;
+
+							jQuery('a',this).each(
+								function(){if(this){
+									if( jQuery(this).data('wiki-id') ){
+
+										this_obj_name = jQuery(this).data('wiki-id');
+
+										if( dlh_mm['object_name'][ this_object_name ] == undefined ){
+											this_object_id = dlh_mm['object_count'];
+											dlh_mm['object_name'][ this_object_name ] = this_object_id;
+
+											dlh_mm['object_data'][this_object_id]=[];
+											dlh_mm['object_data'][this_object_id]['name']=this_object_name;
+											dlh_mm['object_data'][this_object_id]['wikiid']=jQuery(this).data('wiki-id');
+											dlh_mm['object_data'][this_object_id]['title']= jQuery(this).text();
+											dlh_mm['object_data'][this_object_id]['link']=jQuery(this).attr('href');
+											dlh_mm['object_data'][this_object_id]['ports_count']=0;
+											dlh_mm['object_data'][this_object_id]['ports_data']=[];
+											dlh_mm['object_data'][this_object_id]['ports_names']=[];
+
+											dlh_mm['object_count']++;
+										}else{
+											this_object_id = dlh_mm['object_name'][ this_object_name ];
+										}
+										row_data['obj'][i] = this_object_id;
+									}
+								}}
+							);
+							
+							
+							
+						}}
+						);
+						
+					} //col port?
+// PORT START 
+if( dlh_obj1_port !== false && this_object_id !== false){
+	jQuery('.col'+dlh_obj1_port,this).each(
+		function(){if(this){
+			if( jQuery(this).text() ){
+				
+				this_port_id = dlh_mm['port_count'];
+				this_port_name = jQuery(this).text();
+				dlh_mm['object_data'][this_object_id]['ports_data'][ dlh_mm['object_data'][this_object_id]['ports_count'] ] = this_port_id;
+				dlh_mm['port_data'][ this_port_id ]=[];
+				dlh_mm['port_data'][ this_port_id ]['object']=[this_object_id];
+				dlh_mm['port_data'][ this_port_id ]['portnum']=[dlh_mm['object_data'][this_object_id]['ports_count']];
+				dlh_mm['port_data'][ this_port_id ]['label']=[ this_port_name ];
+				
+				this_port_a = this_port_id;
+
+				dlh_mm['object_data'][this_object_id]['ports_count']++;
+				dlh_mm['port_count']++;
+		
+			}
+		}}
+	);
+}
+// PORT END 					
+					
+					
+				}//for i<3
+				
+			}}
+		);// each tr
+		
+		//BUILD GRAPH
+	}}
+);// each .dlh_mm
+
+}
+
+if(1==3){
+jQuery('.dlh_mm').each(
+	function(){if(this){
+		jQuery('tbody tr',this).each(
+			function(){if(this){
+				this_port_a = false; 
+				this_port_b = false; 
+				this_obj_a = false;
+				this_obj_b = false;
+
+				// OBJ1 START 
+				if( dlh_obj1 !== false){
+					jQuery('.col'+dlh_obj1,this).each(
+						function(){if(this){
+							this_object_id=false;
+							this_object_name=false;
+							this_port_id=false;
+							this_port_name=false;
+							
+
+							jQuery('a',this).each(
+								function(){if(this){
+									if( jQuery(this).data('wiki-id') ){
+										
+										this_object_name = jQuery(this).data('wiki-id');
+										
+										if( dlh_mm['object_name'][ this_object_name ] == undefined ){
+											this_object_id = dlh_mm['object_count'];
+											dlh_mm['object_name'][ this_object_name ] = this_object_id;
+											
+											dlh_mm['object_data'][this_object_id]=[];
+											dlh_mm['object_data'][this_object_id]['name']=this_object_name;
+											dlh_mm['object_data'][this_object_id]['wikiid']=jQuery(this).data('wiki-id');
+											dlh_mm['object_data'][this_object_id]['title']= jQuery(this).text();
+											dlh_mm['object_data'][this_object_id]['link']=jQuery(this).attr('href');
+											dlh_mm['object_data'][this_object_id]['ports_count']=0;
+											dlh_mm['object_data'][this_object_id]['ports_data']=[];
+											
+											
+											dlh_mm['object_count']++;
+										}else{
+											this_object_id = dlh_mm['object_name'][ this_object_name ];
+										}
+										this_obj_a = this_object_id;
+									}
+								}}
+							)
+
+						}}
+					);
+					// PORT START 
+					if( dlh_obj1_port !== false && this_object_id !== false){
+						jQuery('.col'+dlh_obj1_port,this).each(
+							function(){if(this){
+								if( jQuery(this).text() ){
+									
+									this_port_id = dlh_mm['port_count'];
+									this_port_name = jQuery(this).text();
+									dlh_mm['object_data'][this_object_id]['ports_data'][ dlh_mm['object_data'][this_object_id]['ports_count'] ] = this_port_id;
+									dlh_mm['port_data'][ this_port_id ]=[];
+									dlh_mm['port_data'][ this_port_id ]['object']=[this_object_id];
+									dlh_mm['port_data'][ this_port_id ]['portnum']=[dlh_mm['object_data'][this_object_id]['ports_count']];
+									dlh_mm['port_data'][ this_port_id ]['label']=[ this_port_name ];
+									
+									this_port_a = this_port_id;
+
+									dlh_mm['object_data'][this_object_id]['ports_count']++;
+									dlh_mm['port_count']++;
+							
+								}
+							}}
+						);
+					}
+					// PORT END 
+				}
+				// OBJ1 END 
+
+
+				// OBJ2 START 
+				if( dlh_obj2 !== false){
+					jQuery('.col'+dlh_obj2,this).each(
+						function(){if(this){
+							this_object_id=false;
+							this_object_name=false;
+							this_port_id=false;
+							this_port_name=false;
+							
+
+							jQuery('a',this).each(
+								function(){if(this){
+									if( jQuery(this).data('wiki-id') ){
+										
+										this_object_name = jQuery(this).data('wiki-id');
+										
+										if( dlh_mm['object_name'][ this_object_name ] == undefined ){
+											this_object_id = dlh_mm['object_count'];
+											dlh_mm['object_name'][ this_object_name ] = this_object_id;
+											
+											dlh_mm['object_data'][this_object_id]=[];
+											dlh_mm['object_data'][this_object_id]['name']=this_object_name;
+											dlh_mm['object_data'][this_object_id]['wikiid']=jQuery(this).data('wiki-id');
+											dlh_mm['object_data'][this_object_id]['title']= jQuery(this).text();
+											dlh_mm['object_data'][this_object_id]['link']=jQuery(this).attr('href');
+											dlh_mm['object_data'][this_object_id]['ports_count']=0;
+											dlh_mm['object_data'][this_object_id]['ports_data']=[];
+											
+											
+											dlh_mm['object_count']++;
+										}else{
+											this_object_id = dlh_mm['object_name'][ this_object_name ];
+										}
+										this_obj_b = this_object_id;
+									}
+								}}
+							)
+
+						}}
+					);
+					// PORT START 
+					if( dlh_obj2_port !== false && this_object_id !== false){
+						jQuery('.col'+dlh_obj2_port,this).each(
+							function(){if(this){
+								if( jQuery(this).text() ){
+									
+									this_port_id = dlh_mm['port_count'];
+									this_port_name = jQuery(this).text();
+									dlh_mm['object_data'][this_object_id]['ports_data'][ dlh_mm['object_data'][this_object_id]['ports_count'] ] = this_port_id;
+									dlh_mm['port_data'][ this_port_id ]=[];
+									dlh_mm['port_data'][ this_port_id ]['object']=[this_object_id];
+									dlh_mm['port_data'][ this_port_id ]['portnum']=[dlh_mm['object_data'][this_object_id]['ports_count']];
+									dlh_mm['port_data'][ this_port_id ]['label']=[ this_port_name ];
+									
+									this_port_b = this_port_id;
+
+									dlh_mm['object_data'][this_object_id]['ports_count']++;
+									dlh_mm['port_count']++;
+							
+								}
+							}}
+						);
+					}
+					// PORT END 
+				}
+				// OBJ2 END 
+
+				// CONNECTION START 
+				
+///				if( dlh_conn !== false && this_port_a !== false && this_port_b !== false){
+				if( dlh_conn !== false ){
+					jQuery('.col'+dlh_conn+' a',this).each(
+						function(){if(this){
+							if( jQuery(this).data('wiki-id') ){
+								
+								this_conn_id = dlh_mm['conn_count'];
+								dlh_mm['conn_data'][this_conn_id]=[];
+								dlh_mm['conn_data'][this_conn_id]['obj_a']=this_obj_a;
+								dlh_mm['conn_data'][this_conn_id]['obj_b']=this_obj_b;
+								dlh_mm['conn_data'][this_conn_id]['port_a']=this_port_a;
+								dlh_mm['conn_data'][this_conn_id]['port_b']=this_port_b;
+								dlh_mm['conn_data'][this_conn_id]['wikiid']=jQuery(this).data('wiki-id');
+								dlh_mm['conn_data'][this_conn_id]['title']=jQuery(this).text();
+								dlh_mm['conn_data'][this_conn_id]['link']=jQuery(this).attr('href');
+
+								dlh_mm['conn_count']++;
+						
+							}
+						}}
+					);
+				}
+				
+				// CONNECTION END 
+				
+				
+				
+			}}
+		);// each row
+		
+		// BUILD GRAPH START
+		dlh_mm_out='';
+		// the objects 
+		for(i=0;i<dlh_mm['object_count'];i++){
+			dlh_mm_out += 'subgraph Obj'+i+'['+ dlh_mm['object_data'][i]['title'] +']\n';
+			
+			if( dlh_mm['object_data'][i]['ports_count'] == 0){
+				dlh_mm_out += 'Obj'+i+'PortX';
+				dlh_mm_out +='[o]\n';
+				dlh_mm_out +=' click Port'+this_port_id+' "';
+				dlh_mm_out += dlh_mm['object_data'][i]['link'] + '" "open object" _blank\n';
+			}else{
+				for(ii=0;ii<dlh_mm['object_data'][i]['ports_count'];ii++){
+					this_port_id = dlh_mm['object_data'][i]['ports_data'][ii];
+					dlh_mm_out +=' Port'+this_port_id;
+					dlh_mm_out +='['+dlh_mm['port_data'][this_port_id]['label']+']\n';
+					dlh_mm_out +=' click Port'+this_port_id+' "';
+					dlh_mm_out += dlh_mm['object_data'][i]['link'] + '" "open object" _blank\n';
+				}
+			}
+			dlh_mm_out += 'end\n\n';
+			
+		}
+		
+		// the connections 
+		
+		for(i=0;i<dlh_mm['conn_count'];i++){
+				
+				dlh_mm_out += 'Port'+dlh_mm['conn_data'][i]['port_a'];
+				dlh_mm_out += '---';
+				
+				if(1==2){
+				dlh_mm_out += 'conn'+i+'{{'+dlh_mm['conn_data'][i]['title']+'}}---';
+				dlh_mm_out += 'Port'+dlh_mm['conn_data'][i]['port_b']+'\n';
+				
+				dlh_mm_out += 'click conn'+i+' "';
+				dlh_mm_out += dlh_mm['conn_data'][i]['link'] + '" "open conn object" _blank\n';
+				}else{
+				dlh_mm_out += '|'+dlh_mm['conn_data'][i]['title']+'|Port';
+				dlh_mm_out += dlh_mm['conn_data'][i]['port_b']+'\n';
+				}
+		}
+		
+		// BUILD END 
+		if(dlh_mm_out != ''){
+			dlh_mm_out = '<div class="mermaid">\n\ngraph TD\n\n'+dlh_mm_out+'\n\n</div>';
+			jQuery(this).append(dlh_mm_out);
+			//console.log(dlh_mm_out);
+		}
+	}}
+);
+
+mermaid.init();
+} //1==3
+*/
+//console.log(dlh_mm_out);
+/* END */
+
+
+
 
 
 document.addEventListener("DOMContentLoaded", function(event) { 
