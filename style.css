@@ -80,7 +80,7 @@ display:none;
 
 
 #dlh_top_helper_a{ width:40px;margin-right:10px;display:inline-block;}
-#dlh_top_helper_b{ display:none; width:600px;border:1px solid red;position: relative; margin-top: -15px; background-color: #FFF;}
+#dlh_top_helper_b{ display:none; width:600px;border:1px solid red;position: relative; margin-top: -15px; background-color: #FFF;padding:20px;}
 #dlh_top_helper_b input{width:550px;display:inline;}
 #dlh_top_helper_a:hover #dlh_top_helper_b{ display: table; }
 
