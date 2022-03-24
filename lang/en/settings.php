@@ -39,6 +39,7 @@ $lang['top_adm_link_wikiid'] = 'TOPMENU: wikipage the points to';
 /* IP HELPER */
 
 
+$lang['iphelper_subnetcalculator_label']      = 'IPHELPER: LABEL for subnetcalculator';
 $lang['iphelper_subnetcalculator']      = 'IPHELPER: URL for subnetcalculator';
 $lang['iphelper_tool1name']             = 'IPHELPER: Name of the tool in tooltip<br>Tool with no name will be hidden';
 $lang['iphelper_tool1url']              = 'IPHELPER: URL  of the tool in tooltip<br>Variable %ip% gets replaced by ip';
