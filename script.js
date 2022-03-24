@@ -1184,7 +1184,7 @@ function dlh_checkValid() {
     }
 //validate subnet
  //format
-  if (document.forms.input.dlh_in_subnet.value.match(ipPattern) != document.forms.dlh_input.in_subnet.value)
+  if (document.forms.input.dlh_in_subnet.value.match(ipPattern) != document.forms.dlh_input.dlh_in_subnet.value)
   {
     console.log('Subnetmask not formated x.x.x.x -> xxx.xxx.xxx.xxx');
     return false;
