@@ -23,6 +23,8 @@ class action_plugin_dirtylittlehelper extends DokuWiki_Action_Plugin {
 		$controller->register_hook('TPL_METAHEADER_OUTPUT', 'BEFORE', $this, 'dirtylittlehelper_add_js_mermaid');
 		$controller->register_hook('TOOLBAR_DEFINE', 'AFTER', $this, 'dirtylittlehelper_insert_button', array ());
 		$controller->register_hook('TPL_ACT_RENDER', 'AFTER',  $this, 'dirtylittlehelper_after_render', array('after'));
+		
+		$controller->register_hook('TPL_CONTENT_DISPLAY', 'BEFORE', $this, 'dirtylittlehelper_iphelper_handle_content_display', array());
 
 	}
 
@@ -442,7 +444,98 @@ TEXT;
 		    );
 	}
     
+
 	
+	function dirtylittlehelper_iphelper_handle_content_display(&$event, $param) {
+		
+		            $subnetcalculator = $this->getConf('iphelper_subnetcalculator');
+		            $subnetcalculatortarget = $this->getConf('iphelper_subnetcalculatortarget');
+                    $tool1name = $this->getConf('iphelper_tool1name');
+                    $tool2name = $this->getConf('iphelper_tool2name');
+                    $tool3name = $this->getConf('iphelper_tool3name');
+                    $tool4name = $this->getConf('iphelper_tool4name');
+                    $tool5name = $this->getConf('iphelper_tool5name');
+                    $tool6name = $this->getConf('iphelper_tool6name');
+                    $tool7name = $this->getConf('iphelper_tool7name');
+                    $tool8name = $this->getConf('iphelper_tool8name');
+                    $tool9name = $this->getConf('iphelper_tool9name');
+                    $tool10name = $this->getConf('iphelper_tool10name');
+                    $rawtools = $this->getConf('iphelper_rawtools');
+                    
+		
+                    if (strlen($tool1name) > 1) {$tool1url = $this->getConf('iphelper_tool1url');$tool1urltarget = $this->getConf('iphelper_tool1urltarget'); $tool1html = "<a href=\"". $tool1url ."\" target=\"". $tool1urltarget ."\">" . $tool1name . "</a><br>";}
+                    if (strlen($tool2name) > 1) {$tool2url = $this->getConf('iphelper_tool2url');$tool2urltarget = $this->getConf('iphelper_tool2urltarget'); $tool2html = "<a href=\"". $tool2url ."\" target=\"". $tool2urltarget ."\">" . $tool2name . "</a><br>";}
+                    if (strlen($tool3name) > 1) {$tool3url = $this->getConf('iphelper_tool3url');$tool3urltarget = $this->getConf('iphelper_tool3urltarget'); $tool3html = "<a href=\"". $tool3url ."\" target=\"". $tool3urltarget ."\">" . $tool3name . "</a><br>";}
+                    if (strlen($tool4name) > 1) {$tool4url = $this->getConf('iphelper_tool4url');$tool4urltarget = $this->getConf('iphelper_tool4urltarget'); $tool4html = "<a href=\"". $tool4url ."\" target=\"". $tool4urltarget ."\">" . $tool4name . "</a><br>";}
+                    if (strlen($tool5name) > 1) {$tool5url = $this->getConf('iphelper_tool5url');$tool5urltarget = $this->getConf('iphelper_tool5urltarget'); $tool5html = "<a href=\"". $tool5url ."\" target=\"". $tool5urltarget ."\">" . $tool5name . "</a><br>";}
+                    if (strlen($tool6name) > 1) {$tool6url = $this->getConf('iphelper_tool6url');$tool6urltarget = $this->getConf('iphelper_tool6urltarget'); $tool6html = "<a href=\"". $tool6url ."\" target=\"". $tool6urltarget ."\">" . $tool6name . "</a><br>";}
+                    if (strlen($tool7name) > 1) {$tool7url = $this->getConf('iphelper_tool7url');$tool7urltarget = $this->getConf('iphelper_tool7urltarget'); $tool7html = "<a href=\"". $tool7url ."\" target=\"". $tool7urltarget ."\">" . $tool7name . "</a><br>";}
+                    if (strlen($tool8name) > 1) {$tool8url = $this->getConf('iphelper_tool8url');$tool8urltarget = $this->getConf('iphelper_tool8urltarget'); $tool8html = "<a href=\"". $tool8url ."\" target=\"". $tool8urltarget ."\">" . $tool8name . "</a><br>";}
+                    if (strlen($tool9name) > 1) {$tool9url = $this->getConf('iphelper_tool9url');$tool9urltarget = $this->getConf('iphelper_tool9urltarget'); $tool9html = "<a href=\"". $tool9url ."\" target=\"". $tool9urltarget ."\">" . $tool9name . "</a><br>";}
+                    if (strlen($tool10name) > 1) {$tool10url = $this->getConf('iphelper_tool10url');$tool10urltarget = $this->getConf('iphelper_tool10urltarget'); $tool10html = "<a href=\"". $tool10url ."\" target=\"". $tool10urltarget ."\">" . $tool10name . "</a><br>";} 
+					
+                    $iphelperbase = "" . $tool1html . $tool2html . $tool3html . $tool4html . $tool5html . $tool6html . $tool7html . $tool8html . $tool9html . $tool10html . $rawtools;
+
+
+		
+		
+            $event->data .= <<<TEXT
+<!-- The iphelper Template -->
+<div style="display: none;" id="dlh_iphelpertemplate">$iphelperbase</div>
+<div style="display: none;" id="dlh_iphelpertemplatemask"><a href="$subnetcalculator" target="$subnetcalculatortarget">Start SubnetCalc ($subnetcalculator)</a></div>
+<!-- The iphelper -->
+<div id="dlh_myiphelper" class="dlh_myiphelper">
+  <!-- iphelper content -->
+  <div class="dlh_iphelper-content">
+    <div class="dlh_iphelper-header" style="font-size: 28px;">
+      <span class="dlh_iphelperclose">&times;</span>
+      iphelper toolbox <input type="text" id="dlh_iphelperinput"></input>
+    </div>
+    <div class="dlh_iphelper-body">
+      <p id="dlh_iphelperbodyp">you see this when javscript or css is not working correct</p>
+	  <p id="dlh_iphelpersubnetcalc">
+																				
+<div class="section" id="dlh_calc">
+<div class="input" style="display:none;">
+<h2>Input</h2>
+<form name="input" action="post">
+IP-Address:<input type="text" id="dlh_iphelpersubnetcalcinput" name="in_address" value="127.0.0.1" onkeyup="ipChange()" />
+Subnet:<input type="text" id="dlh_iphelpersubnetcalcsubnetinput" name="in_subnet" value="255.0.0.0" onkeyup="subChange()" />
+</form>
+</div>
+<div class="dlh_output">
+<div id='dlh_is_valid' class='dlh_is_valid' style="background-color:#E6E6FA">Untested</div>
+<form name="dlh_output" action="post">
+IP Address:
+<span id="dlh_out_address"></span><br>
+First usable:
+<span id="dlh_out_firstusable"></span><br>
+Subnet:
+<span id="dlh_out_subnet"></span><br>
+Last usable:
+<span id="dlh_out_lastusable"></span><br>
+CIDR:
+<span id="dlh_out_cidr"></span><br>
+Amount of usable:
+<span id="dlh_out_amountaddresses"></span><br>
+Network address:
+<span id="dlh_out_netaddr"></span><br>
+Reverse address:
+<span id="dlh_out_ptraddr"></span><br>
+Broadcast address:
+<span id="dlh_out_bcast"></span><br>
+</form>
+</div>
+</div>
+</p>
+    </div>
+    <div class="dlh_iphelper-footer">
+      <h3 id="dlh_iphelperfooter">&nbsp;</h3>
+    </div>
+  </div>
+</div>
+TEXT;
+    }
 	
 	
 
