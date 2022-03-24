@@ -1268,7 +1268,7 @@ if (tcidr != 32)
 
 //Do real outputing
   document.getElementById("dlh_out_address").innerHTML = taddress;
-  document.getElementById("dlh_out_subnet").innerHTML = document.forms.input.in_subnet.value;
+  document.getElementById("dlh_out_subnet").innerHTML = document.forms.input.dlh_in_subnet.value;
   document.getElementById("dlh_out_cidr").innerHTML = tcidr;
   document.getElementById("dlh_out_netaddr").innerHTML = tnaddr;
   document.getElementById("dlh_out_bcast").innerHTML = tbaddr;
