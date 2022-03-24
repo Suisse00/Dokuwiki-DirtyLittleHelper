@@ -1023,7 +1023,7 @@ dlh_span.onclick = function () {
 
 // When the user clicks anywhere outside of the iphelper, close it
 window.onclick = function(event) {
-    if (event.target == iphelper) {
+    if (event.target == dlh_iphelper) {
         dlh_iphelper.style.display = "none";
     }
 };
