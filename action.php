@@ -499,8 +499,8 @@ TEXT;
 <div class="input" style="display:none;">
 <h2>Input</h2>
 <form name="input" action="post">
-IP-Address:<input type="text" id="dlh_iphelpersubnetcalcinput" name="in_address" value="127.0.0.1" onkeyup="ipChange()" />
-Subnet:<input type="text" id="dlh_iphelpersubnetcalcsubnetinput" name="in_subnet" value="255.0.0.0" onkeyup="subChange()" />
+IP-Address:<input type="text" id="dlh_iphelpersubnetcalcinput" name="dlh_in_address" value="127.0.0.1" onkeyup="ipChange()" />
+Subnet:<input type="text" id="dlh_iphelpersubnetcalcsubnetinput" name="dlh_in_subnet" value="255.0.0.0" onkeyup="subChange()" />
 </form>
 </div>
 <div class="dlh_output">
