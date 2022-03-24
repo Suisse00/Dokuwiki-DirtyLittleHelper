@@ -40,6 +40,7 @@ $conf['top_adm_link_wikiid'] = 'secretnamespace:';
 /* IP HELPER */
 
 $conf['iphelper_subnetcalculatortarget']    = '_blank';
+$conf['iphelper_subnetcalculator_label']    = 'Start Subnet Calculator';
 $conf['iphelper_subnetcalculator']    = 'https://www.tunnelsup.com/subnet-calculator/?ip=%ip%';
 $conf['iphelper_tool1urltarget']    = '_self';
 $conf['iphelper_tool1name']    = 'RDP starten (erfordert Windows mit Anpassungen)';
