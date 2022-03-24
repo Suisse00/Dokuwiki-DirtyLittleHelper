@@ -1017,7 +1017,7 @@ var dlh_iphelpersubnetcalc = document.getElementById("dlh_calc");
 // Get the <span> element that closes the iphelper
 var dlh_span = document.querySelector('.dlh_iphelperclose');
 // When the user clicks on <span> (x), close the iphelper
-span.onclick = function () {
+dlh_span.onclick = function () {
     dlh_iphelper.style.display = "none";
 };
 
