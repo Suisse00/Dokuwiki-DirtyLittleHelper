@@ -37,6 +37,7 @@ $meta['top_adm_link_wikiid'] = array('string');
 /* IP HELPER */
 
 $meta['iphelper_subnetcalculatortarget']   = array('multichoice','_choices' => array('_self','_blank','_parent','_top'));
+$meta['iphelper_subnetcalculator_label'] = array('string');
 $meta['iphelper_subnetcalculator'] = array('string');
 $meta['iphelper_tool1urltarget']   = array('multichoice','_choices' => array('_self','_blank','_parent','_top'));
 $meta['iphelper_tool1name'] = array('string');
