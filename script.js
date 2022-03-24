@@ -1201,7 +1201,7 @@ function dlh_checkValid() {
   }
   return true;
 }
-function InvalidateOutput()
+function dlh_InvalidateOutput()
 {
   document.getElementById("dlh_out_address").innerHTML = '';
   document.getElementById("dlh_out_subnet").innerHTML = '';
