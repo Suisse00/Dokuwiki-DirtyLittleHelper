@@ -1217,7 +1217,7 @@ function InvalidateOutput()
   document.getElementById("dlh_is_valid").style.backgroundColor = "red";
 }
 
-function UpdateOutput()
+function dlh_UpdateOutput()
 {
 // Update Valid text
   document.getElementById("dlh_is_valid").style.display = 'none';
