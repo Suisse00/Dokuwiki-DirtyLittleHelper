@@ -1264,7 +1264,7 @@ jQuery('.dlh_stratabase_relation').each( function(){if(this){
 									}else{
 										this_port_name = '[oo]';
 									}
-									
+
 									if( dlh_mm['data']['obj_data'][this_obj_id]['port_by_name'][ this_port_name ] !== undefined){
 										this_port_id = dlh_mm['data']['obj_data'][this_obj_id]['port_by_name'][ this_port_name ];
 										last_port = this_port_id;
