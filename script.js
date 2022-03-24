@@ -1047,18 +1047,22 @@ if (dlh_iphelperaddress.search("/") != -1) {
 		document.getElementById("dlh_iphelpersubnetcalcinput").value = dlh_iphelperaddress.split("/")[0];
 		console.log('CIDR in input address is out of range');
 	}
-    document.getElementById("dlh_iphelperbodyp").innerHTML = document.getElementById("dlh_iphelpertemplatemask").innerHTML.replace(/\%ip\%/g, dlh_iphelperaddress);
-    document.getElementById("dlh_iphelperbodyp").innerHTML = document.getElementById("dlh_iphelpertemplatemask").innerHTML.replace(/\%ip\%/g, dlh_iphelperaddress);
-    document.getElementById("dlh_iphelperbodyp").innerHTML = document.getElementById("dlh_iphelpertemplatemask").innerHTML.replace(/\%ipnetcidr\%/g, document.getElementById("dlh_out_netaddr").innerHTML + '/' + document.getElementById("dlh_out_cidr").innerHTML);
-    document.getElementById("dlh_iphelperbodyp").innerHTML = document.getElementById("dlh_iphelpertemplatemask").innerHTML.replace(/\%ipnetcidr\%/g, document.getElementById("dlh_out_netaddr").innerHTML + '/' + document.getElementById("dlh_out_cidr").innerHTML);
-	
+
 	dlh_ipChange();
+    
+    document.getElementById("dlh_iphelperbodyp").innerHTML = document.getElementById("dlh_iphelpertemplatemask").innerHTML.replace(/\%ip\%/g, dlh_iphelperaddress);
+    //document.getElementById("dlh_iphelperbodyp").innerHTML = document.getElementById("dlh_iphelpertemplatemask").innerHTML.replace(/\%ip\%/g, dlh_iphelperaddress);
+    document.getElementById("dlh_iphelperbodyp").innerHTML = document.getElementById("dlh_iphelpertemplatemask").innerHTML.replace(/\%ipnetcidr\%/g, document.getElementById("dlh_out_netaddr").innerHTML + '/' + document.getElementById("dlh_out_cidr").innerHTML);
+    //document.getElementById("dlh_iphelperbodyp").innerHTML = document.getElementById("dlh_iphelpertemplatemask").innerHTML.replace(/\%ipnetcidr\%/g, document.getElementById("dlh_out_netaddr").innerHTML + '/' + document.getElementById("dlh_out_cidr").innerHTML);
+	
+//	dlh_ipChange();
 } else {
     dlh_iphelpersubnetcalc.style.display = "none";
+    dlh_ipChange();
     document.getElementById("dlh_iphelperbodyp").innerHTML = document.getElementById("dlh_iphelpertemplate").innerHTML.replace(/\%ip\%/g, dlh_iphelperaddress);
-    document.getElementById("dlh_iphelperbodyp").innerHTML = document.getElementById("dlh_iphelpertemplate").innerHTML.replace(/\%ip\%/g, dlh_iphelperaddress);
+    //document.getElementById("dlh_iphelperbodyp").innerHTML = document.getElementById("dlh_iphelpertemplate").innerHTML.replace(/\%ip\%/g, dlh_iphelperaddress);
     document.getElementById("dlh_iphelperbodyp").innerHTML = document.getElementById("dlh_iphelpertemplate").innerHTML.replace(/\%ipnetcidr\%/g, document.getElementById("dlh_out_netaddr").innerHTML + '/' + document.getElementById("dlh_out_cidr").innerHTML);
-    document.getElementById("dlh_iphelperbodyp").innerHTML = document.getElementById("dlh_iphelpertemplate").innerHTML.replace(/\%ipnetcidr\%/g, document.getElementById("dlh_out_netaddr").innerHTML + '/' + document.getElementById("dlh_out_cidr").innerHTML);
+    //document.getElementById("dlh_iphelperbodyp").innerHTML = document.getElementById("dlh_iphelpertemplate").innerHTML.replace(/\%ipnetcidr\%/g, document.getElementById("dlh_out_netaddr").innerHTML + '/' + document.getElementById("dlh_out_cidr").innerHTML);
 }
 
 });
@@ -1077,12 +1081,17 @@ if (dlh_iphelperaddress.search("/") != -1) {
 			document.getElementById("dlh_iphelpersubnetcalcsubnetinput").value = dlh_iphelperaddressright;
 			document.getElementById("dlh_iphelpersubnetcalcinput").value = dlh_iphelperaddress.split("/")[0];
 	}
+    
+	dlh_ipChange();
     document.getElementById("dlh_iphelperbodyp").innerHTML = document.getElementById("dlh_iphelpertemplatemask").innerHTML.replace(/\%ip\%/g, dlh_iphelperaddress);
     document.getElementById("dlh_iphelperbodyp").innerHTML = document.getElementById("dlh_iphelpertemplatemask").innerHTML.replace(/\%ipnetcidr\%/g, document.getElementById("dlh_out_netaddr").innerHTML + '/' + document.getElementById("dlh_out_cidr").innerHTML);
 
-	dlh_ipChange();
+	//dlh_ipChange();
 } else {
     dlh_iphelpersubnetcalc.style.display = "none";
+	
+	dlh_ipChange();
+	
     document.getElementById("dlh_iphelperbodyp").innerHTML = document.getElementById("dlh_iphelpertemplate").innerHTML.replace(/\%ip\%/g, dlh_iphelperaddress);
     document.getElementById("dlh_iphelperbodyp").innerHTML = document.getElementById("dlh_iphelpertemplate").innerHTML.replace(/\%ipnetcidr\%/g, document.getElementById("dlh_out_netaddr").innerHTML + '/' + document.getElementById("dlh_out_cidr").innerHTML);
     
