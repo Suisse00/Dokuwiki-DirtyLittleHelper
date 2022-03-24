@@ -449,6 +449,7 @@ TEXT;
 	function dirtylittlehelper_iphelper_handle_content_display(&$event, $param) {
 		
 		            $subnetcalculator = $this->getConf('iphelper_subnetcalculator');
+			    $subnetcalculator_label = $this->getConf('iphelper_subnetcalculator_label');
 		            $subnetcalculatortarget = $this->getConf('iphelper_subnetcalculatortarget');
                     $tool1name = $this->getConf('iphelper_tool1name');
                     $tool2name = $this->getConf('iphelper_tool2name');
@@ -482,7 +483,7 @@ TEXT;
             $event->data .= <<<TEXT
 <!-- The iphelper Template -->
 <div style="display: none;" id="dlh_iphelpertemplate">$iphelperbase</div>
-<div style="display: none;" id="dlh_iphelpertemplatemask"><a href="$subnetcalculator" target="$subnetcalculatortarget">Start SubnetCalc ($subnetcalculator)</a></div>
+<div style="display: none;" id="dlh_iphelpertemplatemask"><a href="$subnetcalculator" target="$subnetcalculatortarget">$subnetcalculator_label ($subnetcalculator)</a></div>
 <!-- The iphelper -->
 <div id="dlh_myiphelper" class="dlh_myiphelper">
   <!-- iphelper content -->
