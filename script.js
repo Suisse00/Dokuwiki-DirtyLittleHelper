@@ -1052,7 +1052,7 @@ if (dlh_iphelperaddress.search("/") != -1) {
     
     //document.getElementById("dlh_iphelperbodyp").innerHTML = document.getElementById("dlh_iphelpertemplatemask").innerHTML.replace(/\%ip\%/g, dlh_iphelperaddress);
     document.getElementById("dlh_iphelperbodyp").innerHTML = document.getElementById("dlh_iphelpertemplatemask").innerHTML.replace(/\%ip\%/g, document.getElementById("dlh_out_address").innerHTML);
-    document.getElementById("dlh_iphelperbodyp").innerHTML.replace(/\%ipnetcidr\%/g, document.getElementById("dlh_out_netaddr").innerHTML + '/' + document.getElementById("dlh_out_cidr").innerHTML);
+    document.getElementById("dlh_iphelperbodyp").innerHTML = document.getElementById("dlh_iphelperbodyp").innerHTML.replace(/\%ipnetcidr\%/g, document.getElementById("dlh_out_netaddr").innerHTML + '/' + document.getElementById("dlh_out_cidr").innerHTML);
     
 	
 //	dlh_ipChange();
@@ -1061,7 +1061,7 @@ if (dlh_iphelperaddress.search("/") != -1) {
     dlh_ipChange();
     //document.getElementById("dlh_iphelperbodyp").innerHTML = document.getElementById("dlh_iphelpertemplate").innerHTML.replace(/\%ip\%/g, dlh_iphelperaddress);
     document.getElementById("dlh_iphelperbodyp").innerHTML = document.getElementById("dlh_iphelpertemplate").innerHTML.replace(/\%ip\%/g, document.getElementById("dlh_out_address").innerHTML);
-    document.getElementById("dlh_iphelperbodyp").innerHTML.replace(/\%ipnetcidr\%/g, document.getElementById("dlh_out_netaddr").innerHTML + '/' + document.getElementById("dlh_out_cidr").innerHTML);
+    document.getElementById("dlh_iphelperbodyp").innerHTML = document.getElementById("dlh_iphelperbodyp").innerHTML.replace(/\%ipnetcidr\%/g, document.getElementById("dlh_out_netaddr").innerHTML + '/' + document.getElementById("dlh_out_cidr").innerHTML);
     
 }
 
@@ -1087,7 +1087,7 @@ if (dlh_iphelperaddress.search("/") != -1) {
 	
     //document.getElementById("dlh_iphelperbodyp").innerHTML = document.getElementById("dlh_iphelpertemplatemask").innerHTML.replace(/\%ip\%/g, dlh_iphelperaddress);    
     document.getElementById("dlh_iphelperbodyp").innerHTML = document.getElementById("dlh_iphelpertemplatemask").innerHTML.replace(/\%ip\%/g, document.getElementById("dlh_out_address").innerHTML);
-    document.getElementById("dlh_iphelperbodyp").innerHTML.replace(/\%ipnetcidr\%/g, document.getElementById("dlh_out_netaddr").innerHTML + '/' + document.getElementById("dlh_out_cidr").innerHTML);
+    document.getElementById("dlh_iphelperbodyp").innerHTML = document.getElementById("dlh_iphelperbodyp").innerHTML.replace(/\%ipnetcidr\%/g, document.getElementById("dlh_out_netaddr").innerHTML + '/' + document.getElementById("dlh_out_cidr").innerHTML);
 
 	//dlh_ipChange();
 } else {
@@ -1097,7 +1097,7 @@ if (dlh_iphelperaddress.search("/") != -1) {
 
     //document.getElementById("dlh_iphelperbodyp").innerHTML = document.getElementById("dlh_iphelpertemplate").innerHTML.replace(/\%ip\%/g, dlh_iphelperaddress);
     document.getElementById("dlh_iphelperbodyp").innerHTML = document.getElementById("dlh_iphelpertemplate").innerHTML.replace(/\%ip\%/g, document.getElementById("dlh_out_address").innerHTML);
-    document.getElementById("dlh_iphelperbodyp").innerHTML.replace(/\%ipnetcidr\%/g, document.getElementById("dlh_out_netaddr").innerHTML + '/' + document.getElementById("dlh_out_cidr").innerHTML);
+    document.getElementById("dlh_iphelperbodyp").innerHTML = document.getElementById("dlh_iphelperbodyp").innerHTML.replace(/\%ipnetcidr\%/g, document.getElementById("dlh_out_netaddr").innerHTML + '/' + document.getElementById("dlh_out_cidr").innerHTML);
     
 } 
 
