@@ -1071,6 +1071,9 @@ if (dlh_iphelperaddress.search("/") != -1) {
 
 jQuery( "#dlh_iphelperinput" ).keyup(function() {
 var dlh_iphelperaddress = document.getElementById("dlh_iphelperinput").value;
+
+dlh_iphelperaddress = dlh_iphelperaddress.replace(/,/g, '.');	
+	
 if (dlh_iphelperaddress.search("/") != -1) {
     dlh_iphelpersubnetcalc.style.display = "block";
 	document.getElementById("dlh_iphelpersubnetcalcsubnetinput").value = "";
