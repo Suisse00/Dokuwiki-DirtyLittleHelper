@@ -1063,7 +1063,8 @@ dlh_iphelperaddress = dlh_iphelperaddress + "/32";
 
 //	dlh_ipChange();
 //} else {
-if(dlh_iphelperaddressright == "32" || document.getElementById("dlh_out_netaddr").innerHTML != document.getElementById("dlh_out_address").innerHTML ){
+//if(dlh_iphelperaddressright == "32" || document.getElementById("dlh_out_netaddr").innerHTML != document.getElementById("dlh_out_address").innerHTML ){
+if(dlh_iphelperaddressright == "32" || ( document.getElementById("dlh_out_netaddr").innerHTML != document.getElementById("dlh_out_address").innerHTML &&  document.getElementById("dlh_out_bcast").innerHTML != document.getElementById("dlh_out_address").innerHTML) ){
 //    dlh_iphelpersubnetcalc.style.display = "none";
       dlh_iphelpersubnetcalc.style.display = "block";
 
@@ -1106,7 +1107,8 @@ dlh_iphelperaddress = dlh_iphelperaddress + "/32";
 
 	//dlh_ipChange();
 //} else {
-if(dlh_iphelperaddressright == "32" || document.getElementById("dlh_out_netaddr").innerHTML != document.getElementById("dlh_out_address").innerHTML ){
+//if(dlh_iphelperaddressright == "32" || document.getElementById("dlh_out_netaddr").innerHTML != document.getElementById("dlh_out_address").innerHTML ){
+if(dlh_iphelperaddressright == "32" || ( document.getElementById("dlh_out_netaddr").innerHTML != document.getElementById("dlh_out_address").innerHTML &&  document.getElementById("dlh_out_bcast").innerHTML != document.getElementById("dlh_out_address").innerHTML) ){
 
 //    dlh_iphelpersubnetcalc.style.display = "none";
     dlh_iphelpersubnetcalc.style.display = "block";
