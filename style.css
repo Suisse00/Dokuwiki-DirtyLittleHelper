@@ -285,3 +285,40 @@ display:none;
 }
 
 
+/* left above the tree */
+.dlh_left_above_tree{
+    width:100%;
+    overflow-x:auto;
+    overflow-y:hidden;
+    white-space:nowrap;
+    font-size:90%;
+    font-weight:bold;
+    margin:0px;
+}
+
+.dlh_left_above_tree li {
+    margin-left: 8px;
+}
+
+.dlh_left_above_tree li span, .dlh_left_above_tree li a {
+    margin-left: -2px;
+}
+
+.dlh_left_above_tree_seperator{
+    width:100%;
+    height:2px;
+    background-color:rgb(221, 221, 221);
+    margin:20px 0px 20px 0px;
+    overflow:hidden;
+}
+
+
+
+
+
+
+
+
+
+
+
