@@ -75,36 +75,48 @@ class action_plugin_dirtylittlehelper extends DokuWiki_Action_Plugin {
 
 	function dirtylittlehelper_varis(&$event, $param){
 
-		global $ACT, $JSINFO, $ID, $INPUT, $auth, $TPL, $INFO, $conf;
+                global $ACT, $JSINFO, $ID, $INPUT, $auth, $TPL, $INFO, $conf;
 
-		$INFO['dlh'] = array(
-			  'isadmin' 	=> (int) $INFO['isadmin']
-			, 'isauth'  	=> (int) $INFO['userinfo']
-			, 'ACT' 		=> $ACT
-			, 'title'       => $conf['title']
-			, 'tabs'		=> array()
-			, 'tabs_count'  => 0
+$save_and_edit = false;
 
-			);
+if(isset($_POST['saveandedit'])){
+        if($_POST['saveandedit']=='1'){
+                $save_and_edit = true;
+        }
+}
+
+                $INFO['dlh'] = array(
+                          'isadmin'     => (int) $INFO['isadmin']
+                        , 'isauth'      => (int) $INFO['userinfo']
+                        , 'ACT'                 => $ACT
+                        , 'title'       => $conf['title']
+                        , 'tabs'                => array()
+                        , 'tabs_count'  => 0
+                        , 'save_and_edit' => $save_abd_edit
+
+                        );
 
 
 
-		//LOGIN NEEDED ?
-		//NOT LOGGED IN ? -> FORCE LOGIN
-		if( !$INFO['userinfo'] && $_GET['do']!='login' && $this->getConf('must_login') ) {
-		  header("Location: ?do=login");
-		  die('<a href="?do=login">LOGIN</a>');
-		}
+                //LOGIN NEEDED ?
+                //NOT LOGGED IN ? -> FORCE LOGIN
+                if( !$INFO['userinfo'] && $_GET['do']!='login' && $this->getConf('must_login') ) {
+                  header("Location: ?do=login");
+                  die('<a href="?do=login">LOGIN</a>');
+                }
 
-		$JSINFO['dlh'] = array(
-			  'QUOT'                => '"'
-			, 'WL'                  => wl('','',true)
-			, 'DOKU_BASE'   => DOKU_BASE
-			, 'DOKU_URL'    => DOKU_URL
-			, 'isadmin'     => (int) $INFO['isadmin']
-			, 'isauth'      => (int) $INFO['userinfo']
-			, 'title'       => $conf['title']
-		);
+                $JSINFO['dlh'] = array(
+                          'QUOT'                => '"'
+                        , 'WL'                  => wl('','',true)
+                        , 'DOKU_BASE'   => DOKU_BASE
+                        , 'DOKU_URL'    => DOKU_URL
+                        , 'isadmin'     => (int) $INFO['isadmin']
+                        , 'isauth'      => (int) $INFO['userinfo']
+                        , 'title'       => $conf['title']
+                        , 'save_and_edit'=>$save_and_edit
+
+                );
+
 
 	if(is_array($ACT)) {
 		$ACT = act_clean($ACT);
@@ -115,6 +127,12 @@ class action_plugin_dirtylittlehelper extends DokuWiki_Action_Plugin {
 
 	$INFO['dlh']['act_edit'] = preg_match("/" . $regex ."/",$ACT);
 	$JSINFO['dlh']['act_edit'] = preg_match("/" . $regex ."/",$ACT);
+
+
+        if($save_and_edit===true && $INFO['dlh']['act_edit'] == 0){
+                $INFO['dlh']['act_edit'] = 1;
+                $JSINFO['dlh']['act_edit'] = 1;
+        }
 
 			$JSINFO['dlh']['edit_active'] = 0;
 
