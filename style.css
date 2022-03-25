@@ -416,6 +416,7 @@ display:none;
 }
 
 /* Add Animation */
+/*
 @-webkit-keyframes slideIn {
     from {bottom: -300px; opacity: 0} 
     to {bottom: 0; opacity: 1}
@@ -435,6 +436,7 @@ display:none;
     from {opacity: 0} 
     to {opacity: 1}
 }
+*/
 
 
 
