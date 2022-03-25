@@ -1,3 +1,4 @@
+
 /* EDITOR BUTTON */
 
 function addBtnActionDirtylittlehelper($btn, props, edid) {
@@ -21,11 +22,11 @@ function dlh_call_mermaid(source_obj = false){
 
 		if( document.getElementById( source_obj ) ){
 
-			the_code = dlh_objectValueGet(source_obj).replace(/\n/g,'\\n').match(/(.*?)<\/dlh.mm>/g);
+			the_code = dlh_objectValueGet(source_obj).replace(/\n/g,'\\n').match(/<dlh.mm>(.*?)<\/dlh.mm>/g);
 
 			if( Array.isArray( the_code ) ){
 
-				the_code = btoa('{"code":"' + the_code[0].replace('','').replace('<\/dlh.mm>','') + '","mermaid":{},"updateEditor":false}');
+				the_code = btoa('{"code":"' + the_code[0].replace('<dlh.mm>','').replace('<\/dlh.mm>','') + '","mermaid":{},"updateEditor":false}');
 
 			}else{
 
@@ -380,107 +381,157 @@ function dlh_ini(count=0){
 				JSINFO['dlh']['dlh_edit_maximized'] = false;
 
 				//append to the toolbar...
-				dlh_append = '
-';
+				dlh_append = '<div id="dlh_mytoolbar_hack" style="margin-top:5px;margin-bottom:5px;">';
 
 				if( JSINFO['dlh']['edit_tb_min_max'] ){
 
-					dlh_append += ''
-						+ ''
-						+ ' '
-						+ '';
+					dlh_append += '<button class="dlh_button_32_32" title="FULLSCREEN EDIT" '
+						+ 'onClick="dlh_fullcreen_edit();">'
+						+ '<img src="'+JSINFO['dlh']['DOKU_URL']+'lib/plugins/dirtylittlehelper/images/dlh_max.png" width="32px" height="32px">'
+						+ ' </button>'
+						+ '<div class="dlh_sep"></div>';
 
 				}
 
 				if( JSINFO['dlh']['edit_tb_code'] ){
 
-					dlh_append += ''
-						+ ' '
+					dlh_append += '<button class="dlh_button_36_32" title="CODE tags" '
+						+ 'onClick="insertTags(\'wiki__text\' , '
+						+ '   \'<code [enable_line_numbers=\'+JSINFO[\'dlh\'][\'QUOT\']+\'true\'+JSINFO[\'dlh\'][\'QUOT\']+\']>\',\'</code>\',\' \\n \\n \\n \'        '
+						+ ');'
+						+ '"><img src="'+JSINFO['dlh']['DOKU_URL']+'lib/plugins/dirtylittlehelper/images/dlh_code.png" width="32px" height="32px">'
+						+ ' </button>'
 
-						+ ''
-						+ ' '
+						+ '<button class="dlh_button_36_32" title="CODE SQL tags" '
+						+ 'onClick="insertTags(\'wiki__text\' , '
+						+ '   \'<code sql [enable_line_numbers=\'+JSINFO[\'dlh\'][\'QUOT\']+\'true\'+JSINFO[\'dlh\'][\'QUOT\']+\']>\',\'</code>\',\'\\n /* CODE */ \\n \\n \\n \'        '
+						+ ');"><img src="'+JSINFO['dlh']['DOKU_URL']+'lib/plugins/dirtylittlehelper/images/dlh_code_sql.png" width="32px" height="32px">'
+						+ ' </button>'
 
-						+ ''
-						+ ' '
+						+ '<button class="dlh_button_36_32" title="CODE bash tags" '
+						+ 'onClick="insertTags(\'wiki__text\' , '
+						+ '   \'<code bash [enable_line_numbers=\'+JSINFO[\'dlh\'][\'QUOT\']+\'true\'+JSINFO[\'dlh\'][\'QUOT\']+\']>\',\'</code>\',\'\\n # CODE \\n \\n \\n \'        '
+						+ ');"><img src="'+JSINFO['dlh']['DOKU_URL']+'lib/plugins/dirtylittlehelper/images/dlh_code_bash.png" width="32px" height="32px">'
+						+ ' </button>'
 
-						+ ''
-						+ ' '
+						+ '<button class="dlh_button_36_32" title="CODE shell tags" '
+						+ 'onClick="insertTags(\'wiki__text\' , '
+						+ '   \'<code shell [enable_line_numbers=\'+JSINFO[\'dlh\'][\'QUOT\']+\'true\'+JSINFO[\'dlh\'][\'QUOT\']+\']>\',\'</code>\',\'\\n REM CODE \\n \\n \\n \'        '
+						+ ');"><img src="'+JSINFO['dlh']['DOKU_URL']+'lib/plugins/dirtylittlehelper/images/dlh_code_shell.png" width="32px" height="32px">'
+						+ ' </button>'
 
-						+ ''
-						+ ' '
+						+ '<button class="dlh_button_36_32" title="CODE php tags" '
+						+ 'onClick="insertTags(\'wiki__text\' , '
+						+ '   \'<code php [enable_line_numbers=\'+JSINFO[\'dlh\'][\'QUOT\']+\'true\'+JSINFO[\'dlh\'][\'QUOT\']+\']>\',\'</code>\',\'\\n /* CODE */ \\n \\n \\n \'        '
+						+ ');"><img src="'+JSINFO['dlh']['DOKU_URL']+'lib/plugins/dirtylittlehelper/images/dlh_code_php.png" width="32px" height="32px">'
+						+ ' </button>'
 
-						+ ''
-						+ ' '
+						+ '<button class="dlh_button_36_32" title="CODE html tags" '
+						+ 'onClick="insertTags(\'wiki__text\' , '
+						+ '   \'<code html [enable_line_numbers=\'+JSINFO[\'dlh\'][\'QUOT\']+\'true\'+JSINFO[\'dlh\'][\'QUOT\']+\']>\',\'</code>\',\'\\n <!-- CODE --> \\n \\n \\n \'        '
+						+ ');"><img src="'+JSINFO['dlh']['DOKU_URL']+'lib/plugins/dirtylittlehelper/images/dlh_code_html.png" width="32px" height="32px">'
+						+ ' </button>'
 
 								
-						+ ''
-						+ ' '
+						+ '<button class="dlh_button_36_32" title="CODE javascript tags" '
+						+ 'onClick="insertTags(\'wiki__text\' , '
+						+ '   \'<code javascript [enable_line_numbers=\'+JSINFO[\'dlh\'][\'QUOT\']+\'true\'+JSINFO[\'dlh\'][\'QUOT\']+\']>\',\'</code>\',\'\\n /* CODE */ \\n \\n \\n \'        '
+						+ ');"><img src="'+JSINFO['dlh']['DOKU_URL']+'lib/plugins/dirtylittlehelper/images/dlh_code_javascript.png" width="32px" height="32px">'
+						+ ' </button>'
 
-						+ ''
-						+ ' '
+						+ '<button class="dlh_button_36_32"  title="<dlh.*> COMMENT </dlh.*>" accesskey="*" '
+						+ 'onClick="insertTags(\'wiki__text\' , '
+						+ '   \'<dlh.*> \',\' </dlh.*>\',\' YOU WILL NOT SEE ME \'     '
+						+  ');"><img src="'+JSINFO['dlh']['DOKU_URL']+'lib/plugins/dirtylittlehelper/images/dlh_comment.png" width="32px" height="32px">'
+						+ '</button> '
 
-						+ ''
+						+ '<div class="dlh_sep"></div>'
 
-						+ ''
-						+  ''
-						+ ' '
+						+ '<button class="dlh_button_36_32"  title="<dlh.table.html>..." accesskey="*" '
+						+ 'onClick="insertAtCarret(\'wiki__text\' , '
+						+ '   \'\\n<dlh.table.html> \\n <tr> \\n  <td> A </td> \\n  <td> B </td> \\n </tr> \\n</dlh.table.html>\');">'
+						+  '<img src="'+JSINFO['dlh']['DOKU_URL']+'lib/plugins/dirtylittlehelper/images/dlh_table_html.png" width="32px" height="32px">'
+						+ '</button> '
 
-						+ ''
-						+  ''
-						+ ' '
+						+ '<button class="dlh_button_36_32"  title="<dlh.table.wiki>..." accesskey="*" '
+						+ 'onClick="insertAtCarret(\'wiki__text\' , '
+						+ '   \'\\n<dlh.table.wiki> \\n <dlh.tr.wiki> \\n  <dlh.td.wiki> WIKI_CONTENT_A </dlh.td.wiki> \\n  <dlh.td.wiki> WIKI_CONTENT_B </dlh.td.wiki> \\n </dlh.tr.wiki> \\n</dlh.table.wiki>\');">'
+						+  '<img src="'+JSINFO['dlh']['DOKU_URL']+'lib/plugins/dirtylittlehelper/images/dlh_table_wiki.png" width="32px" height="32px">'
+						+ '</button> '
 
-						+ ''
+						+ '<div class="dlh_sep"></div>'
 
-						+ ''
-						+  ''
-						+ ' '
+						+ '<button class="dlh_button_36_32"  title="<dlh.div.html>..." accesskey="*" '
+						+ 'onClick="insertTags(\'wiki__text\' , '
+						+ '   \'<dlh.div.html>\\n\',\'\\n</dlh.div.html>\', \' HTML CONTENT \');">'
+						+  '<img src="'+JSINFO['dlh']['DOKU_URL']+'lib/plugins/dirtylittlehelper/images/dlh_div_html.png" width="32px" height="32px">'
+						+ '</button> '
 
-						+ ''
-						+  ''
-						+ ' '
+						+ '<button class="dlh_button_36_32"  title="<dlh.div.wiki>..." accesskey="*" '
+						+ 'onClick="insertTags(\'wiki__text\' , '
+						+ '   \'<dlh.div.wiki> \\n\' , \'\\n</dlh.div.wiki>\',\' WIKI_CONTENT \');">'
+						+  '<img src="'+JSINFO['dlh']['DOKU_URL']+'lib/plugins/dirtylittlehelper/images/dlh_div_wiki.png" width="32px" height="32px">'
+						+ '</button> '
 						;
 
 				}
 
 				if(JSINFO['dlh']['edit_tb_mermaid']){
 					dlh_append = dlh_append 
-						+ ''
-						+ ''
-						+ ''
-						+ ''
-						+ ''
+						+ '<div class="dlh_sep"></div>'
+						+ '<button class="dlh_button_36_32" title="mermaid code" '
+						+ 'onClick="insertTags(\'wiki__text\' , '
+						+ '   \'<dlh.mm> \',\' </dlh.mm>\',\' \\n graph TD \\n A---B\\n \'     '
+						+ ');"><img src="'+JSINFO['dlh']['DOKU_URL']+'lib/plugins/dirtylittlehelper/images/dlh_mermaid_code.png" width="32px" height="32px"></button>'
+						+ '<button class="dlh_button_36_32" '
+						+ 'onClick="dlh_call_mermaid(\'wiki__text\');" '
+						+ 'title="mermaid live editor">'
+						+ '<img src="'+JSINFO['dlh']['DOKU_URL']+'lib/plugins/dirtylittlehelper/images/dlh_mermaid.png" width="32px" height="32px">'
+						+ '</button>'
 						;
 				}
 
 
 				if(JSINFO['dlh']['edit_tb_drawio']){
 					dlh_append = dlh_append 
-						+''
-						+ ''
-						+ ' '
+						+'<div class="dlh_sep"></div>'
+						+ '<button class="dlh_button_36_32"  title="insert DRAW.IO - ID into wikieditor at cursor pos"'
+						+ 'onClick="insertAtCarret(\'wiki__text\' , '
+						+ '\'{{drawio>\'+getImageName().substr(0,getImageName().lastIndexOf(\':\')+1)+ \'drawio_\'+ ((new Date()).getTime()) +\'.svg}} \''
+						+  ');"><img src="'+JSINFO['dlh']['DOKU_URL']+'lib/plugins/dirtylittlehelper/images/dlh_drawio.png" width="32px" height="32px">'
+						+ '</button> '
 						;
 				}
 
 
 				if(JSINFO['dlh']['edit_tb_dlhid']){
 					dlh_append += ''
-						+ ''
-						+ '
-'
-						+ ''
-						+ ''
-						+ ''
-						+ ''
-						+ '';
+						+ '<div class="dlh_sep"></div>'
+						+ '<input id="dlh_edit_tb_dlhid" type="text" title="DLH timeID">'
+						+ '<button class="dlh_button_36_32" onClick="dlh_renew_dlhid(\'dlh_edit_tb_dlhid\');" '
+						+ 'title="renew dlhID"><img src="'+JSINFO['dlh']['DOKU_URL']+'lib/plugins/dirtylittlehelper/images/dlh_id_renew.png" width="32px" height="32px">'
+						+ '</button>'
+						+ '<button class="dlh_button_36_32" onClick="insertAtCarret(\'wiki__text\', dlh_objectValueGet(\'dlh_edit_tb_dlhid\') );" '
+						+ ' title="paste dlhID at current position">'
+						+ '<img src="'+JSINFO['dlh']['DOKU_URL']+'lib/plugins/dirtylittlehelper/images/dlh_id_insert.png" width="32px" height="32px">'
+						+ '</button>';
 				}
 
 
 				if(  JSINFO['dlh']['edit_dlh_wikiid'] && JSINFO['dlh']['edit_tb_struct'] && JSINFO['dlh']['dlh_fields'].length > 0) {
-					dlh_append += '
-'
-						+ '
-' + JSINFO['dlh']['dlh_labels'][i] +'
-';
+					dlh_append += '<br>'
+						+ '<select id="dlh_edit_tb_select" '
+						+ ' class="dlh_edit_tb_select" '
+						+ ' onChange="dlh_edit_tb_select();" '
+						+ ' onClick="dlh_edit_tb_select();" '
+						+ ' style="width:200px;margin-right:10px;">'
+						;
+
+					for( i=0; i< JSINFO['dlh']['dlh_ids'].length; ++i ){
+						dlh_append += '<option value="'+ JSINFO['dlh']['dlh_fields'][i] +'">' + JSINFO['dlh']['dlh_labels'][i] +'</option>';
+					}
+
+					dlh_append += '</select></div>';
 
 				}
 				jQuery('#tool__bar').append(dlh_append);
@@ -496,15 +547,20 @@ function dlh_ini(count=0){
 						jQuery('#' + JSINFO['dlh']['dlh_ids'][i]).css({'width':'350px','height':'32px','font-size':'16px'});
 
 						insert_this_html = ''
-							+ ''
-							+ ''
-							+ ' ';
+							+ '<button title="open in new window" class="dlh_button_36_32" '
+							+ 'onClick="dlh_open_wiki_link( dlh_objectValueGet(\''
+							+ JSINFO['dlh']['dlh_ids'][i]  +'\') );">'
+							+ '<img src="'+JSINFO['dlh']['DOKU_URL']+'lib/plugins/dirtylittlehelper/images/dlh_open_window.png" width="32px" height="32px">'
+							+ '</button> ';
 
 						if(JSINFO['dlh']['edit_tb_dlhid']){
 						insert_this_html += ''
-							+ ''
-							+ ''
-							+ ' ';
+							+ '<button title=add :TimeID" class="dlh_button_36_32" '
+							+ 'onClick="dlh_objectValueSet(\''
+							+ JSINFO['dlh']['dlh_ids'][i] +'\', (dlh_objectValueGet(\''
+							+ JSINFO['dlh']['dlh_ids'][i]+'\') + \':\' + dlh_objectValueGet(\'dlh_edit_tb_dlhid\')+\':\').replace(/::/i, \':\')   );">'
+							+ '<img src="'+JSINFO['dlh']['DOKU_URL']+'lib/plugins/dirtylittlehelper/images/dlh_add_id.png" width="32px" height="32px">'
+							+ '</button> ';
 						}
 
 
@@ -514,9 +570,11 @@ function dlh_ini(count=0){
 
 
 						jQuery('#'+JSINFO['dlh']['dlh_ids'][i]).after(''
-							+ ''
-							+ ''
-							+ ' '
+							+ '<button title="insert into wikieditor at cursor pos" class="dlh_button_36_32" '
+							+ 'onClick="insertAtCarret(\'wiki__text\' , '
+							+ '\'[[\' + dlh_objectValueGet(\''+ JSINFO['dlh']['dlh_ids'][i] +'\') + \'|]]\'  );">'
+							+ '<img src="'+JSINFO['dlh']['DOKU_URL']+'lib/plugins/dirtylittlehelper/images/dlh_link_insert.png" width="32px" height="32px">'
+							+ '</button> '
 						);
 
 						jQuery('#dlh_mytoolbar_hack').append(
@@ -574,7 +632,7 @@ function dlh_ini(count=0){
 					dlh_objectValueSet( JSINFO['dlh']['top_struct_id'] , JSINFO['namespace']);
 
 					jQuery('#dlh_top_struct_b').append( jQuery('#dlh_top_struct_c div.struct_entry_form div.field') );
-					jQuery('#dlh_top_struct_b').append( '>' );
+					jQuery('#dlh_top_struct_b').append( '<button title="call struct in new window" onClick="dlh_top_call(\''+ JSINFO['dlh']['top_struct_id'] + '\');">&GT;</button>' );
 
 					jQuery('#dlh_top_struct_c div.structaggregation').css({'display':'none'});
 					jQuery('#dlh_top_struct_c div.structaggregationeditor').css({'display':'none'});
@@ -606,7 +664,7 @@ function dlh_ini(count=0){
 					dlh_objectValueSet( JSINFO['dlh']['top_struct_id'] , JSINFO['namespace']);
 
 					jQuery('#dlh_top_struct_b').append( jQuery('#dlh_top_struct_c form.bureaucracy__plugin div.field') );
-					jQuery('#dlh_top_struct_b').append( '>' );
+					jQuery('#dlh_top_struct_b').append( '<button title="call struct in new window" onClick="dlh_top_call(\''+ JSINFO['dlh']['top_struct_id'] + '\');">&GT;</button>' );
 
 					jQuery('#dlh_top_struct_c').css({'display':'none'});
 					jQuery('#dlh_top_struct_b').css({'display':'inline'});
@@ -674,7 +732,7 @@ function dlh_ini(count=0){
 							} else { //file
 								image = 'page.png';
 							}
-							return ' ' + linksuggest_escape(value) + title;
+							return '<img src="' + DOKU_BASE + 'lib/images/' + image + '"> ' + linksuggest_escape(value) + title;
 						},
 						index:    1,
 						replace:  function (item) { //returns what will be put to editor
@@ -800,7 +858,7 @@ function dlh_ini(count=0){
 							} else { //file
 								image = 'media_link_nolnk.png';
 							}
-							return ' ' + linksuggest_escape(value);
+							return '<img src="' + DOKU_BASE + 'lib/images/' + image + '"> ' + linksuggest_escape(value);
 						},
 						index:    1,
 						replace:  function (item) { //returns what will be put to editor
@@ -921,10 +979,16 @@ function dlh_ini(count=0){
 			var dlh_this_group_count =0;
 			var dlh_this_group_id = '';
 
-			for( i=1; i'+jQuery('#dlh_tabs4jQuery').data('group'+i+'_title_'+ii)+''   
+			for( i=1; i<dlh_tab_groups_count+1; ++i){
+				dlh_this_group_count = jQuery('#dlh_tabs4jQuery').data('group'+i+'_count');
+				dlh_this_group_id = jQuery('#dlh_tabs4jQuery').data('group'+i+'_id');
+				dlh_tabs_html = '<ul>';
+
+				for( ii=1; ii<dlh_this_group_count+1; ++ii){
+					dlh_tabs_html += '<li><a href="#dlh_tab__'+dlh_this_group_id+'_'+ii+'">'+jQuery('#dlh_tabs4jQuery').data('group'+i+'_title_'+ii)+'</a></li>'   
 				}
 				
-				dlh_tabs_html += '';
+				dlh_tabs_html += '</ul>';
 				
 				document.getElementById('dlh_tab_head_'+dlh_this_group_id).innerHTML=dlh_tabs_html;
 				
@@ -950,9 +1014,9 @@ jQuery(document).ready(function() {
 var dlh_iphelper = document.getElementById("dlh_myiphelper");
 var dlh_iphelpersubnetcalc = document.getElementById("dlh_calc");
 
-// Get the  element that closes the iphelper
+// Get the <span> element that closes the iphelper
 var dlh_span = document.querySelector('.dlh_iphelperclose');
-// When the user clicks on  (x), close the iphelper
+// When the user clicks on <span> (x), close the iphelper
 dlh_span.onclick = function () {
     dlh_iphelper.style.display = "none";
 };
@@ -1193,9 +1257,7 @@ function dlh_InvalidateOutput()
   document.getElementById("dlh_out_lastusable").innerHTML = '';
   document.getElementById("dlh_out_amountaddresses").innerHTML = '';
   document.getElementById("dlh_out_ptraddr").innerHTML = '';
-  document.getElementById("dlh_is_valid").innerHTML = '
-INVALID
-';
+  document.getElementById("dlh_is_valid").innerHTML = '<center>INVALID</center>';
   document.getElementById("dlh_is_valid").style.display = 'block';
   document.getElementById("dlh_is_valid").style.backgroundColor = "red";
 }
@@ -1619,7 +1681,44 @@ jQuery('.dlh_stratabase_relation').each( function(){if(this){
 			// BUILD GRAPH START
 			var dlh_mm_out='';
 			// the objects 
-			for(i=0;i';
+			for(i=0;i<dlh_mm['data']['object_count'];i++){
+				dlh_mm_out += 'subgraph Obj'+i+'["'+ dlh_mm['data']['obj_data'][i]['label'] +'"]\n';
+				
+				//PORTS?
+				if( dlh_mm['col']['port'][1] !== false && dlh_mm['col']['port'][2] !== false){
+					for(ii=0;ii<dlh_mm['data']['obj_data'][i]['port_count'];ii++){
+						this_port_id = dlh_mm['data']['obj_data'][i]['port_data'][ii];
+						dlh_mm_out +=' Port'+this_port_id;
+						dlh_mm_out +='["'+dlh_mm['data']['port_data'][this_port_id]['label']+'"]\n';
+						dlh_mm_out +=' click Port'+this_port_id+' "';
+						dlh_mm_out += dlh_mm['data']['obj_data'][i]['link'] + '" "open object" _blank\n';
+						
+						//port design?
+						if(  dlh_mm['data']['port_data'][this_port_id]['design'] != ''){
+						  dlh_mm_out += 'style Port'+this_port_id+' '+dlh_mm['data']['port_data'][this_port_id]['design']+'\n';	
+						}
+					}//walk the ports
+				}//ports?
+				//obj design?
+				if( dlh_mm['data']['obj_data'][i]['design'] != ''){
+					dlh_mm_out += 'style Obj'+i+' '+dlh_mm['data']['obj_data'][i]['design']+'\n';	
+				}
+				
+				
+				dlh_mm_out += 'end\n\n';
+				
+			}
+			
+			// the connections 
+			
+			for(i=0;i<dlh_mm['data']['conn_count'];i++){
+				//PORTS?
+				if( dlh_mm['col']['port'][1] !== false && dlh_mm['col']['port'][2] !== false){				
+					dlh_mm_out += 'Port'+dlh_mm['data']['conn_data'][i][1]['port'];
+					dlh_mm_out += '-->';
+					
+					if(dlh_mm['conn_as_object'] === true || dlh_mm['conn_as_object'] == "true" ){
+						dlh_mm_out += 'conn'+i+'{{"'+dlh_mm['data']['conn_data'][i]['title']+'"}}-->';
 						dlh_mm_out += 'Port'+dlh_mm['data']['conn_data'][i][2]['port']+'\n';
 						
 						if( dlh_mm['data']['port_data'][dlh_mm['data']['conn_data'][i][1]['port']]['design'] != ''){
@@ -1652,10 +1751,7 @@ jQuery('.dlh_stratabase_relation').each( function(){if(this){
 			
 			// BUILD END 
 			if(dlh_mm_out != ''){
-				dlh_mm_out = '
-Syntax error in graph
-mermaid version 8.9.3
-';
+				dlh_mm_out = '<div class="mermaid">\n\ngraph TD\n\n'+dlh_mm_out+'\n\n</div>';
 				jQuery(this).append(dlh_mm_out);
 				//console.log(dlh_mm_out);
 			}
@@ -2052,7 +2148,49 @@ jQuery('.dlh_mm').each(
 		// BUILD GRAPH START
 		dlh_mm_out='';
 		// the objects 
-		for(i=0;i';
+		for(i=0;i<dlh_mm['object_count'];i++){
+			dlh_mm_out += 'subgraph Obj'+i+'['+ dlh_mm['object_data'][i]['title'] +']\n';
+			
+			if( dlh_mm['object_data'][i]['ports_count'] == 0){
+				dlh_mm_out += 'Obj'+i+'PortX';
+				dlh_mm_out +='[o]\n';
+				dlh_mm_out +=' click Port'+this_port_id+' "';
+				dlh_mm_out += dlh_mm['object_data'][i]['link'] + '" "open object" _blank\n';
+			}else{
+				for(ii=0;ii<dlh_mm['object_data'][i]['ports_count'];ii++){
+					this_port_id = dlh_mm['object_data'][i]['ports_data'][ii];
+					dlh_mm_out +=' Port'+this_port_id;
+					dlh_mm_out +='['+dlh_mm['port_data'][this_port_id]['label']+']\n';
+					dlh_mm_out +=' click Port'+this_port_id+' "';
+					dlh_mm_out += dlh_mm['object_data'][i]['link'] + '" "open object" _blank\n';
+				}
+			}
+			dlh_mm_out += 'end\n\n';
+			
+		}
+		
+		// the connections 
+		
+		for(i=0;i<dlh_mm['conn_count'];i++){
+				
+				dlh_mm_out += 'Port'+dlh_mm['conn_data'][i]['port_a'];
+				dlh_mm_out += '---';
+				
+				if(1==2){
+				dlh_mm_out += 'conn'+i+'{{'+dlh_mm['conn_data'][i]['title']+'}}---';
+				dlh_mm_out += 'Port'+dlh_mm['conn_data'][i]['port_b']+'\n';
+				
+				dlh_mm_out += 'click conn'+i+' "';
+				dlh_mm_out += dlh_mm['conn_data'][i]['link'] + '" "open conn object" _blank\n';
+				}else{
+				dlh_mm_out += '|'+dlh_mm['conn_data'][i]['title']+'|Port';
+				dlh_mm_out += dlh_mm['conn_data'][i]['port_b']+'\n';
+				}
+		}
+		
+		// BUILD END 
+		if(dlh_mm_out != ''){
+			dlh_mm_out = '<div class="mermaid">\n\ngraph TD\n\n'+dlh_mm_out+'\n\n</div>';
 			jQuery(this).append(dlh_mm_out);
 			//console.log(dlh_mm_out);
 		}
@@ -2075,5 +2213,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 
 /* IP HELPER */
+
+
+
 
 
