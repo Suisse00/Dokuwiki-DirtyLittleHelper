@@ -1,4 +1,29 @@
 
+//SCROLLBARS
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey; 
+  border-radius: 5px;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: rgb(221,221,221); 
+  border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(111,111,111);  
+}
+
+
 #dirtylittlehelper_overlay { 
   display:none;
   height:350px; 
@@ -285,6 +310,7 @@ display:none;
 }
 
 
+
 /* left above the tree */
 .dlh_left_above_tree{
     width:100%;
@@ -314,11 +340,101 @@ display:none;
 
 
 
+/* IP HELPER */
 
+#dlh_iphelperinput {
+	text-align: center;
+	max-width: 95%;
+	width: 400px;
+	color: #000000;
+	background-color: #ffffff;
+}
 
+.dlh_iphelper {
+	cursor: pointer;
+}
 
+/* The iphelper (background) */
+.dlh_myiphelper {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    -webkit-animation-name: fadeIn; /* Fade in the background */
+    -webkit-animation-duration: 0.4s;
+    animation-name: fadeIn;
+    animation-duration: 0.4s
+}
 
+/* iphelper Content */
+.dlh_iphelper-content {
+    position: fixed;
+    bottom: 0;
+    background-color: #fefefe;
+    width: 100%;
+    -webkit-animation-name: slideIn;
+    -webkit-animation-duration: 0.4s;
+    animation-name: slideIn;
+    animation-duration: 0.4s
+}
 
+/* The Close Button */
+.dlh_iphelperclose {
+    color: white;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+
+}
+
+.dlh_iphelperclose:hover,
+.dlh_iphelperclose:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.dlh_iphelper-header {
+    padding: 2px 16px;
+    background-color: #5cb85c;
+    color: white;
+}
+
+.dlh_iphelper-body {padding: 2px 16px;}
+
+.dlh_iphelper-footer {
+    padding: 2px 16px;
+    background-color: #5cb85c;
+    color: white;
+}
+
+/* Add Animation */
+@-webkit-keyframes slideIn {
+    from {bottom: -300px; opacity: 0} 
+    to {bottom: 0; opacity: 1}
+}
+
+@keyframes slideIn {
+    from {bottom: -300px; opacity: 0}
+    to {bottom: 0; opacity: 1}
+}
+
+@-webkit-keyframes fadeIn {
+    from {opacity: 0} 
+    to {opacity: 1}
+}
+
+@keyframes fadeIn {
+    from {opacity: 0} 
+    to {opacity: 1}
+}
 
 
 

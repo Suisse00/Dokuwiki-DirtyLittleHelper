@@ -34,3 +34,31 @@ $lang['top_dlhid_active'] = 'TOPMENU: show cool dlhID';
 $lang['top_adm_active'] = 'TOPMENU: show admin menu';
 $lang['top_adm_link_text'] = 'TOPMENU: link text for a link in adminmenu';
 $lang['top_adm_link_wikiid'] = 'TOPMENU: wikipage the points to';
+
+
+/* IP HELPER */
+
+
+$lang['iphelper_subnetcalculator_label']      = 'IPHELPER: LABEL for subnetcalculator';
+$lang['iphelper_subnetcalculator']      = 'IPHELPER: URL for subnetcalculator';
+$lang['iphelper_tool1name']             = 'IPHELPER: Name of the tool in tooltip<br>Tool with no name will be hidden';
+$lang['iphelper_tool1url']              = 'IPHELPER: URL  of the tool in tooltip<br>Variable %ip% gets replaced by ip';
+$lang['iphelper_tool2name']             = 'IPHELPER: Name of the tool in tooltip<br>Tool with no name will be hidden';
+$lang['iphelper_tool2url']              = 'IPHELPER: URL  of the tool in tooltip<br>Variable %ip% gets replaced by ip';
+$lang['iphelper_tool3name']             = 'IPHELPER: Name of the tool in tooltip<br>Tool with no name will be hidden';
+$lang['iphelper_tool3url']              = 'IPHELPER: URL  of the tool in tooltip<br>Variable %ip% gets replaced by ip';
+$lang['iphelper_tool4name']             = 'IPHELPER: Name of the tool in tooltip<br>Tool with no name will be hidden';
+$lang['iphelper_tool4url']              = 'IPHELPER: URL  of the tool in tooltip<br>Variable %ip% gets replaced by ip';
+$lang['iphelper_tool5name']             = 'IPHELPER: Name of the tool in tooltip<br>Tool with no name will be hidden';
+$lang['iphelper_tool5url']              = 'IPHELPER: URL  of the tool in tooltip<br>Variable %ip% gets replaced by ip';
+$lang['iphelper_tool6name']             = 'IPHELPER: Name of the tool in tooltip<br>Tool with no name will be hidden';
+$lang['iphelper_tool6url']              = 'IPHELPER: URL  of the tool in tooltip<br>Variable %ip% gets replaced by ip';
+$lang['iphelper_tool7name']             = 'IPHELPER: Name of the tool in tooltip<br>Tool with no name will be hidden';
+$lang['iphelper_tool7url']              = 'IPHELPER: URL  of the tool in tooltip<br>Variable %ip% gets replaced by ip';
+$lang['iphelper_tool8name']             = 'IPHELPER: Name of the tool in tooltip<br>Tool with no name will be hidden';
+$lang['iphelper_tool8url']              = 'IPHELPER: URL  of the tool in tooltip<br>Variable %ip% gets replaced by ip';
+$lang['iphelper_tool9name']             = 'IPHELPER: Name of the tool in tooltip<br>Tool with no name will be hidden';
+$lang['iphelper_tool9url']              = 'IPHELPER: URL  of the tool in tooltip<br>Variable %ip% gets replaced by ip';
+$lang['iphelper_tool10name']             = 'IPHELPER: Name of the tool in tooltip<br>Tool with no name will be hidden';
+$lang['iphelper_tool10url']              = 'IPHELPER: URL  of the tool in tooltip<br>Variable %ip% gets replaced by ip';
+$lang['iphelper_rawtools']              = 'IPHELPER: Full HTML code to be displayed in default iphelper view<br>Variable %ip% gets replaced by ip'; 
