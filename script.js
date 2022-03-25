@@ -1007,8 +1007,8 @@ function dlh_ini(count=0){
 	/* IP HELPER */ 
 	if( dlh_ini_step_at > JSINFO['dlh']['ini_step_done'] ){
 
-		
-		
+
+
 jQuery(document).ready(function() {
 // Get the iphelper
 var dlh_iphelper = document.getElementById("dlh_myiphelper");
@@ -1037,32 +1037,41 @@ jQuery(".dlh_iphelper").click(function() {
 dlh_iphelper.style.display = "block";
 var dlh_iphelperaddress = jQuery(this).text();
 document.getElementById("dlh_iphelperinput").value = dlh_iphelperaddress;
-if (dlh_iphelperaddress.search("/") != -1) {
-    dlh_iphelpersubnetcalc.style.display = "block";
-	document.getElementById("dlh_iphelpersubnetcalcsubnetinput").value = "";
-	document.getElementById("dlh_iphelpersubnetcalcinput").value = dlh_iphelperaddress;
-	var dlh_iphelperaddressright = dlh_iphelperaddress.split("/")[1];
-	if (dlh_iphelperaddressright == "1" || dlh_iphelperaddressright == "2" || dlh_iphelperaddressright == "3" || dlh_iphelperaddressright == "4" || dlh_iphelperaddressright == "5" || dlh_iphelperaddressright == "6" || dlh_iphelperaddressright == "7" || dlh_iphelperaddressright == "8" || dlh_iphelperaddressright == "9" || dlh_iphelperaddressright == "10" || dlh_iphelperaddressright == "11" || dlh_iphelperaddressright == "12" || dlh_iphelperaddressright == "13" || dlh_iphelperaddressright == "14" || dlh_iphelperaddressright == "15" || dlh_iphelperaddressright == "16" || dlh_iphelperaddressright == "17" || dlh_iphelperaddressright == "18" || dlh_iphelperaddressright == "19" || dlh_iphelperaddressright == "20" || dlh_iphelperaddressright == "21" || dlh_iphelperaddressright == "22" || dlh_iphelperaddressright == "23" || dlh_iphelperaddressright == "24" || dlh_iphelperaddressright == "25" || dlh_iphelperaddressright == "26" || dlh_iphelperaddressright == "26" || dlh_iphelperaddressright == "27" || dlh_iphelperaddressright == "28" || dlh_iphelperaddressright == "29" || dlh_iphelperaddressright == "30" || dlh_iphelperaddressright == "31" || dlh_iphelperaddressright == "32") {
-	} else {document.getElementById("dlh_iphelpersubnetcalcsubnetinput").value = dlh_iphelperaddressright;
-		document.getElementById("dlh_iphelpersubnetcalcinput").value = dlh_iphelperaddress.split("/")[0];
-		console.log('CIDR in input address is out of range');
-	}
 
-	dlh_ipChange();
-    
+if (dlh_iphelperaddress.search("/") == -1) {
+dlh_iphelperaddress = dlh_iphelperaddress + "/32";
+}
+
+
+//if (dlh_iphelperaddress.search("/") != -1) {
+    dlh_iphelpersubnetcalc.style.display = "block";
+        document.getElementById("dlh_iphelpersubnetcalcsubnetinput").value = "";
+        document.getElementById("dlh_iphelpersubnetcalcinput").value = dlh_iphelperaddress;
+        var dlh_iphelperaddressright = dlh_iphelperaddress.split("/")[1];
+        if (dlh_iphelperaddressright == "1" || dlh_iphelperaddressright == "2" || dlh_iphelperaddressright == "3" || dlh_iphelperaddressright == "4" || dlh_iphelperaddressright == "5" || dlh_iphelperaddre>
+        } else {document.getElementById("dlh_iphelpersubnetcalcsubnetinput").value = dlh_iphelperaddressright;
+                document.getElementById("dlh_iphelpersubnetcalcinput").value = dlh_iphelperaddress.split("/")[0];
+                console.log('CIDR in input address is out of range');
+        }
+
+        dlh_ipChange();
+
     //document.getElementById("dlh_iphelperbodyp").innerHTML = document.getElementById("dlh_iphelpertemplatemask").innerHTML.replace(/\%ip\%/g, dlh_iphelperaddress);
     document.getElementById("dlh_iphelperbodyp").innerHTML = document.getElementById("dlh_iphelpertemplatemask").innerHTML.replace(/\%ip\%/g, document.getElementById("dlh_out_address").innerHTML);
-    document.getElementById("dlh_iphelperbodyp").innerHTML = document.getElementById("dlh_iphelperbodyp").innerHTML.replace(/\%ipnetcidr\%/g, document.getElementById("dlh_out_netaddr").innerHTML + '/' + document.getElementById("dlh_out_cidr").innerHTML);
-    
-	
-//	dlh_ipChange();
-} else {
-    dlh_iphelpersubnetcalc.style.display = "none";
-    dlh_ipChange();
+    document.getElementById("dlh_iphelperbodyp").innerHTML = document.getElementById("dlh_iphelperbodyp").innerHTML.replace(/\%ipnetcidr\%/g, document.getElementById("dlh_out_netaddr").innerHTML + '/' + d>
+
+
+//      dlh_ipChange();
+//} else {
+if(dlh_iphelperaddressright == "32" || document.getElementById("dlh_out_netaddr").innerHTML != document.getElementById("dlh_out_address").innerHTML ){
+//    dlh_iphelpersubnetcalc.style.display = "none";
+      dlh_iphelpersubnetcalc.style.display = "block";
+
+//    dlh_ipChange();
     //document.getElementById("dlh_iphelperbodyp").innerHTML = document.getElementById("dlh_iphelpertemplate").innerHTML.replace(/\%ip\%/g, dlh_iphelperaddress);
     document.getElementById("dlh_iphelperbodyp").innerHTML = document.getElementById("dlh_iphelpertemplate").innerHTML.replace(/\%ip\%/g, document.getElementById("dlh_out_address").innerHTML);
-    document.getElementById("dlh_iphelperbodyp").innerHTML = document.getElementById("dlh_iphelperbodyp").innerHTML.replace(/\%ipnetcidr\%/g, document.getElementById("dlh_out_netaddr").innerHTML + '/' + document.getElementById("dlh_out_cidr").innerHTML);
-    
+    document.getElementById("dlh_iphelperbodyp").innerHTML = document.getElementById("dlh_iphelperbodyp").innerHTML.replace(/\%ipnetcidr\%/g, document.getElementById("dlh_out_netaddr").innerHTML + '/' + d>
+
 }
 
 });
@@ -1072,37 +1081,43 @@ if (dlh_iphelperaddress.search("/") != -1) {
 jQuery( "#dlh_iphelperinput" ).keyup(function() {
 var dlh_iphelperaddress = document.getElementById("dlh_iphelperinput").value;
 
-dlh_iphelperaddress = dlh_iphelperaddress.replace(/,/g, '.');	
-	
-if (dlh_iphelperaddress.search("/") != -1) {
-    dlh_iphelpersubnetcalc.style.display = "block";
-	document.getElementById("dlh_iphelpersubnetcalcsubnetinput").value = "";
-	document.getElementById("dlh_iphelpersubnetcalcinput").value = dlh_iphelperaddress;
-	var dlh_iphelperaddressright = dlh_iphelperaddress.split("/")[1];
-	if (dlh_iphelperaddressright == "1" || dlh_iphelperaddressright == "2" || dlh_iphelperaddressright == "3" || dlh_iphelperaddressright == "4" || dlh_iphelperaddressright == "5" || dlh_iphelperaddressright == "6" || dlh_iphelperaddressright == "7" || dlh_iphelperaddressright == "8" || dlh_iphelperaddressright == "9" || dlh_iphelperaddressright == "10" || dlh_iphelperaddressright == "11" || dlh_iphelperaddressright == "12" || dlh_iphelperaddressright == "13" || dlh_iphelperaddressright == "14" || dlh_iphelperaddressright == "15" || dlh_iphelperaddressright == "16" || dlh_iphelperaddressright == "17" || dlh_iphelperaddressright == "18" || dlh_iphelperaddressright == "19" || dlh_iphelperaddressright == "20" || dlh_iphelperaddressright == "21" || dlh_iphelperaddressright == "22" || dlh_iphelperaddressright == "23" || dlh_iphelperaddressright == "24" || dlh_iphelperaddressright == "25" || dlh_iphelperaddressright == "26" || dlh_iphelperaddressright == "26" || dlh_iphelperaddressright == "27" || dlh_iphelperaddressright == "28" || dlh_iphelperaddressright == "29" || dlh_iphelperaddressright == "30" || dlh_iphelperaddressright == "31" || dlh_iphelperaddressright == "32") {
-		} else {
-			document.getElementById("dlh_iphelpersubnetcalcsubnetinput").value = dlh_iphelperaddressright;
-			document.getElementById("dlh_iphelpersubnetcalcinput").value = dlh_iphelperaddress.split("/")[0];
-	}
-    
-	dlh_ipChange();
-	
-	
-    //document.getElementById("dlh_iphelperbodyp").innerHTML = document.getElementById("dlh_iphelpertemplatemask").innerHTML.replace(/\%ip\%/g, dlh_iphelperaddress);    
-    document.getElementById("dlh_iphelperbodyp").innerHTML = document.getElementById("dlh_iphelpertemplatemask").innerHTML.replace(/\%ip\%/g, document.getElementById("dlh_out_address").innerHTML);
-    document.getElementById("dlh_iphelperbodyp").innerHTML = document.getElementById("dlh_iphelperbodyp").innerHTML.replace(/\%ipnetcidr\%/g, document.getElementById("dlh_out_netaddr").innerHTML + '/' + document.getElementById("dlh_out_cidr").innerHTML);
+dlh_iphelperaddress = dlh_iphelperaddress.replace(/,/g, '.');
 
-	//dlh_ipChange();
-} else {
-    dlh_iphelpersubnetcalc.style.display = "none";
-	
-	dlh_ipChange();
+if (dlh_iphelperaddress.search("/") == -1) {
+dlh_iphelperaddress = dlh_iphelperaddress + "/32";
+}
+//if (dlh_iphelperaddress.search("/") != -1) {
+    dlh_iphelpersubnetcalc.style.display = "block";
+        document.getElementById("dlh_iphelpersubnetcalcsubnetinput").value = "";
+        document.getElementById("dlh_iphelpersubnetcalcinput").value = dlh_iphelperaddress;
+        var dlh_iphelperaddressright = dlh_iphelperaddress.split("/")[1];
+        if (dlh_iphelperaddressright == "1" || dlh_iphelperaddressright == "2" || dlh_iphelperaddressright == "3" || dlh_iphelperaddressright == "4" || dlh_iphelperaddressright == "5" || dlh_iphelperaddre>
+                } else {
+                        document.getElementById("dlh_iphelpersubnetcalcsubnetinput").value = dlh_iphelperaddressright;
+                        document.getElementById("dlh_iphelpersubnetcalcinput").value = dlh_iphelperaddress.split("/")[0];
+        }
+
+        dlh_ipChange();
+
+
+    //document.getElementById("dlh_iphelperbodyp").innerHTML = document.getElementById("dlh_iphelpertemplatemask").innerHTML.replace(/\%ip\%/g, dlh_iphelperaddress);
+    document.getElementById("dlh_iphelperbodyp").innerHTML = document.getElementById("dlh_iphelpertemplatemask").innerHTML.replace(/\%ip\%/g, document.getElementById("dlh_out_address").innerHTML);
+    document.getElementById("dlh_iphelperbodyp").innerHTML = document.getElementById("dlh_iphelperbodyp").innerHTML.replace(/\%ipnetcidr\%/g, document.getElementById("dlh_out_netaddr").innerHTML + '/' + d>
+
+        //dlh_ipChange();
+//} else {
+if(dlh_iphelperaddressright == "32" || document.getElementById("dlh_out_netaddr").innerHTML != document.getElementById("dlh_out_address").innerHTML ){
+
+//    dlh_iphelpersubnetcalc.style.display = "none";
+    dlh_iphelpersubnetcalc.style.display = "block";
+
+//      dlh_ipChange();
 
     //document.getElementById("dlh_iphelperbodyp").innerHTML = document.getElementById("dlh_iphelpertemplate").innerHTML.replace(/\%ip\%/g, dlh_iphelperaddress);
     document.getElementById("dlh_iphelperbodyp").innerHTML = document.getElementById("dlh_iphelpertemplate").innerHTML.replace(/\%ip\%/g, document.getElementById("dlh_out_address").innerHTML);
-    document.getElementById("dlh_iphelperbodyp").innerHTML = document.getElementById("dlh_iphelperbodyp").innerHTML.replace(/\%ipnetcidr\%/g, document.getElementById("dlh_out_netaddr").innerHTML + '/' + document.getElementById("dlh_out_cidr").innerHTML);
-    
-} 
+    document.getElementById("dlh_iphelperbodyp").innerHTML = document.getElementById("dlh_iphelperbodyp").innerHTML.replace(/\%ipnetcidr\%/g, document.getElementById("dlh_out_netaddr").innerHTML + '/' + d>
+
+}
 
 });
 
@@ -1110,10 +1125,10 @@ if (dlh_iphelperaddress.search("/") != -1) {
 
 
 //Subnetcalc - written by Oscar Virot. All Rights reserved 2014
-// https://google.com/+OscarVirot?rel=author 
+// https://google.com/+OscarVirot?rel=author
 // Source https://tools.virot.eu/ipcalc/
 
-var cidrTosubnets = ["0.0.0.0", "128.0.0.0", "192.0.0.0", "224.0.0.0", "240.0.0.0", "248.0.0.0", "252.0.0.0", "254.0.0.0", "255.0.0.0", "255.128.0.0", "255.192.0.0", "255.224.0.0", "255.240.0.0", "255.248.0.0", "255.252.0.0", "255.254.0.0", "255.255.0.0", "255.255.128.0", "255.255.192.0", "255.255.224.0", "255.255.240.0", "255.255.248.0", "255.255.252.0", "255.255.254.0", "255.255.255.0", "255.255.255.128", "255.255.255.192", "255.255.255.224", "255.255.255.240", "255.255.255.248", "255.255.255.252", "255.255.255.254", "255.255.255.255"];
+var cidrTosubnets = ["0.0.0.0", "128.0.0.0", "192.0.0.0", "224.0.0.0", "240.0.0.0", "248.0.0.0", "252.0.0.0", "254.0.0.0", "255.0.0.0", "255.128.0.0", "255.192.0.0", "255.224.0.0", "255.240.0.0", "255.248>
 var ipPattern = "[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}";
 var PatternAddr = "[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}";
 var PatternSubnet = "[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}";
@@ -1163,6 +1178,7 @@ function dlh_subChange()
     }
   dlh_checkAndUpdate();
 }
+
 function dlh_checkAndUpdate()
 {
   if (dlh_checkValid())
@@ -1231,6 +1247,7 @@ function dlh_checkValid() {
   }
   return true;
 }
+
 function dlh_InvalidateOutput()
 {
   document.getElementById("dlh_out_address").innerHTML = '';
@@ -1274,7 +1291,7 @@ function dlh_UpdateOutput()
  //Network address
   var tnaddr = (tabytes[0] & tsbytes[0]) + "." + (tabytes[1] & tsbytes[1]) + "." + (tabytes[2] & tsbytes[2]) + "." + (tabytes[3] & tsbytes[3]);
  //Broadcast address
-  var tbaddr = ((tabytes[0] & tsbytes[0]) | (255 ^ tsbytes[0])) + "." + ((tabytes[1] & tsbytes[1]) | (255 ^ tsbytes[1])) + "." + ((tabytes[2] & tsbytes[2]) | (255 ^ tsbytes[2])) + "." + ((tabytes[3] & tsbytes[3]) | (255 ^ tsbytes[3]));
+  var tbaddr = ((tabytes[0] & tsbytes[0]) | (255 ^ tsbytes[0])) + "." + ((tabytes[1] & tsbytes[1]) | (255 ^ tsbytes[1])) + "." + ((tabytes[2] & tsbytes[2]) | (255 ^ tsbytes[2])) + "." + ((tabytes[3] & tsb>
  //Reverse PTR
   var tptraddr = (tabytes[3] + '.' + tabytes[2] + '.' + tabytes[1] + '.' + tabytes[0] + '.in-addr.arpa');
 if (tcidr == 32)
@@ -1291,7 +1308,7 @@ if (tcidr != 32)
  //gw1 address
   var tgw1 = (tabytes[0] & tsbytes[0]) + "." + (tabytes[1] & tsbytes[1]) + "." + (tabytes[2] & tsbytes[2]) + "." + ((tabytes[3] & tsbytes[3])+1);
  //gw2 address
-  var tgw2 = ((tabytes[0] & tsbytes[0]) | (255 ^ tsbytes[0])) + "." + ((tabytes[1] & tsbytes[1]) | (255 ^ tsbytes[1])) + "." + ((tabytes[2] & tsbytes[2]) | (255 ^ tsbytes[2])) + "." + (((tabytes[3] & tsbytes[3]) | (255 ^ tsbytes[3]))-1);
+  var tgw2 = ((tabytes[0] & tsbytes[0]) | (255 ^ tsbytes[0])) + "." + ((tabytes[1] & tsbytes[1]) | (255 ^ tsbytes[1])) + "." + ((tabytes[2] & tsbytes[2]) | (255 ^ tsbytes[2])) + "." + (((tabytes[3] & tsby>
  // Count usable addresses
  tusable = (Math.pow(2, (32-tcidr)))-2;
 }
@@ -1323,6 +1340,7 @@ function changeSection(Section)
   }
   if (Section=="dlh_static")
   {
+    document.getElementById("dlh_calc").className = 'sectionxxx';
     document.getElementById("dlh_static").className = 'section';
     document.getElementById("dlh_staticSelector").className = 'sectionselectoractive';
   }
@@ -1332,13 +1350,9 @@ function changeSection(Section)
     document.getElementById("dlh_IPv6StaticSelector").className = 'sectionselector';
   }
 }
-});		
-		
-		
-		
-		
-		
-	++JSINFO['dlh']['ini_step_done'];	
+});
+
+	 ++JSINFO['dlh']['ini_step_done'];	
 	}// IP HELPER END 
 	++dlh_ini_step_at;
 	
