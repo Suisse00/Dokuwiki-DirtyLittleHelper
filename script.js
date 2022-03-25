@@ -937,7 +937,7 @@ function dlh_ini(count=0){
 
 			jQuery('#wiki__text').css('height','');
 			jQuery('#wiki__text').css('min-height','300px');
-			jQuery('#wiki__text').css('height',window.innerHeight-400 + 'px');
+			jQuery('#wiki__text').css('height',window.innerHeight-500 + 'px');
 			jQuery('#wiki__text').css('max-width','1500px');
 
 
