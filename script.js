@@ -493,7 +493,9 @@ function dlh_ini(count=0){
 
 
 				if(JSINFO['dlh']['edit_tb_drawio']){
-					dlh_append = dlh_append 
+				    try{
+                   		    typeof getImageName();
+					dlh_append = dlh_append
 						+'<div class="dlh_sep"></div>'
 						+ '<button class="dlh_button_36_32"  title="insert DRAW.IO - ID into wikieditor at cursor pos"'
 						+ 'onClick="insertAtCarret(\'wiki__text\' , '
@@ -501,6 +503,7 @@ function dlh_ini(count=0){
 						+  ');"><img src="'+JSINFO['dlh']['DOKU_URL']+'lib/plugins/dirtylittlehelper/images/dlh_drawio.png" width="32px" height="32px">'
 						+ '</button> '
 						;
+                  		     }catch(err){console.log("dlh_plugin:"+err);console.log('please deactivate draw io button in settings');}
 				}
 
 
