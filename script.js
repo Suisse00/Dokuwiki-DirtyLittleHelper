@@ -916,6 +916,14 @@ function dlh_ini(count=0){
 
 	//STYLING
 	if( dlh_ini_step_at > JSINFO['dlh']['ini_step_done'] ){
+		
+		/* BREAKS IN HEADLINES */
+		jQuery( 'h1' ).each( function() { jQuery( this ).html( jQuery( this ).html().replace( '\\\\' , '<br>' ) ); } );
+		jQuery( 'h2' ).each( function() { jQuery( this ).html( jQuery( this ).html().replace( '\\\\' , '<br>' ) ); } );
+		jQuery( 'h3' ).each( function() { jQuery( this ).html( jQuery( this ).html().replace( '\\\\' , '<br>' ) ); } );
+		jQuery( 'h4' ).each( function() { jQuery( this ).html( jQuery( this ).html().replace( '\\\\' , '<br>' ) ); } );
+		jQuery( 'h5' ).each( function() { jQuery( this ).html( jQuery( this ).html().replace( '\\\\' , '<br>' ) ); } );
+		jQuery( 'h6' ).each( function() { jQuery( this ).html( jQuery( this ).html().replace( '\\\\' , '<br>' ) ); } );
 
 		/* ALL */ 
 		// wider...
