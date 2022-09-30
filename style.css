@@ -446,7 +446,8 @@ display:none;
 
 /* NOT ALL WHEN PRINT */
 @media print {
-               .noprint            {visibility: hidden;}
-			   #dlh_top0           {visibility: hidden;}
-			   #dlh_myiphelper     {visibility: hidden;}
+               .noprint            {display: none !important;}
+			   #dlh_top0           {display: none !important;}
+			   #dlh_top_menu       {display: none !important;}
+			   #dlh_myiphelper     {display: none !important;}
             }
