@@ -1382,7 +1382,7 @@ function dlh_top_call(the_source){
 
 	var this_namespace = dlh_objectValueGet(the_source);
 	var this_template = dlh_objectValueGet('dlh_top_template');
-	var this_newpagename = ""
+	var this_newpagename = "";
 	
 	if(this_template.indexOf("@")>1){
 		this_newpagename = this_template.substring( this_template.indexOf("@")+1 );
