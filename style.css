@@ -444,10 +444,11 @@ display:none;
 
 
 
-/* NOT ALL WHEN PRINT */
+/* DO NOT PRINT */
 @media print {
-               .noprint            {display: none !important;}
-			   #dlh_top0           {display: none !important;}
-			   #dlh_top_menu       {display: none !important;}
-			   #dlh_myiphelper     {display: none !important;}
-            }
+	#dlh_top0, 
+	#dlh_top_menu,
+	#dlh_myiphelper 
+
+	{display: none !important;}
+}
